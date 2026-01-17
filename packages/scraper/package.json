@@ -11,7 +11,6 @@
     "scrape": "bun run src/cli.ts",
     "scrape:test": "bun run src/compare-extraction.ts",
     "scrape:list": "bun run src/cli.ts --list",
-    "scrape:push": "bun run src/cli.ts --push",
     "cache:clear": "rm -rf cache"
   },
   "dependencies": {

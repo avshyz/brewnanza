@@ -55,6 +55,9 @@ export const CoffeeSchema = z.object({
   // Tasting notes
   notes: z.array(z.string()).default([]),
 
+  // Caffeine level: null = regular, "decaf" = decaffeinated, "lowcaf" = low caffeine
+  caffeine: z.enum(["decaf", "lowcaf"]).nullable().default(null),
+
   // Metadata
   available: z.boolean().default(true),
   imageUrl: z.string().nullable().default(null),

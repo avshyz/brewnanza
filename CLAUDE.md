@@ -48,21 +48,30 @@ bun run dev              # Start Next.js only
 Run from `packages/scraper/`:
 
 ```bash
-bun run scrape                    # Scrape all roasters
+bun run scrape                    # Scrape all roasters (diff + AI + push)
 bun run scrape <id> [id2...]      # Scrape specific roasters
+bun run scrape --dry-run          # Preview changes without pushing
+bun run scrape -v                 # Verbose output
 bun run scrape:test <id>          # Test extraction, output to JSON
 bun run scrape:list               # List available roaster IDs
-bun run scrape:push <id>          # Scrape and push to Convex
 bun run cache:clear               # Clear AI extraction cache
 ```
+
+### Flow
+
+1. Scrape catalog from roaster website
+2. Diff against DB (fetch active URLs)
+3. Update existing items (price/availability)
+4. Deactivate removed items
+5. AI extract new items (qualify + enrich)
+6. Push new items to Convex
 
 ### Examples
 
 ```bash
 bun run scrape:test lacabra       # Test La Cabra extraction
-bun run scrape:test tanat         # Test Tanat extraction
 bun run scrape lacabra tanat -v   # Scrape multiple, verbose
-bun run scrape --push             # Scrape all and push to DB
+bun run scrape --dry-run          # Preview all changes (no push)
 ```
 
 ### Available Roasters

@@ -122,6 +122,12 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
    - Extract specific flavors, not general descriptors like "complex" or "balanced"
    - Common categories: fruits, florals, chocolate, nuts, spices, sugars
 
+10. **caffeine** (string or null): Caffeine classification.
+   - null: Regular coffee (default, most coffees)
+   - "decaf": Decaffeinated coffee (look for "decaf", "decaffeinated", "Swiss Water", "CO2 decaf", etc.)
+   - "lowcaf": Low caffeine coffee (look for "low caffeine", "half-caf", "low caf", naturally low caffeine varieties)
+   - If not explicitly mentioned, assume null (regular coffee)
+
 ## OUTPUT FORMAT:
 
 {
@@ -133,7 +139,8 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
   "process": ["natural"],
   "protocol": [],
   "variety": ["Heirloom"],
-  "notes": ["blueberry", "jasmine"]
+  "notes": ["blueberry", "jasmine"],
+  "caffeine": null
 }
 
 For a blend:
@@ -146,7 +153,22 @@ For a blend:
   "process": ["natural", "washed"],
   "protocol": [],
   "variety": ["Heirloom", "Castillo"],
-  "notes": []
+  "notes": [],
+  "caffeine": null
+}
+
+For decaf:
+{
+  "name": "Colombia Swiss Water Decaf",
+  "description": "A smooth decaffeinated coffee from Colombia.",
+  "country": ["Colombia"],
+  "region": ["Huila"],
+  "producer": [],
+  "process": ["washed"],
+  "protocol": [],
+  "variety": ["Castillo"],
+  "notes": ["chocolate", "caramel"],
+  "caffeine": "decaf"
 }
 
 Text to extract from:
@@ -276,6 +298,7 @@ export interface ExtractedDetails {
   protocol: string[];
   variety: string[];
   notes: string[];
+  caffeine: "decaf" | "lowcaf" | null;
 }
 
 /**
@@ -362,6 +385,11 @@ export async function extractDetails(url: string, html: string): Promise<Extract
     if (!Array.isArray(result.variety)) result.variety = [];
     if (!Array.isArray(result.notes)) result.notes = [];
 
+    // Normalize caffeine field
+    if (result.caffeine !== "decaf" && result.caffeine !== "lowcaf") {
+      result.caffeine = null;
+    }
+
     // Cache result
     cache[url] = result;
     saveDetailsCache();
@@ -386,6 +414,7 @@ export function applyExtractedDetails(coffee: Coffee, details: ExtractedDetails)
   if (details.protocol?.length) coffee.protocol = details.protocol;
   if (details.variety?.length) coffee.variety = details.variety;
   if (details.notes?.length) coffee.notes = details.notes;
+  if (details.caffeine) coffee.caffeine = details.caffeine;
 }
 
 /**

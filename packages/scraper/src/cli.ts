@@ -2,14 +2,15 @@
 /**
  * CLI for running the coffee scraper.
  *
+ * Scrapes roaster catalogs, diffs against DB, runs AI extraction on new items,
+ * and pushes changes to Convex.
+ *
  * Usage:
  *   bun run src/cli.ts                    # Scrape all roasters
  *   bun run src/cli.ts lacabra kbcoffee   # Scrape specific roasters
  *   bun run src/cli.ts --list             # List available roasters
- *   bun run src/cli.ts -v --stdout        # Verbose + output to stdout
- *   bun run src/cli.ts --push             # Push to Convex
- *   bun run src/cli.ts --sync             # Sync mode: diff catalog vs DB
- *   bun run src/cli.ts --sync --dry-run   # Preview sync without writing
+ *   bun run src/cli.ts --dry-run          # Preview changes without writing
+ *   bun run src/cli.ts -v                 # Verbose output
  */
 
 import { getAllRoasters, getRoaster, type RoasterConfig } from "./config.js";
@@ -27,10 +28,7 @@ const args = process.argv.slice(2);
 
 // Flags
 const verbose = args.includes("-v") || args.includes("--verbose");
-const toStdout = args.includes("--stdout");
 const listOnly = args.includes("--list");
-const pushToConvex = args.includes("--push");
-const syncMode = args.includes("--sync");
 const dryRun = args.includes("--dry-run");
 
 // Convex HTTP URL (note: .convex.site for HTTP endpoints, not .convex.cloud)
@@ -43,10 +41,11 @@ const roasterIds = args.filter((a) => !a.startsWith("-"));
 async function pushResult(result: ScrapeResult): Promise<void> {
   const url = `${CONVEX_SITE_URL}/ingest`;
 
-  // Ensure all coffees have notes field (defaults to empty array)
+  // Ensure all coffees have required fields with defaults
   const coffees = result.coffees.map((c) => ({
     ...c,
     notes: c.notes ?? [],
+    caffeine: c.caffeine ?? null,
   }));
 
   const response = await fetch(url, {
@@ -68,10 +67,6 @@ async function pushResult(result: ScrapeResult): Promise<void> {
   const data = JSON.parse(text);
   console.log(`  Pushed: ${data.inserted} new, ${data.deactivated} replaced`);
 }
-
-// ============================================================================
-// Sync Mode Functions
-// ============================================================================
 
 interface ActiveUrlEntry {
   url: string;
@@ -302,123 +297,39 @@ async function main() {
 
   if (verbose) {
     console.log(`Scraping ${roastersToScrape.length} roaster(s)...`);
-    if (syncMode) {
-      console.log(`Sync mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
-      console.log(`Convex: ${CONVEX_SITE_URL}`);
-    } else if (pushToConvex) {
-      console.log(`Will push to Convex: ${CONVEX_SITE_URL}`);
-    }
+    console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
+    if (!dryRun) console.log(`Convex: ${CONVEX_SITE_URL}`);
   }
 
-  // ========== SYNC MODE ==========
-  if (syncMode) {
-    let totalUpdated = 0;
-    let totalDeactivated = 0;
-    let totalInserted = 0;
-    let totalSkipped = 0;
-
-    for (const config of roastersToScrape) {
-      if (!config) continue;
-
-      console.log(`\n[${config.name}]`);
-      try {
-        const stats = await syncRoaster(config, dryRun, verbose);
-        totalUpdated += stats.updated;
-        totalDeactivated += stats.deactivated;
-        totalInserted += stats.inserted;
-        totalSkipped += stats.skipped;
-
-        if (stats.errors.length > 0) {
-          console.log(`  Errors: ${stats.errors.length}`);
-        }
-      } catch (error) {
-        console.error(`  Failed:`, error);
-      }
-    }
-
-    console.log(`\n=== Summary ===`);
-    console.log(`Updated: ${totalUpdated}`);
-    console.log(`Deactivated: ${totalDeactivated}`);
-    console.log(`Inserted: ${totalInserted}`);
-    console.log(`Skipped: ${totalSkipped}`);
-    return;
-  }
-
-  // ========== NORMAL MODE ==========
-  const results: ScrapeResult[] = [];
+  let totalUpdated = 0;
+  let totalDeactivated = 0;
+  let totalInserted = 0;
+  let totalSkipped = 0;
 
   for (const config of roastersToScrape) {
     if (!config) continue;
 
-    if (verbose) {
-      console.log(`\nScraping ${config.name}...`);
-    }
-
-    const ScraperClass = config.scraper;
-    const scraper = new ScraperClass(config);
-
+    console.log(`\n[${config.name}]`);
     try {
-      const result = await scraper.run();
+      const stats = await syncRoaster(config, dryRun, verbose);
+      totalUpdated += stats.updated;
+      totalDeactivated += stats.deactivated;
+      totalInserted += stats.inserted;
+      totalSkipped += stats.skipped;
 
-      // Apply per-roaster remapper if defined
-      for (const coffee of result.coffees) {
-        if (config.fieldRemapper) {
-          config.fieldRemapper(coffee);
-        }
-      }
-
-      results.push(result);
-
-      if (verbose) {
-        console.log(`  Found ${result.coffees.length} coffees`);
-        if (result.errors.length > 0) {
-          console.log(`  Errors: ${result.errors.join(", ")}`);
-        }
-      }
-
-      // Push to Convex if requested
-      if (pushToConvex && result.coffees.length > 0) {
-        try {
-          await pushResult(result);
-        } catch (error) {
-          console.error(`  Failed to push to Convex:`, error);
-        }
+      if (stats.errors.length > 0) {
+        console.log(`  Errors: ${stats.errors.length}`);
       }
     } catch (error) {
-      console.error(`Error scraping ${config.name}:`, error);
-      results.push({
-        roasterId: config.id,
-        roasterName: config.name,
-        coffees: [],
-        scrapedAt: new Date().toISOString(),
-        errors: [String(error)],
-      });
+      console.error(`  Failed:`, error);
     }
   }
 
-  // Output results
-  const output = {
-    scrapedAt: new Date().toISOString(),
-    results,
-    totalCoffees: results.reduce((sum, r) => sum + r.coffees.length, 0),
-  };
-
-  if (toStdout) {
-    console.log(JSON.stringify(output, null, 2));
-  } else if (!pushToConvex) {
-    // Write to output directory (skip if pushing to Convex)
-    const fs = await import("fs/promises");
-    const outputDir = "output";
-    await fs.mkdir(outputDir, { recursive: true });
-
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-    const filename = `${outputDir}/scrape-${timestamp}.json`;
-    await fs.writeFile(filename, JSON.stringify(output, null, 2));
-
-    console.log(`\nResults written to ${filename}`);
-  }
-
-  console.log(`Total coffees: ${output.totalCoffees}`);
+  console.log(`\n=== Summary ===`);
+  console.log(`Updated: ${totalUpdated}`);
+  console.log(`Deactivated: ${totalDeactivated}`);
+  console.log(`Inserted: ${totalInserted}`);
+  console.log(`Skipped: ${totalSkipped}`);
 }
 
 main().catch((error) => {

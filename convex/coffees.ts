@@ -29,6 +29,7 @@ const coffeeValidator = v.object({
   protocol: v.array(v.string()),
   variety: v.array(v.string()),
   notes: v.array(v.string()),
+  caffeine: v.optional(v.union(v.literal("decaf"), v.literal("lowcaf"), v.null())),
   available: v.boolean(),
   imageUrl: v.union(v.string(), v.null()),
   skipped: v.boolean(),
