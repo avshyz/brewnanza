@@ -14,17 +14,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         ref={ref}
         className={cn(
-          "px-4 py-2 border-2 rounded-md font-semibold text-sm cursor-pointer",
-          "transition-colors duration-150 ease-out",
-          variant === "default" && [
-            "border-border bg-surface",
-            "hover:bg-background hover:border-text-muted",
-            "active:bg-gray-100",
-          ],
-          variant === "primary" && [
-            "border-primary bg-primary text-white",
-            "hover:bg-primary-dark hover:border-primary-dark",
-          ],
+          "px-4 py-2 border-3 font-bold text-sm uppercase tracking-wide cursor-pointer",
+          "brutal-shadow-sm transition-all duration-100 ease-out",
+          "hover:-translate-x-px hover:-translate-y-px hover:shadow-[3px_3px_0_var(--color-border)]",
+          "active:translate-x-px active:translate-y-px active:shadow-[1px_1px_0_var(--color-border)]",
+          variant === "default" && "border-border bg-surface text-text",
+          variant === "primary" && "border-border bg-primary text-white",
           className
         )}
         {...props}

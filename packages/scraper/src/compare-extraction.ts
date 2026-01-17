@@ -1,13 +1,16 @@
 #!/usr/bin/env bun
 /**
- * Compare detail scraper vs AI extraction for La Cabra.
+ * Test AI extraction on any roaster.
+ * Usage: bun run src/compare-extraction.ts [roasterId]
  */
 
 import { getRoaster } from "./config.js";
-import { ShopifyJsonScraper } from "./scrapers/shopify-json.js";
-import { extractDetails, applyExtractedDetails } from "./ai-extractor.js";
+import { extractDetails, applyExtractedDetails, qualifyProduct } from "./ai-extractor.js";
 import { globalFieldRemapper } from "./normalizers.js";
 import type { Coffee } from "./models.js";
+
+let skippedCount = 0;
+let coffeeCount = 0;
 
 // Import index to register roasters
 import "./index.js";
@@ -22,18 +25,19 @@ async function fetchHtml(url: string): Promise<string> {
 }
 
 async function main() {
-  const config = getRoaster("lacabra");
+  const roasterId = process.argv[2] || "lacabra";
+  const config = getRoaster(roasterId);
   if (!config) {
-    console.error("La Cabra config not found");
+    console.error(`Roaster "${roasterId}" not found`);
     process.exit(1);
   }
 
   console.log("=".repeat(80));
-  console.log("AI EXTRACTION (no detail scraper)");
+  console.log(`AI EXTRACTION: ${config.name}`);
   console.log("=".repeat(80));
 
-  // Run catalog scraper only (no detail scraper)
-  const scraper = new ShopifyJsonScraper(config);
+  // Run catalog scraper
+  const scraper = new config.scraper(config);
   const coffees = await scraper.scrape();
 
   console.log(`Found ${coffees.length} coffees in catalog\n`);
@@ -44,6 +48,18 @@ async function main() {
     console.log(`URL: ${coffee.url}`);
 
     try {
+      // Check if this is actual coffee
+      const isCoffee = await qualifyProduct(coffee.name);
+
+      if (!isCoffee) {
+        coffee.skipped = true;
+        skippedCount++;
+        console.log(`SKIPPED (not coffee)`);
+        console.log("");
+        continue;
+      }
+
+      coffeeCount++;
       const html = await fetchHtml(coffee.url);
       const details = await extractDetails(coffee.url, html);
 
@@ -66,6 +82,9 @@ async function main() {
 
     console.log("");
   }
+
+  console.log("=".repeat(80));
+  console.log(`SUMMARY: ${coffeeCount} coffees, ${skippedCount} skipped`);
 }
 
 main().catch((error) => {

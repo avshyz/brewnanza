@@ -102,14 +102,7 @@ async function main() {
     try {
       const result = await scraper.run();
 
-      // Run detail scraper if defined (before normalization)
-      if (config.detailScraper) {
-        const DetailScraperClass = config.detailScraper;
-        const detailScraper = new DetailScraperClass();
-        await detailScraper.enhanceAll(result.coffees);
-      }
-
-      // Apply global normalizations (after detail scraper)
+      // Apply global normalizations
       for (const coffee of result.coffees) {
         globalFieldRemapper(coffee);
         // Apply per-roaster remapper if defined

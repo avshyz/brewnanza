@@ -24,7 +24,6 @@ export * from "./normalizers.js";
 import { registerRoaster, type RoasterConfig } from "./config.js";
 import { ShopifyJsonScraper } from "./scrapers/shopify-json.js";
 import { WooCommerceScraper } from "./scrapers/woocommerce.js";
-// Detail scrapers removed - AI extraction handles all field extraction
 
 // Register all roasters
 const roasters: RoasterConfig[] = [

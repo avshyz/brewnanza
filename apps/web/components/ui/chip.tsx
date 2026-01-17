@@ -9,19 +9,19 @@ interface ChipProps {
 }
 
 const variantStyles: Record<ChipVariant, string> = {
-  default: "border-border text-text",
-  primary: "border-primary text-primary",
-  secondary: "border-secondary text-text",
-  accent: "border-accent bg-accent text-text",
-  espresso: "border-amber-800 bg-amber-800 text-white",
-  filter: "border-emerald-700 bg-emerald-700 text-white",
+  default: "border-border bg-surface text-text",
+  primary: "border-border bg-primary text-white",
+  secondary: "border-border bg-secondary text-text",
+  accent: "border-border bg-accent text-text",
+  espresso: "border-border bg-amber-900 text-white",
+  filter: "border-border bg-emerald-600 text-white",
 };
 
 export function Chip({ children, variant = "default", className }: ChipProps) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 px-2 py-1 border-[1.5px] rounded-md text-[0.7rem] font-medium uppercase",
+        "inline-flex items-center gap-1 px-2 py-0.5 border-2 text-[0.65rem] font-bold uppercase tracking-wide",
         variantStyles[variant],
         className
       )}

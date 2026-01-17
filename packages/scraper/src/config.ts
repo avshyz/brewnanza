@@ -3,8 +3,7 @@
  * Ported from Python's config.py
  */
 
-import type { BaseScraper, ScraperConstructor } from "./scrapers/base.js";
-import type { DetailScraper, DetailScraperConstructor } from "./scrapers/detail/base.js";
+import type { ScraperConstructor } from "./scrapers/base.js";
 import type { Coffee } from "./models.js";
 
 export interface RoasterConfig {
@@ -15,7 +14,6 @@ export interface RoasterConfig {
   scraper: ScraperConstructor;
   apiUrl?: string;
   categoryFilter?: string;
-  detailScraper?: DetailScraperConstructor;
   currency: string;
   fieldRemapper?: (coffee: Coffee) => void;
 }

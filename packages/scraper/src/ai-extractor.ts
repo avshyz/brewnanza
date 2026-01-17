@@ -8,7 +8,7 @@
  */
 
 import Anthropic from "@anthropic-ai/sdk";
-import * as cheerio from "cheerio";
+import sanitizeHtml from "sanitize-html";
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -49,6 +49,14 @@ const EXTRACT_PROMPT = `Extract coffee information from this product page.
 
 IMPORTANT: Return ONLY raw JSON. No markdown, no code blocks, no explanation, no preamble.
 CRITICAL: Extract data ONLY from the MAIN PRODUCT. Ignore "Related Products" or "You might also like" sections.
+LANGUAGE: ALL values MUST be in ENGLISH. Translate any non-English text (French, Spanish, etc.):
+- Countries: Mexique → Mexico, Brésil → Brazil, Équateur → Ecuador, Pérou → Peru
+- Protocols: Translate processing descriptions to English
+- All other fields: Use English equivalents
+SANITIZE: Clean all output values:
+- Decode HTML entities: &#8211; → –, &amp; → &, etc.
+- Remove extra whitespace, normalize spacing
+- No HTML tags in output values
 
 ## ALL FIELDS ARE ARRAYS (to support blends)
 
@@ -169,57 +177,30 @@ function saveQualifyCache(): void {
 // ============================================================================
 
 /**
- * Strip HTML to just main product text - remove scripts, styles, nav, footer, related products.
+ * Strip HTML to plain text - remove scripts, styles, nav, footer, related products.
  */
 export function stripHtml(html: string): string {
-  const $ = cheerio.load(html);
-
-  // Remove unnecessary tags
-  $("script, style, noscript, iframe, svg, path, link, meta").remove();
-
-  // Remove navigation, footer, header elements
-  $(
-    "nav, footer, header, .footer, .header, .nav, [role='navigation'], [role='banner'], [role='contentinfo']"
-  ).remove();
-
-  // Remove related products sections (common patterns)
-  $(
-    ".related-products, .also-like, .recommendations, .product-recommendations, " +
-    "[data-section-type='related-products'], .cross-sell, .upsell, " +
-    ".complementary-products, .recently-viewed"
-  ).remove();
-
-  // Remove hidden elements
-  $("[hidden]").remove();
-  $("[style*='display:none'], [style*='display: none']").remove();
-
-  // Try to find main product content
-  const mainSelectors = [
-    "product-info",
-    ".product__info-container",
-    ".product-single",
-    ".product__info",
-    ".product",
-    "main",
-    "article",
-    "[role='main']",
-    ".main-content",
-  ];
-
-  let main = $("body");
-  for (const selector of mainSelectors) {
-    const el = $(selector);
-    if (el.length > 0) {
-      main = el.first();
-      break;
-    }
-  }
-
-  // Get text, preserving some structure
-  const text = main.text();
+  const clean = sanitizeHtml(html, {
+    allowedTags: [], // Strip all tags, return text only
+    allowedAttributes: {},
+    exclusiveFilter: (frame) => {
+      // Remove these elements entirely (including their text content)
+      const tagsToRemove = [
+        "script",
+        "style",
+        "noscript",
+        "iframe",
+        "svg",
+        "nav",
+        "footer",
+        "header",
+      ];
+      return tagsToRemove.includes(frame.tag);
+    },
+  });
 
   // Clean up whitespace
-  return text
+  return clean
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line.length > 0)
