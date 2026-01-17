@@ -1,0 +1,1031 @@
+{
+  "scrapedAt": "2026-01-17T15:59:04.098Z",
+  "results": [
+    {
+      "roasterId": "jera",
+      "roasterName": "Jera Coffee",
+      "coffees": [
+        {
+          "name": "Honduras Guara Roja Honey",
+          "url": "https://www.jera-coffee.co.il/product/honduras-guara-roja-honey/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 50,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 13.5,
+              "available": true
+            },
+            {
+              "price": 200,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 54,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1220-2000 masl",
+          "process": "honey",
+          "protocol": null,
+          "variety": [
+            "Catuaí",
+            "Caturra",
+            "Lempira",
+            "IHCAFE 90",
+            "Bourbon"
+          ],
+          "notes": [
+            "שוקולד חלבי",
+            "קרמל",
+            "הדרים"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Ethiopia Harar Natural",
+          "url": "https://www.jera-coffee.co.il/product/ethiopia-harar-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            },
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "אורומיה (לשעבר הראר) בדרום אתיופיה, בגבהים שבין 1,400 ל־2,000 מטר מעל פני הים. מחוז הראר נמצא ממזרח לאדיס אבבה, בירת המדינה.",
+          "producer": "ם מקומיים במטעים קטנים או ביער פראי, בצל עצים טרופיים הרריים גבוהים",
+          "farm": null,
+          "altitude": "1400-2000 masl",
+          "process": "יבש",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "שוקולד",
+            "אוכמניות",
+            "הדרים"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Colombia El Paraiso Cinnamon",
+          "url": "https://www.jera-coffee.co.il/product/colombia-el-paraiso-cinnamon/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 80,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 21.6,
+              "available": true
+            },
+            {
+              "price": 320,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 86.4,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "ים הרריים, בטווח גבהים של בין 1,000 ל",
+          "producer": "ם הראשונים בקולומביה שהתנסו בתסיסת קפה באמצעות הוספת מיקרואורגניזמים ושמרים מסוגים שונים",
+          "farm": null,
+          "altitude": "1900 masl",
+          "process": "washed anaerobic",
+          "protocol": null,
+          "variety": [
+            "Castillo"
+          ],
+          "notes": [
+            "קמומיל",
+            "קינמון",
+            "יין לבן",
+            "אפרסק"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "El Salvador El Martillo Natural Anaerobic",
+          "url": "https://www.jera-coffee.co.il/product/el-salvador-el-martillo-natural-anaerobic/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 65,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 17.55,
+              "available": true
+            },
+            {
+              "price": 260,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 70.2,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1700 masl",
+          "process": "יבש אנאירובי וקליה בהירה",
+          "protocol": "הרבה מתיקות, גוף עסיסי, עגול ונקי, חמיצות מאוזנת וטעמים של פירות טרופיים, יין לבן וקקאו",
+          "variety": [
+            "Bourbon",
+            "Hybrid San Francisco"
+          ],
+          "notes": [
+            "רימונים",
+            "יין לבן",
+            "פירות טרופיים",
+            "קקאו"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Kenya Gulmarg Estate Natural",
+          "url": "https://www.jera-coffee.co.il/product/kenya-gulmarg-estate-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 220,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 59.4,
+              "available": false
+            },
+            {
+              "price": 55,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 14.85,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1950 masl",
+          "process": "יבש שממש לא שגרתי לקפה קנייתי. מתקתק, מאוזן. טעמים של פירות יער, קצת תבלינים, היביסקוס, אפרסק והדרים. מצוין להכנת קפה פילטר.",
+          "protocol": null,
+          "variety": [
+            "SL-34"
+          ],
+          "notes": [
+            "פירות יער",
+            "אגס",
+            "הדרים"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Kenya Tinganga AB Washed",
+          "url": "https://www.jera-coffee.co.il/product/kenya-tinganga-ab-washed/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 55,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 14.85,
+              "available": true
+            },
+            {
+              "price": 220,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 59.4,
+              "available": false
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1800 masl",
+          "process": "שטוף",
+          "protocol": null,
+          "variety": [
+            "SL-28",
+            "SL-34"
+          ],
+          "notes": [
+            "הדרים",
+            "מלון",
+            "דומדמניות שחורות"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Colombia Fondo washed",
+          "url": "https://www.jera-coffee.co.il/product/colombia-fondo-washed/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1450 masl",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "Castillo"
+          ],
+          "notes": [
+            "קרמל",
+            "תפוח",
+            "פירות יבשים"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Ethiopia Guji Gr1 Natural",
+          "url": "https://www.jera-coffee.co.il/product/ethiopia-guji-gr1-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 200,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 54,
+              "available": true
+            },
+            {
+              "price": 50,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 13.5,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "יירגצ'פה עשוי להתאפיין בארומה פרחונית עזה עם ניחוחות של תה והדרים. קפה שטוף מאתיופיה המערבית נוטה להיות עשיר יותר, פרחוני ובעל גוף מלא. קפה בעיבוד טבעי מאזור הרר יהיה עמוק, שוקולדי ועמוס בטעמי פירות בשלים.",
+          "producer": "ם מייבשים את דובדבני הקפה השלמים על פאטיו",
+          "farm": null,
+          "altitude": "1800 masl",
+          "process": "יבש",
+          "protocol": "בפרופיל בינוני-בהיר, לאספרסו, תצפו לגוף בינוני, רך",
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "אוכמניות כחולות",
+            "פירות אדומים",
+            "מייפל סירופ"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Brazil Swiss Water Decaf Arabica",
+          "url": "https://www.jera-coffee.co.il/product/brazil-swiss-water-decaf-arabica/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1100-1250 masl",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "Mixed"
+          ],
+          "notes": [
+            "שוקולד",
+            "אגוזים",
+            "מלט"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Ethiopia Lalesa Natural",
+          "url": "https://www.jera-coffee.co.il/product/ethiopia-lalesa-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 200,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 54,
+              "available": true
+            },
+            {
+              "price": 50,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 13.5,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "יירגצ'פה עשוי להתאפיין בארומה פרחונית עזה עם ניחוחות של תה והדרים. קפה שטוף מאתיופיה המערבית נוטה להיות עשיר יותר, פרחוני ובעל גוף מלא. קפה בעיבוד טבעי מאזור הרר יהיה עמוק, שוקולדי ועמוס בטעמי פירות בשלים.",
+          "producer": "ם מייבשים את דובדבני הקפה השלמים על פאטיו",
+          "farm": null,
+          "altitude": "2150 masl",
+          "process": "יבש",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "עדין",
+            "פרחוני והדרי"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Brazil Moka Caracolito",
+          "url": "https://www.jera-coffee.co.il/product/brazil-moka-caracolito/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            },
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "800-1050 masl",
+          "process": "יבש",
+          "protocol": null,
+          "variety": [
+            "ושוקולדי",
+            "גוף רך וסמיך",
+            "חמיצות נמוכה. מצוין להכנת אספרסו",
+            "מקינטה",
+            "קפה שחור או משקאות על בסיס חלב."
+          ],
+          "notes": [
+            "קקאו",
+            "אגוזים",
+            "שוקולד"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "קפה לא טעים",
+          "url": "https://www.jera-coffee.co.il/product/coffee-is-not-tasty/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 15,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 4.05,
+              "available": true
+            },
+            {
+              "price": 40,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 10.8,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [
+            "שוקולדי",
+            "תבליני",
+            "מתקתק"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Guatemala Antigua",
+          "url": "https://www.jera-coffee.co.il/product/guatemala_antigua/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "אנטיגואה הוא אזור גידול הקפה הידוע והמוערך ביותר במדינה, ומפיק פולים בעלי גוף מצוין וחמיצות בינונית עד גבוהה. בהתאם לפרופיל הקלייה, קפה מגואטמלה יכול לנוע בין בהיר ופירותי (קלייה בהירה) לעשיר ושוקולדי (קלייה כהה).",
+          "producer": "ים המרכזיים של גואטמלה",
+          "farm": null,
+          "altitude": "1600 masl",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "Catuaí",
+            "Typica"
+          ],
+          "notes": [
+            "שוקולד מריר",
+            "דובדבן"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/01/Guatemala-Antigua.png",
+          "description": "."
+        },
+        {
+          "name": "Sumatra Orangutan",
+          "url": "https://www.jera-coffee.co.il/product/sumatra_orangutan/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1500 masl",
+          "process": "wet-hulled",
+          "protocol": null,
+          "variety": [
+            "Catimor",
+            "Typica"
+          ],
+          "notes": [
+            "תבליני",
+            "עצי",
+            "שוקולדי"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/01/Sumatra24.png",
+          "description": ""
+        },
+        {
+          "name": "Santo Domingo",
+          "url": "https://www.jera-coffee.co.il/product/santo_domingo/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            },
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1300-1500 masl",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "ומורכב. חמיצות נמוכה. מתאים לכל סוגי הכנה."
+          ],
+          "notes": [
+            "קקאו",
+            "וניל"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/01/Santo-Domingo.png",
+          "description": ""
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:58:56.830Z",
+      "errors": []
+    },
+    {
+      "roasterId": "coffeeorg",
+      "roasterName": "Coffee Organization",
+      "coffees": [
+        {
+          "name": "Ethiopia Magrissa",
+          "url": "https://coffeeorg.co/products/הונדורס-בומבה-דה-פרוטה-חדש",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeo Zone Sede Aladicha",
+          "producer": "Negusse D. Weldyes",
+          "farm": "Sede Washing Station",
+          "altitude": "1850-2010 masl",
+          "process": "natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/1392231033d7a71fbcf3970011c63b0b.svg?v=1767719610",
+          "description": "Peach, lemongrass, black tea. Variety - Heirloom | Region - Gedeo Zone Sede Aladicha | Producer - Negusse D. Weldyes | Farm - Sede Washing Station | Process - Natural | Altitude - 1850–2010m | Roast - | Score - 87.5"
+        },
+        {
+          "name": "Ethiopia Magrissa",
+          "url": "https://coffeeorg.co/products/קולומביה-גיישה-חדש",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 90,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 24.3,
+              "available": true
+            },
+            {
+              "price": 300,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 81,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeo Zone Sede Aladicha",
+          "producer": "Negusse D. Weldyes",
+          "farm": "Sede Washing Station",
+          "altitude": "1850-2010 masl",
+          "process": "natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/530962595d1b34bebe4c90324f719d5d.svg?v=1767719920",
+          "description": "Peach, lemongrass, black tea. Variety - Heirloom | Region - Gedeo Zone Sede Aladicha | Producer - Negusse D. Weldyes | Farm - Sede Washing Station | Process - Natural | Altitude - 1850–2010m | Roast - | Score - 87.5"
+        },
+        {
+          "name": "Rwanda Anaerobic ",
+          "url": "https://coffeeorg.co/products/רואנדה-אנארובי",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 80,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 21.6,
+              "available": true
+            },
+            {
+              "price": 280,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 75.6,
+              "available": true
+            }
+          ],
+          "country": "Rwanda",
+          "region": "Karongi",
+          "producer": "Aime Dusabe Gahizi",
+          "farm": "Gitesi Washing Station",
+          "altitude": "1750 masl",
+          "process": "anaerobic",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/8a641feedf87d422edebdb492a066dff.png?v=1755428594",
+          "description": "Cinnamon, dates, red grapefruit. Variety - Red Bourbon | Region - Karongi | Producer - Aime Dusabe Gahizi | Farm - Gitesi Washing Station | Process - Anaerobic | Altitude - 1750m-1800m | Roast - | Score - 86"
+        },
+        {
+          "name": "Ethiopia Magrissa",
+          "url": "https://coffeeorg.co/products/אתיופיה-מגריסה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeo Zone Sede Aladicha",
+          "producer": "Negusse D. Weldyes",
+          "farm": "Sede Washing Station",
+          "altitude": "1850-2010 masl",
+          "process": "natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/ff442c41fe6190fad9e5839401c32842.png?v=1755429913",
+          "description": "Peach, lemongrass, black tea. Variety - Heirloom | Region - Gedeo Zone Sede Aladicha | Producer - Negusse D. Weldyes | Farm - Sede Washing Station | Process - Natural | Altitude - 1850–2010m | Roast - | Score - 87.5"
+        },
+        {
+          "name": "Indonesia HONEY",
+          "url": "https://coffeeorg.co/products/אינדונזיה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 75,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 20.25,
+              "available": true
+            },
+            {
+              "price": 260,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 70.2,
+              "available": true
+            }
+          ],
+          "country": "Indonesia",
+          "region": "Bali, Indonesia",
+          "producer": "Mr. Wayan selamat",
+          "farm": "D'Bon coffee farm",
+          "altitude": "1600 masl",
+          "process": "full wash honey",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/a338b0ae55ca4bb6cf40aeb22830883a.png?v=1742303404",
+          "description": "Cereal, peanut butter, honey. variety - Arob | region - Bali, Indonesia | producer - Mr. Wayan selamat | farm - D'Bon coffee farm | process - full wash honey | elevation - 1600 m | roast - light-medium | score - 88"
+        },
+        {
+          "name": "Indonesia SFW24",
+          "url": "https://coffeeorg.co/products/sfw24-אינדונזיה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Indonesia",
+          "region": "Bali, Indonesia",
+          "producer": "Mr. Wayan selamat",
+          "farm": "D'Bon coffee farm",
+          "altitude": "1600 masl",
+          "process": "special full wash 24 hours, fermented in fruits and spices",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/24.png?v=1742303011",
+          "description": "Biscuit, black tea, orange. Variety - Arob | Region - Bali, Indonesia | Producer - Mr. Wayan selamat | Farm - D'Bon coffee farm | Process - Special Full wash 24 hours, Fermented in fruits and spices | Altitude - 1600m | Roast - light-medium | Score - 87"
+        },
+        {
+          "name": "Ethiopia Anaerobic",
+          "url": "https://coffeeorg.co/products/אתיופיה-אנארובי",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 90,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 24.3,
+              "available": true
+            },
+            {
+              "price": 300,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 81,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Yirgacheffe, Tore Woreda Area, Ethiopia",
+          "producer": "K. Mikedem",
+          "farm": "Tore badiya station",
+          "altitude": "1970-2200 masl",
+          "process": "anaerobic",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/1_531e5f6f-4cab-4970-9a35-ccd321986bcb.png?v=1743598149",
+          "description": "Sunflower, dark chocolate, red wine. Variety - Mixed Heirloom | Region - Yirgacheffe, Tore Woreda Area, Ethiopia | Producer - K. Mikedem | Farm - Tore badiya station | Process - Anaerobic | Altitude - 1970-2200m | Roast - Light-Medium | Score - 90"
+        },
+        {
+          "name": "Ethiopia Guji Gubata Natural",
+          "url": "https://coffeeorg.co/products/אתיופיה-1",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Guji",
+          "producer": "Getachew Zekele",
+          "farm": "Dimtu Tero",
+          "altitude": "1808-2128 masl",
+          "process": "natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/934d2c3f14608a9548e90e595caaeb00_377cd9a8-175f-4548-83e3-136798110503.png?v=1739958144",
+          "description": "Flavors of rose water, grapes and peach, natural fruity sweetness. Full and floral body. variety - mixed heirloom | region - Guji | producer - Getachew Zekele | farm - Dimtu Tero | process - natural | altitude - 1,808 - 2,128m"
+        },
+        {
+          "name": "Brazil",
+          "url": "https://coffeeorg.co/products/ברזיל-1",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 60,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 16.2,
+              "available": true
+            },
+            {
+              "price": 210,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 56.7,
+              "available": true
+            }
+          ],
+          "country": "Brazil",
+          "region": "Vale de Grama",
+          "producer": null,
+          "farm": "Fazenda Rainha",
+          "altitude": "1150-1350 masl",
+          "process": "pulped- natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/1_a6ae8815-4fa5-49e9-beac-d473b96543ee.png?v=1750685536",
+          "description": "Nuts, milk chocolate and almonds. Variety - Yellow bourbon | Region - Vale de Grama | Farm - Fazenda Rainha | Process - Pulped- Natural | Altitude - 1150-1350m | Roast - Light-Medium"
+        },
+        {
+          "name": "Dominican Republic",
+          "url": "https://coffeeorg.co/products/דומיניקן-ריפבליק",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 60,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 16.2,
+              "available": true
+            },
+            {
+              "price": 215,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 58.05,
+              "available": true
+            }
+          ],
+          "country": "Dominican Republic",
+          "region": "Jarabacoa",
+          "producer": "Belarminio Ramirez e Hijos",
+          "farm": "Altos del Yaque",
+          "altitude": "1700 masl",
+          "process": "washed",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/3edd2502a5f2b7e2e8f54839b27f30d5.png?v=1739958277",
+          "description": "Very acidic, rich body with a very long aftertaste reminiscent of berries and an aroma of lemon grass and herbs. Fruity flavors and caramelized nuts with an aroma of wood and tobacco. variety - typica and caturra | region - Jarabacoa | producer - Belarminio Ramirez e Hijos | farm - Altos del Yaque | process - washed | altitude - 1700"
+        },
+        {
+          "name": "Colombia",
+          "url": "https://coffeeorg.co/products/קולומביה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Huila, Pitalito",
+          "producer": "Alex Fernando",
+          "farm": "Cabildo",
+          "altitude": "1450-1600 masl",
+          "process": "washed",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/3c4e489cf7968020d946b8cc4ce5bcd1.png?v=1741101027",
+          "description": "Citrus fruits, caramel, and nut. Variety - Castillio | Region - Huila, Pitalito | Producer - Alex Fernando | Farm - Cabildo | Process - Washed | Altitude - 1450-1600m | Roast - Medium"
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:59:04.097Z",
+      "errors": []
+    }
+  ],
+  "totalCoffees": 26
+}

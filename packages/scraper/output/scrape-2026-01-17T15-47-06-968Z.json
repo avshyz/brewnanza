@@ -1,0 +1,385 @@
+{
+  "scrapedAt": "2026-01-17T15:47:06.962Z",
+  "results": [
+    {
+      "roasterId": "lacabra",
+      "roasterName": "La Cabra",
+      "coffees": [
+        {
+          "name": "La Divina Natural SL28",
+          "url": "https://lacabra.com/products/la-divina-natural-sl28-1",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 189,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 204.12,
+              "available": true
+            },
+            {
+              "price": 720,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 777.6,
+              "available": true
+            }
+          ],
+          "country": "El Salvador",
+          "region": "Santa Ana",
+          "producer": "Roberto Ulloa",
+          "farm": null,
+          "altitude": "1700 masl",
+          "process": "Natural",
+          "protocol": null,
+          "variety": [
+            "SL28"
+          ],
+          "notes": [
+            "bright red berry notes up front from the varietal",
+            "followed by sweet brown sugar and tropical fruit enhanced by the process"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/La_Divina_Natural_SL28_La_Cabra_Coffee_Box_200g.png?v=1768303956",
+          "description": "Complex fruit notes in this natural SL28 by Roberto Ulloa at La Divina, high on the volcanic slopes of Santa Ana"
+        },
+        {
+          "name": "Santa Teresa Typica",
+          "url": "https://lacabra.com/products/santa-teresa-typica",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 149,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 160.92,
+              "available": true
+            },
+            {
+              "price": 720,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 777.6,
+              "available": true
+            }
+          ],
+          "country": "Costa Rica",
+          "region": "Tarrazu",
+          "producer": "Roger and Alex Ureña",
+          "farm": null,
+          "altitude": "2000 masl",
+          "process": "Honey",
+          "protocol": null,
+          "variety": [
+            "Typica"
+          ],
+          "notes": [
+            "Floral"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Santa_Teresa_La_Cabra_Coffee_Box_200g_4086c135-1be3-4b24-a8f0-47bc53e22f0d.png?v=1767968512",
+          "description": "The Typica varietal brings floral aromas to this rich and sweet lot from the Tarrazu region"
+        },
+        {
+          "name": "Santa Rosa 1900",
+          "url": "https://lacabra.com/products/santa-rosa-1900",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 149,
+              "currency": "EUR",
+              "weightGrams": 250,
+              "priceUsd": 160.92,
+              "available": true
+            },
+            {
+              "price": 552,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 596.16,
+              "available": true
+            }
+          ],
+          "country": "Costa Rica",
+          "region": "Tarrazu",
+          "producer": "The Naranjo Family",
+          "farm": null,
+          "altitude": "1900 masl",
+          "process": "Washed",
+          "protocol": null,
+          "variety": [
+            "Catuai"
+          ],
+          "notes": [
+            "juicy fruit",
+            "brown sugar and a nutty finish"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Santa_Rosa_La_Cabra_Coffee_Box_250g.png?v=1768303900",
+          "description": "The eighth time we have purchased from Macho and Herberth Naranjo, with a washed Catuai varietal"
+        },
+        {
+          "name": "La Divina Washed SL28",
+          "url": "https://lacabra.com/products/la-divina-washed-sl28",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 175,
+              "currency": "EUR",
+              "weightGrams": 250,
+              "priceUsd": 189,
+              "available": true
+            },
+            {
+              "price": 659,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 711.72,
+              "available": true
+            }
+          ],
+          "country": "El Salvador",
+          "region": "Santa Ana",
+          "producer": "Roberto Ulloa is one of the most genuine, driven and passionate people we have come across on our travels. He has hosted us several times at La Divina Providencia.",
+          "farm": null,
+          "altitude": "1700 masl",
+          "process": "Washed",
+          "protocol": null,
+          "variety": [
+            "SL28"
+          ],
+          "notes": [
+            "dark chocolate",
+            "cranberries and caramel"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/La_Divina_Washed_SL28_La_Cabra_Coffee_Box_250g.png?v=1767094155",
+          "description": "A bright and berry-like SL28 by Roberto Ulloa at La Divina, high on the fertile volcanic slopes of Santa Ana."
+        },
+        {
+          "name": "Fredy Sabillon",
+          "url": "https://lacabra.com/products/fredy-sabillon-2",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 149,
+              "currency": "EUR",
+              "weightGrams": 250,
+              "priceUsd": 160.92,
+              "available": true
+            },
+            {
+              "price": 564,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 609.12,
+              "available": true
+            }
+          ],
+          "country": "Honduras",
+          "region": "Santa Barbara",
+          "producer": "Fredy Sabillon",
+          "farm": null,
+          "altitude": "1350 masl",
+          "process": "Honey",
+          "protocol": null,
+          "variety": [
+            "Parainema"
+          ],
+          "notes": [
+            "rich and deep fruit"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Fredy_Sabillon_La_Cabra_Coffee_Box_250g.png?v=1767966977",
+          "description": "Rich stewed fruit, enhanced by the honey process in this lot by Fredy Sabillon in Santa Barbara, Honduras"
+        },
+        {
+          "name": "Sagastume Washed Parainema",
+          "url": "https://lacabra.com/products/sagastume-washed-parainema-1",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 155,
+              "currency": "EUR",
+              "weightGrams": 250,
+              "priceUsd": 167.4,
+              "available": true
+            },
+            {
+              "price": 576,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 622.08,
+              "available": true
+            }
+          ],
+          "country": "Honduras",
+          "region": "Santa Barbara",
+          "producer": "Yeltsin Sagastume",
+          "farm": null,
+          "altitude": "1500 masl",
+          "process": "Washed",
+          "protocol": null,
+          "variety": [
+            "Parainema"
+          ],
+          "notes": [
+            "caramel and redcurrant"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Sagastume_washed_parainema_La_Cabra_Coffee_Box_250g_d145a4db-9a2e-4027-b092-9dddb3f01900.png?v=1767093870",
+          "description": "Our fifth year working with the Sagastume family in Santa Barbara, Honduras, with a crisp and clean washed Parainema"
+        },
+        {
+          "name": "Luna",
+          "url": "https://lacabra.com/products/luna-250g",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 135,
+              "currency": "EUR",
+              "weightGrams": 250,
+              "priceUsd": 145.8,
+              "available": true
+            },
+            {
+              "price": 500,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 540,
+              "available": true
+            }
+          ],
+          "country": "Profiles",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Luna-1kg-Profile-Coffee-Whole-Bean-La-Cabra.webp?v=1767792680",
+          "description": "Luna is a brighter take, the direct reflection and contrast of Terra, a new step on our journey in coffee."
+        },
+        {
+          "name": "Terra",
+          "url": "https://lacabra.com/products/terra-250g",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 135,
+              "currency": "EUR",
+              "weightGrams": 250,
+              "priceUsd": 145.8,
+              "available": true
+            },
+            {
+              "price": 500,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 540,
+              "available": true
+            }
+          ],
+          "country": "Profiles",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Terra-1kg-Profile-Coffee-Whole-Bean-La-Cabra.webp?v=1767792615",
+          "description": "Terra is a comforting cup, a familiar experience closely tied to the ground where it was grown."
+        },
+        {
+          "name": "Chevas Washed",
+          "url": "https://lacabra.com/products/chevas-washed",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 349,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 376.92,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete",
+          "producer": "José Luis Chevas",
+          "farm": null,
+          "altitude": "1750 masl",
+          "process": "Washed",
+          "protocol": null,
+          "variety": [
+            "Geisha"
+          ],
+          "notes": [
+            "red berries and caramel in the cup"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Chevas-Washed-Rare_Box.webp?v=1768565754",
+          "description": "This crisp and floral washed Geisha is produced by the Chevas family on their estate outside Boquete, overseen by José Luis Chevas"
+        },
+        {
+          "name": "Chevas Natural",
+          "url": "https://lacabra.com/products/chevas-natural",
+          "roasterId": "lacabra",
+          "prices": [
+            {
+              "price": 349,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 376.92,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete",
+          "producer": "José Luis Chevas",
+          "farm": null,
+          "altitude": "1750 masl",
+          "process": "Natural",
+          "protocol": null,
+          "variety": [
+            "Geisha"
+          ],
+          "notes": [
+            "stone fruit and oolong tea"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Natural-Rare_Box.webp?v=1768565695",
+          "description": "This complex and perfumed natural Geisha is produced by the Chevas family on their estate outside Boquete, overseen by José Luis Chevas"
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:47:02.281Z",
+      "errors": []
+    }
+  ],
+  "totalCoffees": 10
+}

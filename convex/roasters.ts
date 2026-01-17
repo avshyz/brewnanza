@@ -1,0 +1,15 @@
+/**
+ * Roaster queries.
+ */
+
+import { query } from "./_generated/server";
+
+/**
+ * Get all roasters.
+ */
+export const getAll = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("roasters").collect();
+  },
+});

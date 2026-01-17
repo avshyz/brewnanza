@@ -1,0 +1,3056 @@
+{
+  "scrapedAt": "2026-01-17T15:56:12.776Z",
+  "results": [
+    {
+      "roasterId": "jera",
+      "roasterName": "Jera Coffee",
+      "coffees": [
+        {
+          "name": "Honduras Guara Roja Honey",
+          "url": "https://www.jera-coffee.co.il/product/honduras-guara-roja-honey/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 50,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 13.5,
+              "available": true
+            },
+            {
+              "price": 200,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 54,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1220-2000מ",
+          "process": "honey",
+          "protocol": null,
+          "variety": [
+            "Catuai",
+            "Caturra",
+            "Lempira",
+            "Ihcafe 90",
+            "Bourbon"
+          ],
+          "notes": [
+            "שוקולד חלבי",
+            "קרמל",
+            "הדרים"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Ethiopia Harar Natural",
+          "url": "https://www.jera-coffee.co.il/product/ethiopia-harar-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            },
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "אורומיה (לשעבר הראר) בדרום אתיופיה, בגבהים שבין 1,400 ל־2,000 מטר מעל פני הים. מחוז הראר נמצא ממזרח לאדיס אבבה, בירת המדינה.",
+          "producer": "ם מקומיים במטעים קטנים או ביער פראי, בצל עצים טרופיים הרריים גבוהים",
+          "farm": null,
+          "altitude": "1400-2000מ",
+          "process": "יבש",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "שוקולד",
+            "אוכמניות",
+            "הדרים"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Colombia El Paraiso Cinnamon",
+          "url": "https://www.jera-coffee.co.il/product/colombia-el-paraiso-cinnamon/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 80,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 21.6,
+              "available": true
+            },
+            {
+              "price": 320,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 86.4,
+              "available": true
+            }
+          ],
+          "country": "הררית, עם גבהים שמגיעים עד 2,200 מטר מעל פני הים. הקפה גדל במדרונות תלולים, ולכן יש לקטוף אותו כולו ביד. המדינה נמצאת ישירות על קו המשווה, ובשילוב עם טווח הגבהים הרחב שבה, ניתן לקצור קפה כמעט כל השנה. רוב הקפה הקולומביאני מגודל בחוות קטנות שבבעלות חקלאים עצמאיים – גודל ממוצע של חווה הוא רק 3 דונם. רבות מהחוות ממוקמות ביערות הרריים, שם הקפה גדל בצל עצים, והגישה אליהן יכולה להיות קשה מאוד. לעיתים קרובות אי אפשר להגיע אליהן ברכב, ולכן חקלאים רבים משתמשים בסוסים או חמורים – שיכולים לעבור במקומות שרכב אינו מסוגל.",
+          "region": "ים הרריים, בטווח גבהים של בין 1,000 ל",
+          "producer": "ם הראשונים בקולומביה שהתנסו בתסיסת קפה באמצעות הוספת מיקרואורגניזמים ושמרים מסוגים שונים",
+          "farm": null,
+          "altitude": "1900מ",
+          "process": "washed anaerobic",
+          "protocol": null,
+          "variety": [
+            "Castillo"
+          ],
+          "notes": [
+            "קמומיל",
+            "קינמון",
+            "יין לבן",
+            "אפרסק"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "El Salvador El Martillo Natural Anaerobic",
+          "url": "https://www.jera-coffee.co.il/product/el-salvador-el-martillo-natural-anaerobic/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 65,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 17.55,
+              "available": true
+            },
+            {
+              "price": 260,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 70.2,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1700מ",
+          "process": "יבש אנאירובי וקליה בהירה. הרבה מתיקות, גוף עסיסי, עגול ונקי, חמיצות מאוזנת וטעמים של פירות טרופיים, יין לבן וקקאו. מצוין להכנת כל סוגי קפה פילטר.",
+          "protocol": null,
+          "variety": [
+            "Bourbon",
+            "Hybrid San Francisco"
+          ],
+          "notes": [
+            "רימונים",
+            "יין לבן",
+            "פירות טרופיים",
+            "קקאו"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Kenya Gulmarg Estate Natural",
+          "url": "https://www.jera-coffee.co.il/product/kenya-gulmarg-estate-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 220,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 59.4,
+              "available": false
+            },
+            {
+              "price": 55,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 14.85,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1950מ",
+          "process": "יבש שממש לא שגרתי לקפה קנייתי. מתקתק, מאוזן. טעמים של פירות יער, קצת תבלינים, היביסקוס, אפרסק והדרים. מצוין להכנת קפה פילטר.",
+          "protocol": null,
+          "variety": [
+            "SL 34"
+          ],
+          "notes": [
+            "פירות יער",
+            "אגס",
+            "הדרים"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Kenya Tinganga AB Washed",
+          "url": "https://www.jera-coffee.co.il/product/kenya-tinganga-ab-washed/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 55,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 14.85,
+              "available": true
+            },
+            {
+              "price": 220,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 59.4,
+              "available": false
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1800מ",
+          "process": "שטוף",
+          "protocol": null,
+          "variety": [
+            "SL-28",
+            "SL-34"
+          ],
+          "notes": [
+            "הדרים",
+            "מלון",
+            "דומדמניות שחורות"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Colombia Fondo washed",
+          "url": "https://www.jera-coffee.co.il/product/colombia-fondo-washed/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1450מ",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "Castillo"
+          ],
+          "notes": [
+            "קרמל",
+            "תפוח",
+            "פירות יבשים"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Ethiopia Guji Gr1 Natural",
+          "url": "https://www.jera-coffee.co.il/product/ethiopia-guji-gr1-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 200,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 54,
+              "available": true
+            },
+            {
+              "price": 50,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 13.5,
+              "available": true
+            }
+          ],
+          "country": "מתהדרת במגוון ביולוגי שאין לו תחרות. העושר הטבעי הזה, בשילוב מסורת קפה עמוקה וטרוארים מגוונים הפרוסים ברחבי המדינה, יצרו פסיפס יוצא דופן של זני ערביקה.",
+          "region": "יירגצ'פה עשוי להתאפיין בארומה פרחונית עזה עם ניחוחות של תה והדרים. קפה שטוף מאתיופיה המערבית נוטה להיות עשיר יותר, פרחוני ובעל גוף מלא. קפה בעיבוד טבעי מאזור הרר יהיה עמוק, שוקולדי ועמוס בטעמי פירות בשלים.",
+          "producer": "ם מייבשים את דובדבני הקפה השלמים על פאטיו",
+          "farm": null,
+          "altitude": "1800מ",
+          "process": "יבש. בפרופיל בינוני-בהיר, לאספרסו, תצפו לגוף בינוני, רך. חמיצות מורגשת ונעימה, מתיקות גבוהה, מרירות מאוזנת. טעמים של פירות אדומים, פירות יער, קצת תבליני וייני. קלייה בינונית-בהירה, לאוהבי אספרסו חמצמץ-מתקתק או משקאות בסיס חלב עדינים",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "אוכמניות כחולות",
+            "פירות אדומים",
+            "מייפל סירופ"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Brazil Swiss Water Decaf Arabica",
+          "url": "https://www.jera-coffee.co.il/product/brazil-swiss-water-decaf-arabica/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1100-1250מ",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "Mixed"
+          ],
+          "notes": [
+            "שוקולד",
+            "אגוזים",
+            "מלט"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Ethiopia Lalesa Natural",
+          "url": "https://www.jera-coffee.co.il/product/ethiopia-lalesa-natural/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 200,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 54,
+              "available": true
+            },
+            {
+              "price": 50,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 13.5,
+              "available": true
+            }
+          ],
+          "country": "מתהדרת במגוון ביולוגי שאין לו תחרות. העושר הטבעי הזה, בשילוב מסורת קפה עמוקה וטרוארים מגוונים הפרוסים ברחבי המדינה, יצרו פסיפס יוצא דופן של זני ערביקה.",
+          "region": "יירגצ'פה עשוי להתאפיין בארומה פרחונית עזה עם ניחוחות של תה והדרים. קפה שטוף מאתיופיה המערבית נוטה להיות עשיר יותר, פרחוני ובעל גוף מלא. קפה בעיבוד טבעי מאזור הרר יהיה עמוק, שוקולדי ועמוס בטעמי פירות בשלים.",
+          "producer": "ם מייבשים את דובדבני הקפה השלמים על פאטיו",
+          "farm": null,
+          "altitude": "2150מ",
+          "process": "יבש",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "עדין",
+            "פרחוני והדרי"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Brazil Moka Caracolito",
+          "url": "https://www.jera-coffee.co.il/product/brazil-moka-caracolito/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            },
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "800-1050מ",
+          "process": "יבש",
+          "protocol": null,
+          "variety": [
+            "ושוקולדי",
+            "גוף רך וסמיך",
+            "חמיצות נמוכה. מצוין להכנת אספרסו",
+            "מקינטה",
+            "קפה שחור או משקאות על בסיס חלב."
+          ],
+          "notes": [
+            "קקאו",
+            "אגוזים",
+            "שוקולד"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "קפה לא טעים",
+          "url": "https://www.jera-coffee.co.il/product/coffee-is-not-tasty/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 15,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 4.05,
+              "available": true
+            },
+            {
+              "price": 40,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 10.8,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [
+            "שוקולדי",
+            "תבליני",
+            "מתקתק"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/05/Sample.png",
+          "description": ""
+        },
+        {
+          "name": "Guatemala Antigua",
+          "url": "https://www.jera-coffee.co.il/product/guatemala_antigua/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": "הם טיפיקה ובורבון, שגדלים בגבהים של בין 1,300 ל-2,000 מטר מעל פני הים.",
+          "region": "אנטיגואה הוא אזור גידול הקפה הידוע והמוערך ביותר במדינה, ומפיק פולים בעלי גוף מצוין וחמיצות בינונית עד גבוהה. בהתאם לפרופיל הקלייה, קפה מגואטמלה יכול לנוע בין בהיר ופירותי (קלייה בהירה) לעשיר ושוקולדי (קלייה כהה).",
+          "producer": "ים המרכזיים של גואטמלה",
+          "farm": null,
+          "altitude": "1600מ",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "Catuai",
+            "Typica"
+          ],
+          "notes": [
+            "שוקולד מריר",
+            "דובדבן"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/01/Guatemala-Antigua.png",
+          "description": "."
+        },
+        {
+          "name": "Sumatra Orangutan",
+          "url": "https://www.jera-coffee.co.il/product/sumatra_orangutan/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            },
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1500מ",
+          "process": "wet-hulled",
+          "protocol": null,
+          "variety": [
+            "Catimor",
+            "Typica"
+          ],
+          "notes": [
+            "תבליני",
+            "עצי",
+            "שוקולדי"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/01/Sumatra24.png",
+          "description": ""
+        },
+        {
+          "name": "Santo Domingo",
+          "url": "https://www.jera-coffee.co.il/product/santo_domingo/",
+          "roasterId": "jera",
+          "prices": [
+            {
+              "price": 190,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 51.3,
+              "available": true
+            },
+            {
+              "price": 48,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 12.96,
+              "available": true
+            }
+          ],
+          "country": "גדל באיזור בראחונה, בגבהים של 600 עד 1,300 מ'. רוב גידולי הקפה בארץ זו הם אורגניים, אך לרובם אין תעודות מאושרות לכך.",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": "1300-1500מ",
+          "process": "רטוב",
+          "protocol": null,
+          "variety": [
+            "ומורכב. חמיצות נמוכה. מתאים לכל סוגי הכנה."
+          ],
+          "notes": [
+            "קקאו",
+            "וניל"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://www.jera-coffee.co.il/wp-content/uploads/2021/01/Santo-Domingo.png",
+          "description": ""
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:54:40.380Z",
+      "errors": []
+    },
+    {
+      "roasterId": "coffeeorg",
+      "roasterName": "Coffee Organization",
+      "coffees": [
+        {
+          "name": "Ethiopia Magrissa",
+          "url": "https://coffeeorg.co/products/הונדורס-בומבה-דה-פרוטה-חדש",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeo Zone Sede Aladicha",
+          "producer": "Negusse D. Weldyes",
+          "farm": "Sede Washing Station",
+          "altitude": "1850–2010",
+          "process": "Natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/1392231033d7a71fbcf3970011c63b0b.svg?v=1767719610",
+          "description": "Peach, lemongrass, black tea. Variety - Heirloom | Region - Gedeo Zone Sede Aladicha | Producer - Negusse D. Weldyes | Farm - Sede Washing Station | Process - Natural | Altitude - 1850–2010m | Roast - | Score - 87.5"
+        },
+        {
+          "name": "Ethiopia Magrissa",
+          "url": "https://coffeeorg.co/products/קולומביה-גיישה-חדש",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 90,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 24.3,
+              "available": true
+            },
+            {
+              "price": 300,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 81,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeo Zone Sede Aladicha",
+          "producer": "Negusse D. Weldyes",
+          "farm": "Sede Washing Station",
+          "altitude": "1850–2010",
+          "process": "Natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/530962595d1b34bebe4c90324f719d5d.svg?v=1767719920",
+          "description": "Peach, lemongrass, black tea. Variety - Heirloom | Region - Gedeo Zone Sede Aladicha | Producer - Negusse D. Weldyes | Farm - Sede Washing Station | Process - Natural | Altitude - 1850–2010m | Roast - | Score - 87.5"
+        },
+        {
+          "name": "Rwanda Anaerobic ",
+          "url": "https://coffeeorg.co/products/רואנדה-אנארובי",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 80,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 21.6,
+              "available": true
+            },
+            {
+              "price": 280,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 75.6,
+              "available": true
+            }
+          ],
+          "country": "Rwanda",
+          "region": "Karongi",
+          "producer": "Aime Dusabe Gahizi",
+          "farm": "Gitesi Washing Station",
+          "altitude": "1750m-1800",
+          "process": "Anaerobic",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/8a641feedf87d422edebdb492a066dff.png?v=1755428594",
+          "description": "Cinnamon, dates, red grapefruit. Variety - Red Bourbon | Region - Karongi | Producer - Aime Dusabe Gahizi | Farm - Gitesi Washing Station | Process - Anaerobic | Altitude - 1750m-1800m | Roast - | Score - 86"
+        },
+        {
+          "name": "Ethiopia Magrissa",
+          "url": "https://coffeeorg.co/products/אתיופיה-מגריסה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeo Zone Sede Aladicha",
+          "producer": "Negusse D. Weldyes",
+          "farm": "Sede Washing Station",
+          "altitude": "1850–2010",
+          "process": "Natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/ff442c41fe6190fad9e5839401c32842.png?v=1755429913",
+          "description": "Peach, lemongrass, black tea. Variety - Heirloom | Region - Gedeo Zone Sede Aladicha | Producer - Negusse D. Weldyes | Farm - Sede Washing Station | Process - Natural | Altitude - 1850–2010m | Roast - | Score - 87.5"
+        },
+        {
+          "name": "Indonesia HONEY",
+          "url": "https://coffeeorg.co/products/אינדונזיה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 75,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 20.25,
+              "available": true
+            },
+            {
+              "price": 260,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 70.2,
+              "available": true
+            }
+          ],
+          "country": "Indonesia",
+          "region": "Bali, Indonesia",
+          "producer": "Mr. Wayan selamat",
+          "farm": "D'Bon coffee farm",
+          "altitude": "1600",
+          "process": "full wash honey",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/a338b0ae55ca4bb6cf40aeb22830883a.png?v=1742303404",
+          "description": "Cereal, peanut butter, honey. variety - Arob | region - Bali, Indonesia | producer - Mr. Wayan selamat | farm - D'Bon coffee farm | process - full wash honey | elevation - 1600 m | roast - light-medium | score - 88"
+        },
+        {
+          "name": "Indonesia SFW24",
+          "url": "https://coffeeorg.co/products/sfw24-אינדונזיה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Indonesia",
+          "region": "Bali, Indonesia",
+          "producer": "Mr. Wayan selamat",
+          "farm": "D'Bon coffee farm",
+          "altitude": "1600",
+          "process": "Special Full wash 24 hours, Fermented in fruits and spices",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/24.png?v=1742303011",
+          "description": "Biscuit, black tea, orange. Variety - Arob | Region - Bali, Indonesia | Producer - Mr. Wayan selamat | Farm - D'Bon coffee farm | Process - Special Full wash 24 hours, Fermented in fruits and spices | Altitude - 1600m | Roast - light-medium | Score - 87"
+        },
+        {
+          "name": "Ethiopia Anaerobic",
+          "url": "https://coffeeorg.co/products/אתיופיה-אנארובי",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 90,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 24.3,
+              "available": true
+            },
+            {
+              "price": 300,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 81,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Yirgacheffe, Tore Woreda Area, Ethiopia",
+          "producer": "K. Mikedem",
+          "farm": "Tore badiya station",
+          "altitude": "1970-2200",
+          "process": "Anaerobic",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/1_531e5f6f-4cab-4970-9a35-ccd321986bcb.png?v=1743598149",
+          "description": "Sunflower, dark chocolate, red wine. Variety - Mixed Heirloom | Region - Yirgacheffe, Tore Woreda Area, Ethiopia | Producer - K. Mikedem | Farm - Tore badiya station | Process - Anaerobic | Altitude - 1970-2200m | Roast - Light-Medium | Score - 90"
+        },
+        {
+          "name": "Ethiopia Guji Gubata Natural",
+          "url": "https://coffeeorg.co/products/אתיופיה-1",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Guji",
+          "producer": "Getachew Zekele",
+          "farm": "Dimtu Tero",
+          "altitude": "1,808 - 2,128",
+          "process": "natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/934d2c3f14608a9548e90e595caaeb00_377cd9a8-175f-4548-83e3-136798110503.png?v=1739958144",
+          "description": "Flavors of rose water, grapes and peach, natural fruity sweetness. Full and floral body. variety - mixed heirloom | region - Guji | producer - Getachew Zekele | farm - Dimtu Tero | process - natural | altitude - 1,808 - 2,128m"
+        },
+        {
+          "name": "Brazil",
+          "url": "https://coffeeorg.co/products/ברזיל-1",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 60,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 16.2,
+              "available": true
+            },
+            {
+              "price": 210,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 56.7,
+              "available": true
+            }
+          ],
+          "country": "Brazil",
+          "region": "Vale de Grama",
+          "producer": null,
+          "farm": "Fazenda Rainha",
+          "altitude": "1150-1350",
+          "process": "Pulped- Natural",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/1_a6ae8815-4fa5-49e9-beac-d473b96543ee.png?v=1750685536",
+          "description": "Nuts, milk chocolate and almonds. Variety - Yellow bourbon | Region - Vale de Grama | Farm - Fazenda Rainha | Process - Pulped- Natural | Altitude - 1150-1350m | Roast - Light-Medium"
+        },
+        {
+          "name": "Dominican Republic",
+          "url": "https://coffeeorg.co/products/דומיניקן-ריפבליק",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 60,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 16.2,
+              "available": true
+            },
+            {
+              "price": 215,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 58.05,
+              "available": true
+            }
+          ],
+          "country": "Dominican Republic",
+          "region": "Jarabacoa",
+          "producer": "Belarminio Ramirez e Hijos",
+          "farm": "Altos del Yaque",
+          "altitude": "1700",
+          "process": "washed",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/3edd2502a5f2b7e2e8f54839b27f30d5.png?v=1739958277",
+          "description": "Very acidic, rich body with a very long aftertaste reminiscent of berries and an aroma of lemon grass and herbs. Fruity flavors and caramelized nuts with an aroma of wood and tobacco. variety - typica and caturra | region - Jarabacoa | producer - Belarminio Ramirez e Hijos | farm - Altos del Yaque | process - washed | altitude - 1700"
+        },
+        {
+          "name": "Colombia",
+          "url": "https://coffeeorg.co/products/קולומביה",
+          "roasterId": "coffeeorg",
+          "prices": [
+            {
+              "price": 70,
+              "currency": "ILS",
+              "weightGrams": 250,
+              "priceUsd": 18.9,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "ILS",
+              "weightGrams": 1000,
+              "priceUsd": 67.5,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Huila, Pitalito",
+          "producer": "Alex Fernando",
+          "farm": "Cabildo",
+          "altitude": "1450-1600",
+          "process": "Washed",
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0700/0247/5290/files/3c4e489cf7968020d946b8cc4ce5bcd1.png?v=1741101027",
+          "description": "Citrus fruits, caramel, and nut. Variety - Castillio | Region - Huila, Pitalito | Producer - Alex Fernando | Farm - Cabildo | Process - Washed | Altitude - 1450-1600m | Roast - Medium"
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:54:47.828Z",
+      "errors": []
+    },
+    {
+      "roasterId": "tanat",
+      "roasterName": "Tanat Coffee",
+      "coffees": [
+        {
+          "name": "Elida [Catuai Natural]",
+          "url": "https://tanat.coffee/boutique/elida-catuai-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 19.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 21.49,
+              "available": true
+            },
+            {
+              "price": 69.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 75.22,
+              "available": true
+            },
+            {
+              "price": 38,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 41.04,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete, Volcán",
+          "producer": "Elida Estate",
+          "farm": null,
+          "altitude": "060m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Catuaí"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEB_ElidaCatuaiNat.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”17062″ media_width_percent=”100″ uncode_shortcode_id=”618608″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”180636″]Lamastus[/vc_custom_heading][vc_column_text uncode_shortcode_id=”161057″]Lamastus Family Estates : quatre générations d’excellence.[/vc_column_text][vc_column_text uncode_shortcode_id=”153181″ el_class=”blockquote”]Fondée en 1918 par Robert Louis Lamastus, ancien soldat originaire du Kentucky, la ferme Elida Estate est située sur les flancs du Volcán Barú, à proximité de la réserve naturelle nationale de Panama. Aujourd’hui, Lamastus détient trois propriétés emblématiques : Elida Estate : une des plus hautes fermes caféières du Panama (1 700 à 2 060 m d’altitude) El Burro Estate, Luito Geisha Estates (et la récente Lulo Estate) complètent un ensemble cultivé sur des sols volcaniques riches et un microclimat optimal. En 2024, Elida Estate remporte la catégorie Geisha Natural du Best of Panama, avec un lot vendu lors d’une enchère privée à 10 013 $ par kilogramme, battant le record mondial. Avec sept victoires au Best of Panama, Lamastus détient la deuxième meilleure performance de l’histoire du concours, et quatre Panama Cups, le plus grand nombre jamais remporté.[/vc_column_text][/vc_column][/vc_row][vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”0″ bottom_padding=”2″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”164029″][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”731370″]ELIDA[/vc_custom_heading][vc_column_text uncode_shortcode_id=”740904″]L’emblématique ferme des Lamastus[/vc_column_text][vc_column_text uncode_shortcode_id=”153068″ el_class=”blockquote”]Située à Alto Quiel, près de Boquete, sur les pentes du Volcán Barú au Panama, Elida est la ferme la plus élevée du pays, s’élevant entre 1 700 et 2 060 m, avec une production caféière concentrée entre 1 700 et 1 950 m. La superficie totale est de 65 hectares, dont 35 ha cultivés (principalement Geisha, Catuaí et un peu de Typica) ; le reste est en réserve forestière, intégrée à la réserve du parc national Volcán Barú . Le café est cultivé dans un microclimat de forêt de nuage primaire, bénéficiant d’une couverture végétale ombragée naturelle, avec un sol volcanique riche et une forte biodiversité.[/vc_column_text][/vc_column][vc_column width=”5/12″][vc_single_image media=”17012″ media_width_percent=”100″ uncode_shortcode_id=”447635″][/vc_column][/vc_row][vc_row unlock_row_content=”yes” row_height_percent=”100″ override_padding=”yes” h_padding=”0″ top_padding=”0″ bottom_padding=”0″ back_image=”17013″ back_repeat=”no-repeat” back_position=”center bottom” overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”179009″ row_height_pixel=”400″][vc_column width=”1/1″][/vc_column][/vc_row]"
+        },
+        {
+          "name": "CGLE Las Margaritas [Sudan Rume Natural]",
+          "url": "https://tanat.coffee/boutique/cgle-las-margaritas-sudan-rume-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 20.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 22.57,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Aceh",
+          "producer": "Cafe Granja La Esperanza",
+          "farm": null,
+          "altitude": null,
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Sudan Rume"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEBMICROLOT_CGLESUDANRUME.png",
+          "description": "Ce lot met en valeur la variété Sudan Rume, l’une des plus anciennes et rares variétés d’Arabica. Issu d’un processus naturel méticuleusement maîtrisé à la Las Margaritas Farm par Café Granja la Esperanza, ce café révèle une tasse d’une intensité aromatique exceptionnelle, à la fois épicée, florale et résolument exotique. Dès l’attaque, une cardamome lumineuse s’installe, avant de laisser place à une expression vive et gourmande de cédrat et de fruit de la passion, offrant une douceur tropicale remarquable. En fin de bouche, une touche aérienne d’eucalyptus apporte fraîcheur et élégance, prolongeant délicatement la dégustation. L’ensemble offre une tasse expressive, juteuse et singulière, reflet du savoir-faire de Café Granja la Esperanza."
+        },
+        {
+          "name": "Aroma Nativo [EFM Tanat lot #2]",
+          "url": "https://tanat.coffee/boutique/aroma-nativo-efm-tanat-lot-2/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 94.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 101.68,
+              "available": true
+            },
+            {
+              "price": 52,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 56.16,
+              "available": true
+            },
+            {
+              "price": 26.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 29.05,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Huila, Quindío",
+          "producer": "Aroma Nativo",
+          "farm": null,
+          "altitude": null,
+          "process": "honey Double Fermentation",
+          "protocol": null,
+          "variety": [
+            "Pink Bourbon"
+          ],
+          "notes": [
+            "rose",
+            "litchi",
+            "jasmin",
+            "citron"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEB_EFMlot2.png",
+          "description": "Le retour de l’EFM est là, avec un lot spécialement développé pour Tanat ! Ce café dévoile un profil intensément fruité et floral, marqué par des notes élégantes de rose, de litchi, de jasmin et de citron. L’EFM, pour Extended Fermentation Method, commence par une sélection rigoureuse des cerises les plus mûres, qui fermentent d’abord en anaérobie, entières, afin de concentrer les arômes directement au cœur du fruit. Après dépulpage, une deuxième fermentation a lieu en barriques hermétiques, en présence de levures et de bactéries indigènes soigneusement choisies, ce qui renforce la sucrosité et apporte une profondeur aromatique remarquable. Une fois les fermentations terminées, le café est séché lentement durant quatorze jours sous serres paraboliques, puis repose trois mois en chambre à température contrôlée pour stabiliser et affiner son profil. Le résultat est un café d’une grande délicatesse, à la texture soyeuse, intensément fruitée et doté d’une finale florale raffinée. Aroma Nativo, fondé par Luis Marcelino, œuvre depuis plusieurs années à valoriser le travail de producteurs colombiens talentueux mais souvent peu visibles. Avec des initiatives comme le projet Veci, Luis met à leur disposition des installations modernes et des techniques de fermentation avancées dans les régions du Huila et du Quindío, permettant de révéler la singularité de chaque terroir à travers des lots innovants et d’une qualité exceptionnelle."
+        },
+        {
+          "name": "Antonia Gomez [Maragogype Natural]",
+          "url": "https://tanat.coffee/boutique/antonia-gomez-maragogype-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 83.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 90.34,
+              "available": true
+            },
+            {
+              "price": 23.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 25.81,
+              "available": true
+            },
+            {
+              "price": 46,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 49.68,
+              "available": true
+            }
+          ],
+          "country": "Mexico",
+          "region": "Chiapas",
+          "producer": "Antonia Gomez",
+          "farm": null,
+          "altitude": "900m",
+          "process": "anaerobie naturelle 60h",
+          "protocol": null,
+          "variety": [
+            "Maragogipe"
+          ],
+          "notes": [
+            "groseille",
+            "framboise",
+            "fruit de la passion",
+            "fève de cacao"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEB_AntoniaGomez.png",
+          "description": "Ce Maragogype naturel anaérobie provient de la communauté indigène Emiliano Zapata, située dans la Réserve de Biosphère El Triunfo, au cœur de la Sierra Madre du Chiapas, au Mexique. Ce nanolot rare est produit par Doña Antonia Gómez, figure respectée de la communauté Tzeltal, qui cultive un peu plus de deux hectares de café entre 1 600 et 1 900 mètres d’altitude. Chaque année, elle récolte environ 450 kg de Maragogype Criollo, un cultivar traditionnel aux grains imposants mais en voie de disparition, que Beneficio Edelmira s’efforce activement de préserver. Ce lot s’inscrit dans l’initiative menée par Beneficio Edelmira, micromill collaborant avec 35 petites fermes de la zone tampon d’El Triunfo. Leur mission : sauvegarder les variétés anciennes en encourageant les producteurs à séparer et valoriser leurs meilleurs cultivars. Lors des évaluations post-récolte, le Maragogype de Doña Antonia s’est distingué par sa pureté aromatique et son profil intensément fruité, justifiant sa sélection en nanolot exclusif et sa mise à part pour une micro-production premium. La transformation est réalisée avec une rigueur exemplaire. Les cerises, cueillies à 23° Brix, sont triées puis livrées chaque soir au micromill. Elles y sont lavées et placées dans des sacs GrainPro hermétiques pour une fermentation anaérobie de 60 à 72 heures à 22 °C. Elles sèchent ensuite lentement pendant 20 jours sur lits africains partiellement ombragés jusqu’à atteindre 11 % d’humidité. En tasse, ce Maragogype révèle une expression vive et raffinée, portée par une acidité éclatante et une douceur naturelle. Son profil aromatique s’articule autour de notes de groseille, de framboise, de fruit de la passion et de fève de cacao, offrant une tasse fruitée, tropicale et élégamment structurée. Un café rare et délicat, reflet du savoir-faire minutieux de Doña Antonia Gómez et de l’engagement de Beneficio Edelmira pour la préservation des cultivars ancestraux du Chiapas."
+        },
+        {
+          "name": "Zapata [Maracaturra Natural]",
+          "url": "https://tanat.coffee/boutique/zapata-maracaturra-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 80.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 86.56,
+              "available": true
+            },
+            {
+              "price": 22.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 24.73,
+              "available": true
+            },
+            {
+              "price": 44,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 47.52,
+              "available": true
+            }
+          ],
+          "country": "Mexico",
+          "region": "Chiapas",
+          "producer": "Emiliano Zapata Community",
+          "farm": null,
+          "altitude": "800m",
+          "process": "anaerobie naturelle 60h",
+          "protocol": null,
+          "variety": [
+            "Maracaturra"
+          ],
+          "notes": [
+            "fruits tropicaux",
+            "fruits rouges mûrs",
+            "chocolat au lait"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEB_ZapataMaracaNat.png",
+          "description": "Ce Maracaturra provient de la communauté indigène Emiliano Zapata, au cœur de la Réserve de Biosphère El Triunfo, dans le Chiapas au Mexique. Cultivé entre 1 700 et 1 800 m, ce lot est produit par les familles Sebastián Meza, Raymunda Romero et Antonio Giron, et transformé au micromill Beneficio Edelmira, centre clé de la qualité dans le village. Au cœur de ce projet se trouve Marco Romero Santíz, membre de la communauté Tzeltal et superviseur du micromill. Fort d’un héritage familial de trois générations, Marco a cartographié toutes les variétés de sa communauté afin d’isoler et valoriser les meilleurs cultivars. C’est ainsi qu’a été identifié ce Maracaturra localement appelé Maragogype-Caturra, un café rare alliant la grande taille du Maragogype et les cerises jaune-or du Yellow Caturra. Le process est mené avec une grande précision. Les cerises sont récoltées à parfaite maturité (24° Brix), puis livrées chaque soir au micromill où elles sont lavées et placées en sacs GrainPro hermétiques pour une fermentation anaérobie de 60 à 72 heures à 22 °C. Le séchage s’effectue ensuite sur lits africains pendant 20 jours, sous ombrage partiel, jusqu’à atteindre 11 % d’humidité. En tasse, ce lot révèle un profil riche et juteux, marqué par des notes gourmandes de fruits tropicaux, de fruits rouges mûrs et de chocolat au lait. La structure ample et la douceur naturelle du Maracaturra s’associent parfaitement à la profondeur aromatique apportée par la fermentation anaérobie, offrant un café expressif et complexe, parfait pour les amoureux de cafés à la fermentation marquée."
+        },
+        {
+          "name": "Finca Hartmann &#8211; The Great Reserve [Geisha Washed lot 18]",
+          "url": "https://tanat.coffee/boutique/panama-finca-hartmann-the-great-reserve-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 44.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 48.49,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Chiriquí",
+          "producer": "Finca Hartmann",
+          "farm": null,
+          "altitude": "900m",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "jasmin",
+            "pêche",
+            "bonbon au citron"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEBMICROLOT_HartmannGreatR18.png",
+          "description": "Originaire de la région montagneuse de Chiriquí, au Panama, ce Geisha lavé est produit à 1 900 mètres d’altitude par Ratibor & Tessie Hartmann, figures emblématiques du café de spécialité panaméen. Cultivé dans un environnement volcanique riche et sous un microclimat frais, ce Geisha bénéficie de conditions idéales pour développer une complexité florale et une grande pureté aromatique. Travaillé selon un process lavé, ce Geisha dévoile un bouquet délicat et précis, articulé autour de notes de jasmin, pêche et bonbon au citron, offrant une expérience raffinée, florale et fraîche, caractéristique des plus beaux lots lavés du Panama."
+        },
+        {
+          "name": "Alo Chilaka [Hybrid Washed]",
+          "url": "https://tanat.coffee/boutique/alo-chilaka-hybrid-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 52.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 56.32,
+              "available": true
+            },
+            {
+              "price": 28,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 30.24,
+              "available": true
+            },
+            {
+              "price": 14.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 16.09,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Sidama, Bensa",
+          "producer": "Tamiru Tadesse",
+          "farm": null,
+          "altitude": null,
+          "process": "washed Hybride",
+          "protocol": null,
+          "variety": [
+            "JARC 74158"
+          ],
+          "notes": [
+            "citron confit",
+            "pêche jaune",
+            "amande",
+            "thé noir"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2026/01/PAQUETWEB_ChilakaHW.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”18358″ media_width_percent=”100″ uncode_shortcode_id=”871649″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”150568″]ALO COFFEE[/vc_custom_heading][vc_column_text uncode_shortcode_id=”871450″]Alo, producteur de café de spécialité éthiopien primé, cultivé en altitude et façonné avec soin.[/vc_column_text][vc_column_text uncode_shortcode_id=”152570″ el_class=”blockquote”]Alo Coffee est née d’un rêve et d’un véritable saut dans l’inconnu. Pendant des années, Tamiru, ancien enseignant universitaire et ingénieur électricien, a travaillé dans le secteur du café. Il a observé de près les difficultés d’une filière où la qualité était trop souvent négligée et où les producteurs peinaient à être justement rémunérés. Malgré son expérience, les injustices liées aux prix dérisoires et au travail sous-évalué l’ont longtemps dissuadé de lancer sa propre aventure. Tout a changé en 2020, lorsque l’Éthiopie a organisé sa première Cup of Excellence. Cet événement a été une révélation : il prouvait qu’un café exceptionnel pouvait être célébré et récompensé. Aux côtés de son épouse Messi, Tamiru s’est alors fixé une mission claire : démontrer que les cafés de Sidama pouvaient rivaliser avec les meilleurs au monde. En 2021, contre toute attente, leur toute première participation, un lot soigneusement préparé dans leur village natal d’Alo, à Bensa, a remporté la Cup of Excellence d’Éthiopie. Ce succès a confirmé leur conviction : ce n’est pas seulement la tradition, mais bien la passion et la rigueur qui forgent l’excellence. Aujourd’hui, Alo Coffee reste animée par cette même ambition : offrir les meilleurs cafés d’Éthiopie, défier les attentes, honorer les producteurs qui rendent tout cela possible et partager avec le monde entier le potentiel encore inexploré du café éthiopien.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Finca Sophia GW1 [Geisha Washed]",
+          "url": "https://tanat.coffee/boutique/finca-sophia-gw1-geisha-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 59.9,
+              "currency": "EUR",
+              "weightGrams": 15,
+              "priceUsd": 64.69,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Volcán",
+          "producer": "Kelly Hartmann",
+          "farm": null,
+          "altitude": "175m",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "bonbon au citron",
+            "bergamote",
+            "orange",
+            "camomille"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/SophiaGW1_BOX_MOCKUP.png",
+          "description": "En tasse, ce Geisha d’exception exprime une clarté remarquable et une grande élégance, dévoilant des notes de bonbon au citron, de bergamote, d’orange et de camomille, portées par une structure délicate et une belle persistance. Un café d’une finesse rare. Nichée dans les montagnes près du village de Nueva Suiza, à Volcán au Panama, Finca Sophia est une ferme d’altitude où le temps, le silence et la nature façonnent des cafés d’une rare précision. Fondée en 2008 à l’initiative de Willem Boot, figure pionnière du café de spécialité, aux côtés de Helen Russell et David Pohl, la finca est née d’une vision commune : créer un lieu où le café s’exprime en parfaite harmonie avec son environnement. Perchée à 2 175 mètres d’altitude, Finca Sophia évolue au rythme de son écosystème. Le café y est cultivé avec une attention extrême, au cœur d’un paysage préservé jouxtant le Parc International La Amistad. Sous la direction de Kelly Hartmann, la ferme a intégré de larges zones tampons dédiées à la biodiversité, permettant à la faune et à la flore locales de cohabiter naturellement avec les caféiers. Cette approche respectueuse du vivant est au cœur de l’identité de la finca. Cette exigence constante a permis à Finca Sophia de s’imposer parmi les références mondiales du café de spécialité. Ses Geishas sont régulièrement distingués lors du Best of Panama, témoignant d’un savoir-faire d’exception et d’une recherche permanente d’excellence, avec notamment des classements remarquables en Geisha Lavé et Geisha Naturel ces dernières années."
+        },
+        {
+          "name": "Finca la Riviera [Sidra Tanat Lot]",
+          "url": "https://tanat.coffee/boutique/finca-la-riviera-sidra-tanat-lot/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 80.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 86.56,
+              "available": true
+            },
+            {
+              "price": 22.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 24.73,
+              "available": true
+            },
+            {
+              "price": 44,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 47.52,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Risaralda",
+          "producer": "Julio Madrid",
+          "farm": null,
+          "altitude": null,
+          "process": "bioreactor",
+          "protocol": null,
+          "variety": [
+            "Sidra"
+          ],
+          "notes": [
+            "d’orange sanguine",
+            "fraise",
+            "lavande",
+            "miel",
+            "transporté à la voile"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/PAQUETWEB_1FincaRivieraSidraTanat.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”27347″ media_width_percent=”100″ uncode_shortcode_id=”808708″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”128999″]Café UBA[/vc_custom_heading][vc_column_text uncode_shortcode_id=”144418″]Le café de spécialité colombien qui fait la différence.[/vc_column_text][vc_column_text uncode_shortcode_id=”125665″ el_class=”blockquote”]Au cœur de la Colombie, dans les terres où le café est une culture autant qu’une tradition, Café Uba a vu le jour. Derrière la marque, une famille de producteurs depuis trois génération, portée par la volonté de faire découvrir l’essence même du café colombien. Adoptant une approche durable et responsable, leur signature passe aussi par des procédés innovants, repoussant sans cesse les limites aromatiques. Les cafés prennent racine sur trois fermes emblématiques, chacune racontant une histoire différente. À La Riviera, la sélection est méticuleuse. Les producteurs y recherchent des profils aromatiques complexes, capables d’offrir des cafés de spécialité d’une grande finesse. À Finca Milán, tradition et innovation se rencontrent. Des procédés de fermentation uniques y sont développés afin d’explorer de nouvelles expressions aromatiques, tout en préservant l’environnement naturel. À Finca Buenos Aires, le café y est cultivé depuis plus de vingt-cinq ans avec une attention particulière portée à la biodiversité, à la protection des sources d’eau et à la durabilité des terres.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Finca La Riviera [Sudan Rume]",
+          "url": "https://tanat.coffee/boutique/finca-la-riviera-sudan-rume/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 62.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 67.66,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 34,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 36.72,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Risaralda",
+          "producer": "Julio Madrid",
+          "farm": null,
+          "altitude": null,
+          "process": "bioreactor inoculation",
+          "protocol": null,
+          "variety": [
+            "Sudan Rume"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/PAQUETWEB_1RivieraSudanRume.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”27347″ media_width_percent=”100″ uncode_shortcode_id=”808708″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”128999″]Café UBA[/vc_custom_heading][vc_column_text uncode_shortcode_id=”144418″]Le café de spécialité colombien qui fait la différence.[/vc_column_text][vc_column_text uncode_shortcode_id=”125665″ el_class=”blockquote”]Au cœur de la Colombie, dans les terres où le café est une culture autant qu’une tradition, Café Uba a vu le jour. Derrière la marque, une famille de producteurs depuis trois génération, portée par la volonté de faire découvrir l’essence même du café colombien. Adoptant une approche durable et responsable, leur signature passe aussi par des procédés innovants, repoussant sans cesse les limites aromatiques. Les cafés prennent racine sur trois fermes emblématiques, chacune racontant une histoire différente. À La Riviera, la sélection est méticuleuse. Les producteurs y recherchent des profils aromatiques complexes, capables d’offrir des cafés de spécialité d’une grande finesse. À Finca Milán, tradition et innovation se rencontrent. Des procédés de fermentation uniques y sont développés afin d’explorer de nouvelles expressions aromatiques, tout en préservant l’environnement naturel. À Finca Buenos Aires, le café y est cultivé depuis plus de vingt-cinq ans avec une attention particulière portée à la biodiversité, à la protection des sources d’eau et à la durabilité des terres.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Assemblage &#8211; Geisha Strawberry",
+          "url": "https://tanat.coffee/boutique/assemblage-geisha-strawberry/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 21.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 23.65,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": "Cafe Granja La Esperanza",
+          "farm": null,
+          "altitude": null,
+          "process": "honey",
+          "protocol": null,
+          "variety": [
+            "Caturra",
+            "Gesha"
+          ],
+          "notes": [
+            "violette",
+            "de fraise",
+            "de muffin à la myrtille"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/PAQUETWEBMICROLOT_GeishaStrawberry.png",
+          "description": "Un assemblage maison haut en couleur ! Ce blend maison associe deux cafés colombiens : un Geisha Honey de Granja La Esperanza et un Caturra fermenté avec des levures de fraise, signé Carlos Vergara. Le résultat : une tasse ultra expressive, débordante de fruits et de gourmandise, aux notes de violette, de fraise et de muffin à la myrtille. Aussi explosif qu’addictif."
+        },
+        {
+          "name": "Assemblage &#8211; Pink Geisha Melon",
+          "url": "https://tanat.coffee/boutique/assemblage-pink-geisha-melon2/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 18.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 20.41,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": "Finca Milan UBA",
+          "farm": null,
+          "altitude": null,
+          "process": "nitrogen",
+          "protocol": null,
+          "variety": [
+            "Caturra",
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/PAQUETWEBMICROLOT_BlendPinkMelon.png",
+          "description": "Un assemblage maison haut en couleur ! Ce blend réunit un Geisha Pink Honey de Bolivie, produit par Los Rodriguez, et un Caturra Nitro* signé Uba Coffee, en Colombie. Le résultat : un mélange vibrant, fruité et floral, aussi explosif qu’addictif. *Technique de fermentation consistant à modifier l’atmosphère d’un bioréacteur et à faire fermenter le café dépulpé avec du jus de fruits fraîchement pressé et des cultures de levains sélectionnés."
+        },
+        {
+          "name": "Hacienda la Papaya Reserve [Typica Natural]",
+          "url": "https://tanat.coffee/boutique/hacienda-la-papaya-geisha-natural-copie/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 22.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 24.73,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": "Hacienda la Papaya",
+          "farm": null,
+          "altitude": "2100m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Typica Mejorado"
+          ],
+          "notes": [
+            "fruit de la passion",
+            "goyave",
+            "rose"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/PAQUETWEBMICROLOT_PapayaReserveTN.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”19939″ media_width_percent=”100″ uncode_shortcode_id=”969998″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”211044″]HACIENDA LA PAPAYA [/vc_custom_heading][vc_column_text uncode_shortcode_id=”176123″]L’excellence du café équatorien[/vc_column_text][vc_column_text uncode_shortcode_id=”714662″ el_class=”blockquote”]Située à 1900–2100 m d’altitude dans la région andine de Saraguro, Hacienda La Papaya est une ferme pionnière du café de spécialité équatorien, fondée par Juan Peña en 2010. Véritable centre de recherche et d’innovation, la finca combine rigueur scientifique et respect du terroir : irrigation goutte-à-goutte, suivi par capteurs, séchage contrôlé et une banque génétique unique préservant les variétés les plus recherchées (Geisha, Sidra, Pacamara, Typica, Bourbon Jaune…). Au-delà de la qualité, Hacienda La Papaya joue un rôle social essentiel en employant la communauté locale, en particulier les femmes, et en formant la nouvelle génération de producteurs. D’années en années, le résultat reste inchangé, des cafés raffinés, complexes et constants, régulièrement primés à l’international.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Gesha Village Surma lot 25/051 [Natural]",
+          "url": "https://tanat.coffee/boutique/gesha-village-surma-lot-25-051-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 27.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 30.13,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "West Omo",
+          "producer": "Gesha Village",
+          "farm": null,
+          "altitude": "060m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha 1931"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/12/PAQUETWEBMICROLOT_Surma25-051.png",
+          "description": "Découvrez un Gesha 1931 d’exception, cultivé sur la parcelle Surma de Gesha Village, au cœur des forêts originelles du West Omo en Éthiopie. Nichée entre 1 900 et 2 060 mètres d’altitude, Surma offre un terroir unique, où sols forestiers riches, microclimat humide et biodiversité préservée permettent au Gesha ancestral d’exprimer toute sa pureté aromatique. Issu d’un process naturel, ce lot révèle une intensité parfumée et une élégance tout en finesse. En tasse, il déploie un bouquet lumineux mêlant oolong à la pêche, miel, fleurs de cerisier et notes d’agrumes, dans une texture douce et soyeuse qui sublime la complexité naturelle du Gesha. Un café rare et profondément expressif, signature du savoir-faire méticuleux de Gesha Village et véritable hommage à l’origine même de cette variété mythique."
+        },
+        {
+          "name": "Guarumo [Geisha Natural lot 183]",
+          "url": "https://tanat.coffee/boutique/guarumo-geisha-natural-lot-183/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 34.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 37.69,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Chiriquí",
+          "producer": "Finca Guarumo",
+          "farm": null,
+          "altitude": "750m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "pomme Gala",
+            "de thé Oolong",
+            "d’amande",
+            "de fleurs"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_Guarumo183.png",
+          "description": "Issu de Finca Guarumo, située dans la région de Renacimiento à Chiriquí, ce Geisha naturel est cultivé à 1 750 mètres d’altitude par Allan & Ratibor Hartmann, figures majeures du café de spécialité panaméen. Finca Guarumo est une ferme reconnue pour son environnement préservé, ses cultures sous ombrage naturel et son engagement en faveur d’une agriculture respectueuse du terroir. Ce lot offre une tasse élégante et équilibrée, marquée par des notes de pomme Gala, de thé Oolong, d’amande et de fleurs. Un café raffiné et expressif, fidèle à l’exigence et au savoir-faire de Finca Guarumo."
+        },
+        {
+          "name": "Finca Hartmann &#8211; The Great Reserve [Geisha Natural lot 53]",
+          "url": "https://tanat.coffee/boutique/finca-hartmann-the-great-reserve-geisha-natural-lot-53/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 44.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 48.49,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Chiriquí",
+          "producer": "Finca Hartmann",
+          "farm": null,
+          "altitude": null,
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "cerise",
+            "framboise",
+            "rose",
+            "thé noir"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_HARTMANNGR53.png",
+          "description": "Issu des hautes terres de Chiriquí au Panama, ce Geisha provient de Finca Hartmann, une ferme emblématique dirigée par la famille Hartmann, pionnière du café de spécialité panaméen depuis plusieurs générations. Ce lot fait partie du programme The Great Reserve, la sélection la plus exclusive de la ferme, regroupant des microlots rares issus des meilleures parcelles et des récoltes les plus abouties. Travaillé selon un process naturel, il révèle une tasse élégante et raffinée, marquée par des notes de bonbon à la cerise, framboise, rose et thé noir, portées par une texture soyeuse. Produits en quantités très limitées, les cafés Great Reserve incarnent le plus haut niveau d’exigence, de savoir-faire et de constance de la famille Hartmann, offrant une expérience de dégustation rare et profondément expressive."
+        },
+        {
+          "name": "Hacienda la Esmeralda [Buenos Aires 5NC]",
+          "url": "https://tanat.coffee/boutique/hacienda-la-esmeralda-buenos-aires-5banc/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 59.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 64.69,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete",
+          "producer": "Family Peterson",
+          "farm": null,
+          "altitude": "700m",
+          "process": "anaérobie naturelle",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_HLE5NC.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”17058″ media_width_percent=”100″ uncode_shortcode_id=”162745″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”191566″]Hacienda la Esmeralda[/vc_custom_heading][vc_column_text uncode_shortcode_id=”170704″]Hacienda La Esmeralda est une ferme emblématique située dans les montagnes de Boquete, au Panama.[/vc_column_text][vc_column_text uncode_shortcode_id=”822608″ el_class=”blockquote”]Exploitée par la famille Peterson, elle est mondialement reconnue pour avoir révélé le potentiel exceptionnel du Geisha, devenant une référence incontournable dans le monde du café de spécialité. Grâce à des altitudes élevées, des microclimats uniques et un savoir-faire méticuleux, La Esmeralda produit des lots d’une pureté et d’une complexité aromatique inégalées. C’est ici qu’est né le Geisha moderne, un café de légende, cultivé avec précision et passion. Plus précisément, en 2004, Hacienda La Esmeralda présente pour la première fois un café 100 % Geisha dans la compétition Best of Panama. Ce lot, issu d’altitudes élevées, éblouit les juges par ses arômes floraux et sa vivacité, très proches des profils des cafés éthiopiens. La ferme remporte le titre Best of Panama 2004, établissant un record de prix aux enchères . Le succès ne s’est pas arrêté là. Lors de l’édition 2025 du Best of Panama, Hacienda La Esmeralda a remporté les trois catégories principales (Geisha Washed, Geisha Natural, Varietals) avec des scores historiques : 98,00 points en Geisha lavé (meilleur score jamais attribué) 97,00 points en Geisha naturel Ils ont également reçu la Panama Cup, décernée au meilleur producteur de l’année[/vc_column_text][/vc_column][/vc_row][vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”0″ bottom_padding=”2″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”164029″][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”187041″]JARAMILLO[/vc_custom_heading][vc_column_text uncode_shortcode_id=”109474″]La parcelle Buenos Aires est située sur la ferme Jaramillo à 1 700m d’altitude[/vc_column_text][vc_column_text uncode_shortcode_id=”689388″ el_class=”blockquote”]L’air de la montagne Jaramillo est humide et frais, des conditions idéales pour faire éclore toute la richesse aromatique de la variété Geisha. Bien que des caféiers Geisha aient été plantés sporadiquement dans la région, c’est un lot isolé provenant d’une petite zone de cette ferme qui a conduit à la redécouverte de cette variété. La ferme s’étend depuis des collines ondulées en partie basse jusqu’à des pentes abruptes atteignant 40 degrés, rendant la récolte entièrement manuelle et particulièrement exigeante. Si les premières plantations de café étaient situées en bas, avec jusqu’à 15 sous-variétés différentes, issues de Costa Rica et du Brésil, c’est en 1997 que la famille Peterson a décidé de planter plus haut. C’est à ces altitudes élevées que le Geisha révèle toute sa vivacité florale et lumineuse. Avec des températures fraîches et l’ombre généreuse de vieux arbres majestueux, Jaramillo offre un environnement parfait pour cette variété. Aujourd’hui encore, de nombreux microlots les plus remarquables de Geisha proviennent de petites parcelles nichées sur les pentes de Jaramillo.[/vc_column_text][/vc_column][vc_column width=”5/12″][vc_single_image media=”17359″ media_width_percent=”100″ uncode_shortcode_id=”530830″][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Best of Panama &#8211; Santamaria GN12 [N280]",
+          "url": "https://tanat.coffee/boutique/best-of-panama-santamaria-gn12-n280/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 130,
+              "currency": "EUR",
+              "weightGrams": 15,
+              "priceUsd": 140.4,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Aceh",
+          "producer": "Santamaria Coffee Estate",
+          "farm": null,
+          "altitude": "950m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/SantaMariaBOPGN12_BOX_MOCKUP.png",
+          "description": "Santamaría Estate Coffee signe ici un lot rare et d’exception, récompensé au Best of Panama. Fondée dans les années 1950, Santamaría est une ferme familiale de 120 hectares située entre 1 550 et 1 950 mètres d’altitude. La famille y cultive un savoir-faire où tradition, précision et innovation se mêlent avec une rigueur exemplaire, lui valant depuis de nombreuses années la reconnaissance des plus grandes compétitions internationales. Leur ascension débute en 2017 avec deux troisièmes places au Best of Panama en Geisha Naturel et Geisha Lavé. Depuis, ils n’ont cessé de confirmer leur position parmi les producteurs les plus talentueux du pays, consolidant ainsi un héritage familial de près de 75 ans. Ce café primé incarne à la perfection la signature de la ferme, un Geisha d’une pureté remarquable à la fois floral et fruité, révélant des arômes de rose, de prune, de bonbon à l’orange et de litchi, pour une expérience sensorielle riche, subtile et raffinée. Une véritable démonstration du savoir-faire qui a hissé Santamaría Estate Coffee parmi les producteurs les plus respectés du Panama."
+        },
+        {
+          "name": "Kotowa &#8211; Rio Cristal [Geisha Natural #3405]",
+          "url": "https://tanat.coffee/boutique/kotowa-silvia-marina-geisha-natural-9334-copie/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 37.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 40.93,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete",
+          "producer": "Kotowa Coffee - Ricardo &amp; Victoria Koyner",
+          "farm": null,
+          "altitude": "900m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "d'abricot",
+            "crème brûlée",
+            "fruits rouges & rose"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_RioCristal3405.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”22976″ media_width_percent=”100″ uncode_shortcode_id=”664416″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”211354″]Kotowa Coffee[/vc_custom_heading][vc_column_text uncode_shortcode_id=”154720″]Héritage centenaire et fermes prestigieuses[/vc_column_text][vc_column_text uncode_shortcode_id=”119382″ el_class=”blockquote”]Située sur les pentes fertiles du volcan Barú, dans la région de Boquete, Kotowa Coffee est l’une des plus anciennes et prestigieuses exploitations caféières du Panama. Fondée en 1913 par Alexander Duncan Macintyre, un immigrant canadien-écossais visionnaire, la ferme est aujourd’hui dirigée par Ricardo Koyner, représentant de la troisième génération de la famille, accompagné de sa fille Victoria. Le nom Kotowa, qui signifie « montagne » dans une langue indigène, reflète parfaitement le caractère d’altitude et la pureté du terroir qui façonnent l’identité de ses cafés. Les plantations s’étendent entre 1 650 et 1 900 mètres d’altitude, sur des sols volcaniques riches et dans un microclimat frais et humide. La ferme cultive plusieurs variétés ; Geisha, Caturra, Catuai, Typica et d’autres lots expérimentaux. Reconnue sur la scène internationale depuis les années 2000, Kotowa s’est illustrée à de nombreuses reprises au concours Best of Panama, notamment pour ses Geishas d’une finesse exceptionnelle. Elle s’impose aujourd’hui comme une référence mondiale du café de spécialité, alliant héritage familial, innovation agronomique et engagement social. La ferme met en place des programmes de santé, d’éducation et de soutien aux familles de travailleurs, tout en menant une production durable et respectueuse de l’environnement, une approche qui lui a valu la distinction de “The Years Environmentally Cleanest Industry”.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Finca El Destino [Geisha Natural lot 12]",
+          "url": "https://tanat.coffee/boutique/finca-el-destino-geisha-natural-lot-12/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 48.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 52.81,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete, Chiriquí",
+          "producer": "Benito Bermudez &amp; Mario Castrellon",
+          "farm": null,
+          "altitude": null,
+          "process": "cool water fermentation",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "myrtille",
+            "de framboise",
+            "de lavande",
+            "de mirabelle"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_DestinoGN12.png",
+          "description": "Finca El Destino est une ferme d’exception située dans la région de Boquete, au Panama, au cœur des montagnes luxuriantes de Chiriquí. Fondée par Benito Bermúdez et Mario Castrellón, deux acteurs emblématiques de la scène gastronomique et caféière panaméenne, la ferme s’est donnée pour mission de produire des cafés d’exception grâce à une approche moderne et durable, tournée vers l’innovation. Pour ce lot les cerises sont transformées via la Cool Water Fermentation, une technique unique où elles fermentent en anaérobie sous l’eau froide d’une source de montagne située sur la ferme. Cette fermentation à basse température développe un profil aromatique guidé par le terroir de Horqueta : floral, délicat et juteux avec des notes fruitées. En tasse, il révèle des notes de myrtille, de framboise, de lavande et de mirabelle. Un profil délicat et remarquablement équilibré. Aujourd’hui, Finca El Destino fait partie des nouvelles fermes panaméennes qui bousculent les codes du café de spécialité. Ses lots, recherchés et primés, reflètent parfaitement l’ambition de ses fondateurs : produire des cafés rares, raffinés et profondément marqués par leur terroir."
+        },
+        {
+          "name": "Hacienda la Papaya [Geisha Natural]",
+          "url": "https://tanat.coffee/boutique/hacienda-la-papaya-geisha-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 23.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 25.81,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": "Hacienda la Papaya",
+          "farm": null,
+          "altitude": "2100m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_PapayaGN.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”19939″ media_width_percent=”100″ uncode_shortcode_id=”969998″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”211044″]HACIENDA LA PAPAYA [/vc_custom_heading][vc_column_text uncode_shortcode_id=”176123″]L’excellence du café équatorien[/vc_column_text][vc_column_text uncode_shortcode_id=”714662″ el_class=”blockquote”]Située à 1900–2100 m d’altitude dans la région andine de Saraguro, Hacienda La Papaya est une ferme pionnière du café de spécialité équatorien, fondée par Juan Peña en 2010. Véritable centre de recherche et d’innovation, la finca combine rigueur scientifique et respect du terroir : irrigation goutte-à-goutte, suivi par capteurs, séchage contrôlé et une banque génétique unique préservant les variétés les plus recherchées (Geisha, Sidra, Pacamara, Typica, Bourbon Jaune…). Au-delà de la qualité, Hacienda La Papaya joue un rôle social essentiel en employant la communauté locale, en particulier les femmes, et en formant la nouvelle génération de producteurs. D’années en années, le résultat reste inchangé, des cafés raffinés, complexes et constants, régulièrement primés à l’international.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Lerida [Geisha Natural Anaerobic Lot 5 Montaña]",
+          "url": "https://tanat.coffee/boutique/lerida-geisha-natural-anaerobic-lot-5-montana/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 22.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 24.73,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete, Chiriquí",
+          "producer": "Lerida Estate",
+          "farm": null,
+          "altitude": "000m",
+          "process": "anaérobie naturelle",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_LeridaGNA5.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”24930″ media_width_percent=”100″ uncode_shortcode_id=”191915″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”437744″]Lérida Coffee Estate[/vc_custom_heading][vc_column_text uncode_shortcode_id=”330513″]Une ferme pionnière du café panaméen depuis plus d’un siècle.[/vc_column_text][vc_column_text uncode_shortcode_id=”189340″ el_class=”blockquote”]Nichée sur les pentes verdoyantes du volcan Barú, dans la région montagneuse de Boquete (province de Chiriquí), Finca Lérida est l’une des fermes les plus emblématiques du Panama. Fondée au début du XXᵉ siècle par Toleff Bache Mönniche, ingénieur norvégien pionnier de la culture caféière dans le pays, elle fut la première à exporter du café panaméen vers l’Europe dès 1929. Depuis plus d’un siècle, la ferme perpétue une approche fondée sur la qualité, l’innovation et le respect du terroir. Les caféiers y sont cultivés entre 1 600 et plus de 2 000 mètres d’altitude, dans un environnement naturel exceptionnel, où les sols volcaniques riches et le microclimat frais et brumeux favorisent une maturation lente et harmonieuse des cerises. Reconnue internationalement depuis les années 2000, Finca Lérida s’est régulièrement distinguée au concours Best of Panama, notamment grâce à ses Geishas floraux et élégants. Elle demeure aujourd’hui une référence incontournable du café de spécialité, alliant terroir d’exception, savoir-faire artisanal et innovation agronomique, au service de cafés d’une pureté et d’une finesse remarquables.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Janson 1047 [Geisha Natural]",
+          "url": "https://tanat.coffee/boutique/janson-1047-geisha-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 44.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 48.49,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Chiriquí",
+          "producer": "Janson Coffee",
+          "farm": null,
+          "altitude": null,
+          "process": "natural ; 48h de Fermentation",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "pamplemousse",
+            "Mûre",
+            "Papaye"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEBMICROLOT_JAnson1047.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”19367″ media_width_percent=”100″ uncode_shortcode_id=”129047″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”169386″]Janson Coffee[/vc_custom_heading][vc_column_text uncode_shortcode_id=”111046″]Janson Coffee – L’histoire d’un terroir, d’une famille, d’un engagement.[/vc_column_text][vc_column_text uncode_shortcode_id=”199080″ el_class=”blockquote”]Fondée en 1926 par Carl Axel Janson, un immigré suédois séduit par les paysages volcaniques de Chiriquí, Janson Coffee est aujourd’hui une référence incontournable du café de spécialité au Panama. Installée sur les pentes fertiles du volcan Barú, la ferme a évolué d’une petite production agricole vers une exploitation familiale d’excellence, aujourd’hui dirigée par la troisième génération. On y cultive des variétés prestigieuses comme le Geisha, Pacamara, Caturra ou Catuai, dans le respect d’une vision durable qui place la qualité et l’environnement au cœur de chaque étape. Les cafés sont travaillés en microlots traçables, avec des pratiques agricoles responsables : utilisation de panneaux solaires, reforestation, enrichissement naturel des sols et gestion raisonnée de l’eau. Mais Janson Coffee, c’est aussi un projet profondément humain, qui veille au bien-être de ses équipes grâce à des initiatives sociales, éducatives et médicales. Entre héritage, innovation et durabilité, la famille Janson signe des cafés panaméens d’une pureté et d’une finesse aromatique reconnues dans le monde entier.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Lenin Flores [Washed]",
+          "url": "https://tanat.coffee/boutique/lenin-flores-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 45.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 48.76,
+              "available": true
+            },
+            {
+              "price": 12.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 13.93,
+              "available": true
+            },
+            {
+              "price": 24,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 25.92,
+              "available": true
+            }
+          ],
+          "country": "Peru",
+          "region": "Aceh",
+          "producer": "Lenin Flores",
+          "farm": null,
+          "altitude": "900m",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Catuaí",
+            "Caturra",
+            "Pache"
+          ],
+          "notes": [
+            "d’orangette",
+            "d’amande",
+            "de panela"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEB_LeninFlores.png",
+          "description": "Ce café est produit par la famille Flores, dans le village d’El Diamante, au nord du Pérou, dans le district de San José de Lourdes. Cultivé à plus de 1 900 mètres d’altitude, il provient de cerises soigneusement récoltées à maturité, puis soumises à une pré-fermentation nocturne suivie d’une fermentation de 24 à 36 heures après dépulpage, afin de révéler toute leur intensité aromatique. Le séchage lent en serre ventilée assure une tasse d’une grande pureté, équilibrée et expressive. En espresso, il dévoile une belle vivacité et des arômes d’orangette, d’amande et de panela, portés par une texture soyeuse et une longue finale gourmande."
+        },
+        {
+          "name": "Farms of Antigua [Washed]",
+          "url": "https://tanat.coffee/boutique/farms-of-antigua-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 45.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 48.76,
+              "available": true
+            },
+            {
+              "price": 24,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 25.92,
+              "available": true
+            },
+            {
+              "price": 12.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 13.93,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Antigua, Acatenango",
+          "producer": "Farmers of Antigua",
+          "farm": null,
+          "altitude": "900m",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Bourbon",
+            "Catuaí",
+            "Gesha"
+          ],
+          "notes": [
+            "mandarine",
+            "chocolat noir",
+            "amande"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/11/PAQUETWEB_FarmOfAntigua.png",
+          "description": "Issu des terres volcaniques d’Antigua, région historique et emblématique du café guatémaltèque, ce lot reflète le savoir-faire des producteurs locaux et l’héritage des grandes fincas de la vallée. Cultivé entre 1 550 et 1 900 m d’altitude dans un environnement fertile, protégé par les volcans Agua, Fuego et Acatenango, ce café bénéficie d’un terroir unique où sols argileux riches et climat tempéré façonnent des profils d’une grande finesse. En tasse, ce café dévoile une texture soyeuse et un bel équilibre, porté par une douce rondeur. La mandarine apporte une acidité délicate, avant de laisser place à des notes chaleureuses de chocolat noir et à une finale douce et persistante d’amande. Un espresso dont on ne se lasse pas."
+        },
+        {
+          "name": "Banko Gotiti [Natural Carbonic Maceration]",
+          "url": "https://tanat.coffee/boutique/banko-gotiti-carbonic-maceration/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 48.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 52.54,
+              "available": true
+            },
+            {
+              "price": 26,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 28.08,
+              "available": true
+            },
+            {
+              "price": 13.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 15.01,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Gedeb",
+          "producer": "Station de lavage Banko Gotiti",
+          "farm": null,
+          "altitude": null,
+          "process": "macération carbonique",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [
+            "cerise noire",
+            "fruits tropicaux",
+            "bergamote"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/10/PAQUETWEB_GotitiCM.png",
+          "description": "Issu de la région de Gedeb, au sud de l’Éthiopie, ce café est produit par une communauté de petits fermiers dont les cerises sont soigneusement collectées et traitées à la station de Banko Gotiti, réputée pour la qualité de ses micro-lots. Ce lot a bénéficié d’une macération carbonique, une technique inspirée du monde du vin : les cerises entières fermentent dans une cuve saturée en CO₂, ce qui déclenche une fermentation lente et contrôlée à l’intérieur même du fruit. Ce procédé intensifie les arômes et apporte une grande complexité en tasse. Le résultat est un café fruité, fermenté et expressif, porté par des notes de cerise noire, de fruits tropicaux et une touche vibrante de bergamote. Un lot parfait pour les amateurs de cafés expérimentaux."
+        },
+        {
+          "name": "Alo [Alache Natural]",
+          "url": "https://tanat.coffee/boutique/alo-chilaka-natural-copie/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 52.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 56.32,
+              "available": true
+            },
+            {
+              "price": 28,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 30.24,
+              "available": true
+            },
+            {
+              "price": 14.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 16.09,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Sidama, Bensa",
+          "producer": "Tamiru Tadesse",
+          "farm": null,
+          "altitude": null,
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "JARC 74158"
+          ],
+          "notes": [
+            "mûre",
+            "zeste d'orange",
+            "thé noir"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/10/PAQUETWEB_ALOAlacheNatural.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”18358″ media_width_percent=”100″ uncode_shortcode_id=”871649″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”150568″]ALO COFFEE[/vc_custom_heading][vc_column_text uncode_shortcode_id=”871450″]Alo, producteur de café de spécialité éthiopien primé, cultivé en altitude et façonné avec soin.[/vc_column_text][vc_column_text uncode_shortcode_id=”152570″ el_class=”blockquote”]Alo Coffee est née d’un rêve et d’un véritable saut dans l’inconnu. Pendant des années, Tamiru, ancien enseignant universitaire et ingénieur électricien, a travaillé dans le secteur du café. Il a observé de près les difficultés d’une filière où la qualité était trop souvent négligée et où les producteurs peinaient à être justement rémunérés. Malgré son expérience, les injustices liées aux prix dérisoires et au travail sous-évalué l’ont longtemps dissuadé de lancer sa propre aventure. Tout a changé en 2020, lorsque l’Éthiopie a organisé sa première Cup of Excellence. Cet événement a été une révélation : il prouvait qu’un café exceptionnel pouvait être célébré et récompensé. Aux côtés de son épouse Messi, Tamiru s’est alors fixé une mission claire : démontrer que les cafés de Sidama pouvaient rivaliser avec les meilleurs au monde. En 2021, contre toute attente, leur toute première participation, un lot soigneusement préparé dans leur village natal d’Alo, à Bensa, a remporté la Cup of Excellence d’Éthiopie. Ce succès a confirmé leur conviction : ce n’est pas seulement la tradition, mais bien la passion et la rigueur qui forgent l’excellence. Aujourd’hui, Alo Coffee reste animée par cette même ambition : offrir les meilleurs cafés d’Éthiopie, défier les attentes, honorer les producteurs qui rendent tout cela possible et partager avec le monde entier le potentiel encore inexploré du café éthiopien.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "El Injerto [SL-28 Washed]",
+          "url": "https://tanat.coffee/boutique/el-injerto-sl-28-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 83.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 90.34,
+              "available": true
+            },
+            {
+              "price": 46,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 49.68,
+              "available": true
+            },
+            {
+              "price": 23.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 25.81,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Huehuetenango",
+          "producer": "Arturo Aguirre Escobar",
+          "farm": null,
+          "altitude": "920m",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "SL-28"
+          ],
+          "notes": [
+            "cassis",
+            "cardamome",
+            "datte",
+            "vibrant d’élégance",
+            "de pureté"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/10/PAQUETWEB_INjertoSL28WASH.png",
+          "description": "Cultivé sur les hauteurs de Huehuetenango, au sein de la prestigieuse Finca El Injerto, ce SL-28 lavé reflète parfaitement le savoir-faire de la famille Aguirre. Nichée entre 1 500 et 1 920 m d’altitude, la ferme bénéficie d’un terroir riche en minéraux et d’un microclimat frais qui favorisent une maturation lente et homogène des cerises, gage d’une complexité aromatique exceptionnelle. Ce lot, issu d’un process lavé, dévoile une tasse à l’attaque juteuse avec une belle acidité brillante, typique de la variété SL-28, rapidement équilibrée par une sucrosité généreuse qui apporte rondeur et harmonie. En tasse, les notes de cassis s’entrelacent avec une touche épicée de cardamome, soutenues par une profondeur sucrée de datte en finale. Un café vibrant et élégant, qui exprime toute la pureté et la constance ayant fait la réputation mondiale de la Finca El Injerto."
+        },
+        {
+          "name": "CGLE Potosi [Sidra Natural]",
+          "url": "https://tanat.coffee/boutique/cgle-potosi-sidra-naturel/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 18.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 20.41,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Cauca",
+          "producer": "Cafe Granja La Esperanza",
+          "farm": null,
+          "altitude": "860m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Sidra"
+          ],
+          "notes": [
+            "cerise sauvage",
+            "prune rouge",
+            "mûre",
+            "chocolat"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/10/PAQUETWEBMICROLOT_PotosiSidra.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”22212″ media_width_percent=”100″ uncode_shortcode_id=”837688″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”105536″]CAFE GRANJA LA ESPERANZA[/vc_custom_heading][vc_column_text uncode_shortcode_id=”847606″]L’art d’innover sans trahir la tradition[/vc_column_text][vc_column_text uncode_shortcode_id=”820956″ el_class=”blockquote”]Café Granja La Esperanza est une entreprise familiale colombienne fondée en 1945 par Juan Antonio Herrera et Blanca Ligia Correa. Aujourd’hui dirigée par leurs descendants Rigoberto et Luis Herrera, elle est devenue une référence mondiale du café de spécialité. Implantée dans la vallée de Cauca, elle regroupe plusieurs fermes d’altitude dont Potosi, Cerro Azul, La Esperanza et Las Margaritas. Pionnière dans l’introduction de la variété Geisha en Colombie, la maison est reconnue pour son savoir-faire rigoureux, ses méthodes innovantes (Honey, Natural, fermentations longues) et ses cafés aux profils aromatiques complexes. CGLE a aussi développé des variétés hybrides comme le “Mandela”, et des programmes pour renforcer à la fois productivité, résilience et qualité de tasse. Granja La Esperanza allie tradition, excellence et engagement social dans chaque tasse.[/vc_column_text][/vc_column][/vc_row][vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”0″ bottom_padding=”2″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”164029″][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”157312″]POTOSI[/vc_custom_heading][vc_column_text uncode_shortcode_id=”167953″]Là où commence la légende de Granja La Esperanza[/vc_column_text][vc_column_text uncode_shortcode_id=”901601″ el_class=”blockquote”]La Finca Potosí est la ferme historique de Café Granja La Esperanza, située à Caicedonia dans la vallée de Cauca, entre 1 400 et 1 860 m d’altitude. Fondée en 1945 par la famille Herrera, elle marque le point de départ de l’aventure Granja La Esperanza. Sur 52 hectares, la ferme est spécialisée dans les cafés en process Natural, avec des fermentations contrôlées en cerise de 18 à 50 heures selon les profils. Ces méthodes donnent naissance à des cafés gourmands et expressifs. À la fois ancrée dans la tradition familiale et tournée vers l’innovation, la Finca Potosí incarne l’héritage et la constance qualitative de Granja La Esperanza.[/vc_column_text][/vc_column][vc_column width=”5/12″][vc_single_image media=”22213″ media_width_percent=”100″ uncode_shortcode_id=”117586″][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Elto Elora [Semi Washed]",
+          "url": "https://tanat.coffee/boutique/elto-elora-semi-washed/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 52.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 56.32,
+              "available": true
+            },
+            {
+              "price": 28,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 30.24,
+              "available": true
+            },
+            {
+              "price": 14.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 16.09,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Sidama, Bensa",
+          "producer": "Eliyas Dukamo &amp; Atiklit Dejene",
+          "farm": null,
+          "altitude": null,
+          "process": "semi lavé",
+          "protocol": null,
+          "variety": [
+            "JARC 74110",
+            "JARC 74112"
+          ],
+          "notes": [
+            "vives d’agrumes",
+            "miel",
+            "thé noir"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/10/PAQUETWEB_EloraSW.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”18422″ media_width_percent=”100″ uncode_shortcode_id=”562666″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”393458″]Elto Coffee[/vc_custom_heading][vc_column_text uncode_shortcode_id=”167333″]Elto Coffee est le fruit de la passion d’Eliyas Dukamo et Atiklit Dejene, un couple établi à Sidama Bensa.[/vc_column_text][vc_column_text uncode_shortcode_id=”160721″ el_class=”blockquote”]Elto Coffee se distingue par la production de nano-lots soigneusement sélectionnés, mettant en avant la richesse des terroirs éthiopiens à travers des cafés aux profils aromatiques complexes. Engagée dans une démarche éthique et durable, Elto travaille en étroite collaboration avec des petits producteurs locaux, en valorisant la traçabilité, la qualité, et des méthodes de traitement innovantes (lavé, naturel, honey, anaérobie). Cette approche, fondée sur l’éthique et le respect du terroir, nous a conduits à travailler en direct avec Eliyas et Atiklit, et à importer leurs lots chaque année afin de vous proposer des micro-lots uniques tout en soutenant activement les communautés agricoles éthiopiennes.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Elto Elora [Anaerobic 72h]",
+          "url": "https://tanat.coffee/boutique/elto-elora-anaerobic-72h/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 69.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 75.22,
+              "available": true
+            },
+            {
+              "price": 38,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 41.04,
+              "available": true
+            },
+            {
+              "price": 19.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 21.49,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Sidama, Bensa",
+          "producer": "Eliyas Dukamo &amp; Atiklit Dejene",
+          "farm": null,
+          "altitude": null,
+          "process": "anaérobie naturelle ; 72h de fermentation",
+          "protocol": null,
+          "variety": [
+            "JARC 74110",
+            "JARC 74112"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/09/PAQUETWEB_Elora72H.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”18422″ media_width_percent=”100″ uncode_shortcode_id=”562666″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”393458″]Elto Coffee[/vc_custom_heading][vc_column_text uncode_shortcode_id=”167333″]Elto Coffee est le fruit de la passion d’Eliyas Dukamo et Atiklit Dejene, un couple établi à Sidama Bensa.[/vc_column_text][vc_column_text uncode_shortcode_id=”160721″ el_class=”blockquote”]Elto Coffee se distingue par la production de nano-lots soigneusement sélectionnés, mettant en avant la richesse des terroirs éthiopiens à travers des cafés aux profils aromatiques complexes. Engagée dans une démarche éthique et durable, Elto travaille en étroite collaboration avec des petits producteurs locaux, en valorisant la traçabilité, la qualité, et des méthodes de traitement innovantes (lavé, naturel, honey, anaérobie). Cette approche, fondée sur l’éthique et le respect du terroir, nous a conduits à travailler en direct avec Eliyas et Atiklit, et à importer leurs lots chaque année afin de vous proposer des micro-lots uniques tout en soutenant activement les communautés agricoles éthiopiennes.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Elto Elora [Lot 175 Natural]",
+          "url": "https://tanat.coffee/boutique/elto-elora-lot-175-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 45.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 48.76,
+              "available": true
+            },
+            {
+              "price": 24,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 25.92,
+              "available": true
+            },
+            {
+              "price": 12.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 13.93,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": "Sidama, Bensa",
+          "producer": "Eliyas Dukamo &amp; Atiklit Dejene",
+          "farm": null,
+          "altitude": null,
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "JARC 74110",
+            "JARC 74112"
+          ],
+          "notes": [
+            "myrtille",
+            "cerise noire",
+            "chocolat",
+            "avec une texture ronde",
+            "soyeuse"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/09/PAQUETWEB_EloraNat175.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”18422″ media_width_percent=”100″ uncode_shortcode_id=”562666″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”393458″]Elto Coffee[/vc_custom_heading][vc_column_text uncode_shortcode_id=”167333″]Elto Coffee est le fruit de la passion d’Eliyas Dukamo et Atiklit Dejene, un couple établi à Sidama Bensa.[/vc_column_text][vc_column_text uncode_shortcode_id=”160721″ el_class=”blockquote”]Elto Coffee se distingue par la production de nano-lots soigneusement sélectionnés, mettant en avant la richesse des terroirs éthiopiens à travers des cafés aux profils aromatiques complexes. Engagée dans une démarche éthique et durable, Elto travaille en étroite collaboration avec des petits producteurs locaux, en valorisant la traçabilité, la qualité, et des méthodes de traitement innovantes (lavé, naturel, honey, anaérobie). Cette approche, fondée sur l’éthique et le respect du terroir, nous a conduits à travailler en direct avec Eliyas et Atiklit, et à importer leurs lots chaque année afin de vous proposer des micro-lots uniques tout en soutenant activement les communautés agricoles éthiopiennes.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Colombie &#8211; Las Flores [Anaerobic Decaf]",
+          "url": "https://tanat.coffee/boutique/colombie-las-flores-anaerobic-decaf/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 66.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 71.44,
+              "available": true
+            },
+            {
+              "price": 18.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 20.41,
+              "available": true
+            },
+            {
+              "price": 36,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 38.88,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Aceh",
+          "producer": "Johan &amp; Diego Vergara",
+          "farm": null,
+          "altitude": null,
+          "process": "anaerobic decaf",
+          "protocol": null,
+          "variety": [
+            "Pink Bourbon"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/09/PAQUETWEB_FloresDecaf.png",
+          "description": "Un décaféiné de spécialité audacieux, au profil funky et insolite, pensé pour surprendre et bousculer les codes. Issu de la réputée Finca Las Flores, ce Pink Bourbon décaféiné illustre parfaitement l’exigence technique et la précision du travail post-récolte. Après une flottaison en eau froide, les cerises passent par 24 h de fermentation anaérobie, suivies de 12 h d’oxydation puis 36 h de fermentation anaérobie après dépulpage. Un shock thermique à 50 °C est ensuite appliqué pendant 15 minutes, stabilisant les sucres et renforçant la clarté du profil. Le séchage est maîtrisé par déshumidificateur mécanique sur 36 h, avant une décaféination soignée réalisée par Descafecol, organisme colombien spécialisé dans la décaféination à l’acétate d’éthyle naturel, issu de la canne à sucre locale. En tasse, le résultat est surprenant : une attaque sur des notes d’agrumes, suivie d’une complexité épicée évoquant le poivre rose et le gingembre. La texture est soyeuse, la finale propre et persistante, le tout sans caféine !"
+        },
+        {
+          "name": "Lerida [Geisha Naturel Lot 5 Guayabos]",
+          "url": "https://tanat.coffee/boutique/lerida-geisha-naturel-lot-5-guayabos/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 57.9,
+              "currency": "EUR",
+              "weightGrams": 100,
+              "priceUsd": 62.53,
+              "available": true
+            }
+          ],
+          "country": "Panama",
+          "region": "Boquete, Chiriquí",
+          "producer": "Lerida Estate",
+          "farm": null,
+          "altitude": "000m",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/08/PAQUETWEBMICROLOT_GuayabosGN5.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”120327″][vc_column width=”5/12″][vc_single_image media=”24930″ media_width_percent=”100″ uncode_shortcode_id=”109444″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”437744″]Lérida Coffee Estate[/vc_custom_heading][vc_column_text uncode_shortcode_id=”330513″]Une ferme pionnière du café panaméen depuis plus d’un siècle.[/vc_column_text][vc_column_text uncode_shortcode_id=”189340″ el_class=”blockquote”]Nichée sur les pentes verdoyantes du volcan Barú, dans la région montagneuse de Boquete (province de Chiriquí), Finca Lérida est l’une des fermes les plus emblématiques du Panama. Fondée au début du XXᵉ siècle par Toleff Bache Mönniche, ingénieur norvégien pionnier de la culture caféière dans le pays, elle fut la première à exporter du café panaméen vers l’Europe dès 1929. Depuis plus d’un siècle, la ferme perpétue une approche fondée sur la qualité, l’innovation et le respect du terroir. Les caféiers y sont cultivés entre 1 600 et plus de 2 000 mètres d’altitude, dans un environnement naturel exceptionnel, où les sols volcaniques riches et le microclimat frais et brumeux favorisent une maturation lente et harmonieuse des cerises. Reconnue internationalement depuis les années 2000, Finca Lérida s’est régulièrement distinguée au concours Best of Panama, notamment grâce à ses Geishas floraux et élégants. Elle demeure aujourd’hui une référence incontournable du café de spécialité, alliant terroir d’exception, savoir-faire artisanal et innovation agronomique, au service de cafés d’une pureté et d’une finesse remarquables.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Los Nogales [Low Caf]",
+          "url": "https://tanat.coffee/boutique/los-nogales-low-caf/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 69.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 75.22,
+              "available": true
+            },
+            {
+              "price": 19.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 21.49,
+              "available": true
+            },
+            {
+              "price": 38,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 41.04,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Huila",
+          "producer": "Los Nogales - Hernandez Family",
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Typica"
+          ],
+          "notes": [
+            "fruitées de citron",
+            "bergamote & fraise"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/07/PAQUETWEB_Los-Nogales-Low-caf.png",
+          "description": "Ce café à faible teneur en caféine est issu d’une sélection rigoureuse de cerises mûres, triées par densité après désinfection. La décaféination débute par une immersion des grains dans de l’eau chaude (80 °C) pour ouvrir les pores, suivie de trois bains avec un solvant naturel extrait de la pulpe de café, permettant d’éliminer environ 95 % de la caféine tout en conservant les arômes. Une fermentation contrôlée de 96 heures est ensuite réalisée avec un levain issu de précédents lots, à 18 °C, afin d’enrichir le profil aromatique. Le résultat est un café étonnamment expressif, avec une belle acidité et des notes fruitées. À propos de Los Nogales : Il y a environ 80 ans, Ricardo Hernández et Concepción Castillo fondent la ferme Los Nogales à Pitalito, Huila, avec l’ambition de marquer l’histoire du café. Leur fils cadet, Ricaurte Hernández, né en 1952, se distingue par son dévouement à la terre, sa générosité et son esprit entrepreneurial. Aux côtés de sa compagne Suldery Arango, il bâtit un véritable empire du café, couronné en 2005 par une victoire au concours “Cup of Excellence” en Colombie. Visionnaire et innovant, Ricaurte laisse un héritage fort après sa disparition tragique en 2013, victime de la violence rurale. Son fils cadet, Oscar Fernando, reprend la ferme pour perpétuer cette vision. Grâce à son expertise en gestion environnementale, il transforme Los Nogales en un centre moderne de production de café, alliant qualité, durabilité et innovation."
+        },
+        {
+          "name": "Finca la Riviera [Pink Bourbon]",
+          "url": "https://tanat.coffee/boutique/finca-la-riviera-pink-bourbon/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 52.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 56.32,
+              "available": true
+            },
+            {
+              "price": 14.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 16.09,
+              "available": true
+            },
+            {
+              "price": 28,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 30.24,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Aceh",
+          "producer": "Julio Madrid",
+          "farm": null,
+          "altitude": null,
+          "process": "bioreactor inoculation",
+          "protocol": null,
+          "variety": [
+            "Pink Bourbon"
+          ],
+          "notes": [
+            "pêche",
+            "fruit du dragon",
+            "mandarine",
+            "litchi"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/07/PAQUETWEB_1FincaRivieraPB25.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”27347″ media_width_percent=”100″ uncode_shortcode_id=”808708″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”128999″]Café UBA[/vc_custom_heading][vc_column_text uncode_shortcode_id=”144418″]Le café de spécialité colombien qui fait la différence.[/vc_column_text][vc_column_text uncode_shortcode_id=”125665″ el_class=”blockquote”]Au cœur de la Colombie, dans les terres où le café est une culture autant qu’une tradition, Café Uba a vu le jour. Derrière la marque, une famille de producteurs depuis trois génération, portée par la volonté de faire découvrir l’essence même du café colombien. Adoptant une approche durable et responsable, leur signature passe aussi par des procédés innovants, repoussant sans cesse les limites aromatiques. Les cafés prennent racine sur trois fermes emblématiques, chacune racontant une histoire différente. À La Riviera, la sélection est méticuleuse. Les producteurs y recherchent des profils aromatiques complexes, capables d’offrir des cafés de spécialité d’une grande finesse. À Finca Milán, tradition et innovation se rencontrent. Des procédés de fermentation uniques y sont développés afin d’explorer de nouvelles expressions aromatiques, tout en préservant l’environnement naturel. À Finca Buenos Aires, le café y est cultivé depuis plus de vingt-cinq ans avec une attention particulière portée à la biodiversité, à la protection des sources d’eau et à la durabilité des terres.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Finca Milan [Vanilla Process]",
+          "url": "https://tanat.coffee/boutique/finca-milan-vanilla-process/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 69.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 75.22,
+              "available": true
+            },
+            {
+              "price": 19.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 21.49,
+              "available": true
+            },
+            {
+              "price": 38,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 41.04,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Aceh",
+          "producer": "Julio Madrid",
+          "farm": null,
+          "altitude": null,
+          "process": "culturing",
+          "protocol": null,
+          "variety": [
+            "Caturra"
+          ],
+          "notes": [
+            "vanille",
+            "nougat",
+            "cannelle"
+          ],
+          "blendComponents": [],
+          "roastFor": "omni",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/06/PAQUETWEB_Vanilla-3.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”27347″ media_width_percent=”100″ uncode_shortcode_id=”808708″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”128999″]Café UBA[/vc_custom_heading][vc_column_text uncode_shortcode_id=”144418″]Le café de spécialité colombien qui fait la différence.[/vc_column_text][vc_column_text uncode_shortcode_id=”125665″ el_class=”blockquote”]Au cœur de la Colombie, dans les terres où le café est une culture autant qu’une tradition, Café Uba a vu le jour. Derrière la marque, une famille de producteurs depuis trois génération, portée par la volonté de faire découvrir l’essence même du café colombien. Adoptant une approche durable et responsable, leur signature passe aussi par des procédés innovants, repoussant sans cesse les limites aromatiques. Les cafés prennent racine sur trois fermes emblématiques, chacune racontant une histoire différente. À La Riviera, la sélection est méticuleuse. Les producteurs y recherchent des profils aromatiques complexes, capables d’offrir des cafés de spécialité d’une grande finesse. À Finca Milán, tradition et innovation se rencontrent. Des procédés de fermentation uniques y sont développés afin d’explorer de nouvelles expressions aromatiques, tout en préservant l’environnement naturel. À Finca Buenos Aires, le café y est cultivé depuis plus de vingt-cinq ans avec une attention particulière portée à la biodiversité, à la protection des sources d’eau et à la durabilité des terres.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Acacia Hills [Geisha Washed AB / PB]",
+          "url": "https://tanat.coffee/boutique/acacia-hills-geisha-washed-ab-pb/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 28.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 31.21,
+              "available": true
+            },
+            {
+              "price": 56,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 60.48,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Arusha",
+          "producer": "Leon Christianakis",
+          "farm": null,
+          "altitude": "925m",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [
+            "thé noir",
+            "de bergamote",
+            "d'agrumes"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/05/PAQUETWEB_ACACIAHILSSGEISHA.png",
+          "description": "Ce geisha lavé est un café délicat, raffiné et doux, provenant d’un terroir prestigieux. À propos de Acacia Hills : La ferme Acacia Hills tenue par Leon et Aideen est réputée pour produire depuis plusieurs années l’un des meilleurs cafés de spécialité de Tanzanie. Notre responsable torréfaction, Thomas, est allé leur rendre visite en septembre 2024 afin d’y déguster et sélectionner leurs nouvelles récoltes. Située dans le nord de la Tanzanie, dans la région d’Arusha, plus précisément à Oldeani, dans le district de Karatu, elle est perchée sur les pentes du mont Oldeani, à proximité du cratère du Ngorongoro et du parc national du Serengeti. Cette localisation offre des conditions idéales pour la culture du café de spécialité, grâce à une altitude élevée variant entre 1 800 et 1 925 mètres au-dessus du niveau de la mer."
+        },
+        {
+          "name": "Nestor Lasso [Estate #1]",
+          "url": "https://tanat.coffee/boutique/cafe-nestor-lasso-colombie/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 48.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 52.54,
+              "available": true
+            },
+            {
+              "price": 26,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 28.08,
+              "available": true
+            },
+            {
+              "price": 13.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 15.01,
+              "available": true
+            }
+          ],
+          "country": "Colombia",
+          "region": "Aceh",
+          "producer": "El Diviso",
+          "farm": null,
+          "altitude": null,
+          "process": "anaérobie lavée",
+          "protocol": null,
+          "variety": [
+            "Castillo",
+            "Caturra"
+          ],
+          "notes": [
+            "noisette",
+            "abricot sec",
+            "pêche"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/03/PAQUETWEB_NestorEstateWashed.png",
+          "description": "Nestor Lasso est désormais un producteur incontournable chez Tanat. Jeune caféiculteur visionnaire de troisième génération, il est aujourd’hui reconnu à l’international pour ses méthodes avant-gardistes et sa quête permanente d’excellence. Le process : après un premier tri dans l’eau visant à éliminer les cerises imparfaites, les fruits sont minutieusement contrôlés, désinfectés puis soumis à une phase d’oxydation de 24 heures. Ils sont ensuite dépulpés avant d’entrer dans une fermentation anaérobie contrôlée de 72 heures, un procédé sans oxygène qui accentue la complexité aromatique. Le café est enfin lavé puis séché au soleil pendant une dizaine de jours jusqu’à atteindre une stabilité idéale. Grâce à son expertise et à sa maîtrise de la fermentation, Nestor signe ici une tasse fruitée, harmonieuse et chaleureuse, parfaitement représentative de son style et de son savoir-faire."
+        },
+        {
+          "name": "Nestor Lasso [Sidra Natural]",
+          "url": "https://tanat.coffee/boutique/nestor-lasso-sidra-natural/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 80.15,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 86.56,
+              "available": true
+            },
+            {
+              "price": 44,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 47.52,
+              "available": false
+            },
+            {
+              "price": 22.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 24.73,
+              "available": false
+            }
+          ],
+          "country": "Colombia",
+          "region": "Huila",
+          "producer": "El Diviso",
+          "farm": null,
+          "altitude": null,
+          "process": "natural Extended Fermentation",
+          "protocol": null,
+          "variety": [
+            "Bourbon Sidra"
+          ],
+          "notes": [
+            "d'abricot",
+            "fraise & Cerise"
+          ],
+          "blendComponents": [],
+          "roastFor": "filter",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/03/PAQUETWEB_NestorSidraNat.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”27426″ media_width_percent=”100″ uncode_shortcode_id=”149014″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”135600″]NESTOR LASSO[/vc_custom_heading][vc_column_text uncode_shortcode_id=”886249″]Un jeune producteur visionnaire.[/vc_column_text][vc_column_text uncode_shortcode_id=”152566″ el_class=”blockquote”]Nestor Lasso est un jeune producteur visionnaire basé à Pitalito, dans la région de Huila en Colombie, à la tête de la ferme El Diviso. Aux côtés de son frère Adrian et de leur partenaire Jhoan Vergara (Finca Las Flores), il incarne une nouvelle génération de cultivateurs de café de spécialité, combinant héritage familial et innovation technique. Ensemble, ils travaillent des variétés rares comme le Sidra, le Geisha, le Pink Bourbon ou le Java, avec des procédés expérimentaux très maîtrisés : fermentations anaérobies, lavages thermiques, macérations prolongées et séchages lents. Le résultat donne des cafés d’une complexité exceptionnelle, aux profils floraux, fruités et parfois tropicaux, souvent décrits comme explosifs et élégants. Grâce à une attention méticuleuse à chaque étape, Nestor Lasso s’est rapidement imposé comme l’un des producteurs les plus prometteurs de Colombie, alliant savoir-faire, durabilité et excellence sensorielle.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Déca [El Sueño]",
+          "url": "https://tanat.coffee/boutique/cafe-decafeine-el-sueno-mexique/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 34.65,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 37.42,
+              "available": true
+            },
+            {
+              "price": 18,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.44,
+              "available": true
+            },
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Chiapas",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Bourbon",
+            "Caturra",
+            "Typica"
+          ],
+          "notes": [
+            "chocolat noir",
+            "caramel"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/02/PAQUETWEB_DECA.png",
+          "description": "Située dans le sud-ouest du Mexique, la région du Chiapas possède un relief très contrasté, alternant zones côtières, vallées, montagnes et forêts tropicales. Cette diversité crée un climat unique, qui façonne le terroir mexicain et ses cafés d’exception. Le processus de décaféination naturelle consiste à faire tremper les grains de café dans l’eau afin d’éliminer la caféine tout en préservant leurs arômes. Le résultat est une tasse équilibrée aux notes de chocolat et de caramel."
+        },
+        {
+          "name": "Moka Lekempti",
+          "url": "https://tanat.coffee/boutique/cafe-moka-lekempti-ethiopie/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Heirloom"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/02/PAQUETWEB_MOKA.png",
+          "description": "Un espresso éthiopien choisit minutieusement pour son profil épicé et des notes citronnées. Une véritable expression du terroir éthiopien, sublimée par une méthode de traitement naturel traditionnelle. Un café gourmand et légèrement floral, ce café se révèle également en Moka Bialetti ou pour les amateurs de filtre recherchant des notes moins acidulées."
+        },
+        {
+          "name": "Todosantarita",
+          "url": "https://tanat.coffee/boutique/cafe-todosantarita-guatemala/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Caturra",
+            "Pache",
+            "Typica"
+          ],
+          "notes": [
+            "chocolat noir",
+            "pomme"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/02/PAQUETWEB_TODOSANTARITA.png",
+          "description": "Depuis plus de 8 ans, nous collaborons avec cette coopérative pour offrir ce café guatémaltèque d’exception. Ce terroir se distingue par ses intenses notes de chocolat noir, et ce café en est une magnifique expression. En tasse, il dévoile une gourmandise profonde, mêlant la richesse du cacao à de subtiles touches acidulées de fruits rouges. Un espresso d’une grande complexité, sans doute l’un des plus captivants de notre gamme classique."
+        },
+        {
+          "name": "Blend Kawa",
+          "url": "https://tanat.coffee/boutique/cafe-blend-kawa-espresso/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Caturra",
+            "Mundo Novo",
+            "Typica",
+            "Yellow Catuaí"
+          ],
+          "notes": [
+            "chocolat",
+            "caramel"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/02/PAQUETWEB_Blend-Kawa.png",
+          "description": "Plongez dans la genèse de notre marque avec notre espresso signature le Blend Kawa. Issu d’un assemblage soigné de variétés cultivées au Guatemala, au Pérou et au Brésil, ce café séduit par son équilibre et sa sucrosité. Sa gourmandise, son équilibre dans l’acidité et son amertume moyenne en ont fait le best-seller de Tanat. Il est parfait en espresso mais peut également fonctionner en filtre pour les amateurs de filtre avec des profils aromatiques très chocolatés."
+        },
+        {
+          "name": "Blend Espresso [Bio]",
+          "url": "https://tanat.coffee/boutique/blend-espresso-bio/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Catuaí",
+            "Caturra",
+            "Typica"
+          ],
+          "notes": [
+            "gourmandes de chocolat noir",
+            "une texture liquoreuse qui enrobe le palais"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/02/PAQUETWEB_Blend-Espresso-Bio.png",
+          "description": "Plongez dans l’univers d’un espresso d’exception avec le Blend Espresso Bio de Tanat. Issu d’un assemblage soigné de variétés Catuaí, Caturra et Typica, cultivées en altitude au Guatemala et au Honduras, ce café biologique séduit par son équilibre parfait entre puissance et finesse. Son profil aromatique net et précis, où dominent des notes gourmandes de chocolat noir et une texture liquoreuse qui enrobe le palais. Son faible taux d’acidité en fait un café accessible et réconfortant, idéal pour une extraction en espresso qui révèle toute sa complexité."
+        },
+        {
+          "name": "Rosa Blend [Bio]",
+          "url": "https://tanat.coffee/boutique/cafe-rosa-blend-bio-espresso/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            }
+          ],
+          "country": "Guatemala",
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Arabicas",
+            "Robusta"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/02/PAQUETWEB_ROSA_800.png",
+          "description": "Un café pour les amateurs d’espresso italiens, cet assemblage d’arabicas composé avec un robusta révèle des notes intenses de chocolat noir. Un café avec du corps et une torréfaction idéale pour une machine auto ou une moka bialetti."
+        },
+        {
+          "name": "Blend 189 [Bio]",
+          "url": "https://tanat.coffee/boutique/cafe-blend-189-bio-espresso/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            }
+          ],
+          "country": "Brazil",
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Caturra, Yellow &amp; Red Catuaí"
+          ],
+          "notes": [
+            "caramel",
+            "noisette"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/01/PAQUETWEB_Blend_189.png",
+          "description": "[vc_row row_height_percent=”0″ override_padding=”yes” h_padding=”2″ top_padding=”3″ bottom_padding=”4″ overlay_alpha=”50″ gutter_size=”3″ column_width_percent=”100″ shift_y=”0″ z_index=”0″ content_parallax=”0″ uncode_shortcode_id=”101383″][vc_column width=”5/12″][vc_single_image media=”306″ media_width_percent=”100″ uncode_shortcode_id=”613960″][/vc_column][vc_column column_width_percent=”100″ position_vertical=”middle” gutter_size=”2″ overlay_alpha=”50″ shift_x=”0″ shift_y=”0″ shift_y_down=”0″ z_index=”0″ medium_width=”0″ mobile_width=”0″ width=”7/12″ uncode_shortcode_id=”137207″][vc_custom_heading heading_semantic=”h3″ text_size=”h3″ text_transform=”uppercase” uncode_shortcode_id=”208582″]Assemblage – Café de fermes[/vc_custom_heading][vc_column_text uncode_shortcode_id=”850458″]Un assemblage bio pour les amoureux de l’espresso[/vc_column_text][vc_column_text uncode_shortcode_id=”168450″ el_class=”blockquote”]Considérée comme une des pionnière de l’agriculture bio en Honduras, la finca Liquidambar bénéfice d’un climat unique et de conditions de production idéales. Les déchets de café sont utilisés pour faire du fertilisant et la pulpe de café part dans leur composte. Lors de la récolte, le café est récolté à la main lorsque les cerises sont à maturité. La ferme est composée de multiples variétés afin d’améliorer leur génétique et leur résistance à la rouille.[/vc_column_text][/vc_column][/vc_row]"
+        },
+        {
+          "name": "Boa Esperança",
+          "url": "https://tanat.coffee/boutique/cafe-boa-esperanca-bresil/",
+          "roasterId": "tanat",
+          "prices": [
+            {
+              "price": 9.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 10.69,
+              "available": true
+            },
+            {
+              "price": 17.9,
+              "currency": "EUR",
+              "weightGrams": 200,
+              "priceUsd": 19.33,
+              "available": true
+            },
+            {
+              "price": 31.9,
+              "currency": "EUR",
+              "weightGrams": 1000,
+              "priceUsd": 34.45,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": "Aceh",
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Yellow Catuaí, Mundo Novo"
+          ],
+          "notes": [
+            "caramel",
+            "chocolat",
+            "noisette"
+          ],
+          "blendComponents": [],
+          "roastFor": "espresso",
+          "available": true,
+          "imageUrl": "https://tanat.coffee/wp-content/uploads/2025/01/PAQUETWEB_BOA.png",
+          "description": "Une collaboration de plus de 8 ans pour ce café brésilien. Ce café au profil rond et équilibré est l’espresso parfait pour les amateurs de cafés légers aux délicates notes de noisette. Son acidité maîtrisée laisse place à une sucrosité réconfortante, offrant une tasse douce et gourmande."
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:55:49.084Z",
+      "errors": []
+    }
+  ],
+  "totalCoffees": 74
+}

@@ -1,0 +1,793 @@
+{
+  "scrapedAt": "2026-01-17T13:20:01.498Z",
+  "results": [
+    {
+      "roasterId": "hydrangea",
+      "roasterName": "Hydrangea Coffee",
+      "coffees": [
+        {
+          "name": "Castillo - Thermal Shock Decaf - Finca El Paraiso",
+          "url": "https://hydrangea.coffee/products/el-paraiso-decaf",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 18,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 18,
+              "available": true
+            },
+            {
+              "price": 26,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 26,
+              "available": true
+            },
+            {
+              "price": 83,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 83,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Samuel",
+          "farm": null,
+          "altitude": "1960",
+          "process": "decaffeinated",
+          "protocol": null,
+          "variety": [
+            "Castillo"
+          ],
+          "notes": [
+            "Raspberries"
+          ],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/products/RasberriesPeachKeyLime.jpg?v=1680149091",
+          "description": "Tasting\nNotes:\nRaspberries,\nPeach,\nKey\nLime\nOrigin:\nEl\nParaiso,\nCauca,\nColombia\nVariety:\nCastillo\nProducer:\nSamuel\nDiego\nBermudez\nElevation:\n1960\nmasl\nProcess:\nDecaffeinated\nThermal\nShock\nWashed\nDecaf\nMethod:\nEthyl\nacetate\nsugarcane\ndecaf\nThis\ndecaffeinated\nlot\nundergoes\na\nsemi-washed\nculturing\nprocess\nwith\nSaccharomyces\ncerevisiae,\nbefore\ndecaffeination\nvia\nsugarcane-derived\nethyl\nacetate.\nThe\nprocess\npreserves\ncomplexity\nand\ndelicate\nfruit\ncharacteristics.\nExpect\na\nclean\ncup\nwith\nnotes\nof\nraspberries,\npeach,\nand\nkey\nlime,\ncomplemented\nby\na\nmedium\nbody\nand\nbrilliant\nacidity.\nWe\nselected\nthis\ndecaf\nfor\nits\nvibrant\nprofile\nand\nthe\ncare\ntaken\nto\npreserve\nsweetness\nand\nclarity\nafter\ndecaffeination."
+        },
+        {
+          "name": "Caturra - Washed - Daiver Mallama",
+          "url": "https://hydrangea.coffee/products/caturra-washed-daiver-mallama",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 18,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 18,
+              "available": true
+            },
+            {
+              "price": 23,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 23,
+              "available": true
+            },
+            {
+              "price": 78,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 78,
+              "available": true
+            },
+            {
+              "price": 150,
+              "currency": "USD",
+              "weightGrams": 2320,
+              "priceUsd": 150,
+              "available": true
+            }
+          ],
+          "country": "Cabildo",
+          "region": null,
+          "producer": "Daiver",
+          "farm": null,
+          "altitude": "2200",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Caturra"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Lime_Guava_Hojicha.jpg?v=1744609646",
+          "description": "Tastes\nLike:\nLime,\nGuava,\nHojicha\nOrigin:\nCabildo\nInga\nAponte\nVillage,\nNarino,\nColombia\nVariety:\nCaturra\nProducer:\nDaiver\nMallama\nElevation:\n2200\nmasl\nProcess:\nWashed"
+        },
+        {
+          "name": "Caturra, Bourbon - Nectar Citrullus Washed - Monteblanco",
+          "url": "https://hydrangea.coffee/products/caturra-bourbon-nectar-citrullus-washed-monteblanco",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 16,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 16,
+              "available": true
+            },
+            {
+              "price": 25,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 25,
+              "available": true
+            },
+            {
+              "price": 75,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 75,
+              "available": true
+            }
+          ],
+          "country": "Finca",
+          "region": null,
+          "producer": "Rodrigo",
+          "farm": null,
+          "altitude": "1730",
+          "process": "nectar",
+          "protocol": null,
+          "variety": [
+            "Caturra"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Debbie_Nectarines_Watermelon.jpg?v=1711381742",
+          "description": "Tastes\nLike:\nWatermelon,\nPeach,\nCitrus\nOrigin:\nFinca\nMonteblanco,\nHuila,\nColombia\nVariety:\nCaturra,\nBourbon\nProducer:\nRodrigo\nSanchez\nValencia\nElevation:\n1730\nmasl\nProcess:\nNectar\nCitrullus\nCo-fermented\nWashed\nFinca\nMonteblanco,\nlocated\nhigh\nalong\nthe\nwinding\nmountain\nroads\nof\nVereda\nLa\nTocora\nin\nthe\nSan\nAdolfo\nmunicipality\nabove\nPitalito,\nis\na\nfamily\nfarm\nmanaged\nby\nRodrigo\nSanchez\nValencia\nin\nthe\ntradition\nof\ncoffee\ncultivation\nthat\nbegan\nwith\nhis\ngrandfather.\nMonteblanco’s\n18\nhectares\nsit\non\nthe\ncrest\nof\na\nhill,\nwith\nthe\nwet\nmill\nand\ndrying\nfacilities\nat\nthe\ntop\nof\nthe\nfarm\nand\nslopes\nof\ncoffee\nplanted\nbelow.\nIn\n2002\nRodrigo\nparticipated\nin\na\nlocal\nprogram\nteaching\nlocal\nchildren\nof\ncoffee\nproducers\nto\ncup.\nBefore\nthat,\nhe\nand\nhis\nfamily\nhad\nnever\nconsidered\ncoffee\nin\nterms\nof\ncup\nprofile.\nBy\nlearning\nto\ndifferentiate\nprofiles,\nhe\nand\nhis\nfather\nand\ngrandfather\nwere\nable\nto\nmake\nthe\nconnections\nbetween\nthe\nfarming\ntechniques\nthey\napplied\nand\ncoffee’s\nresulting\nattributes\nin\nthe\ncup.\nAt\nthis\ntime,\nRodrigo\nalso\nbegan\nto\nlearn\nabout\ncupping\ncompetitions\nthat\nevaluate\nthe\nbest\nlots\nfrom\nfarms\nin\na\nregion.\nHe\nnoticed\nthat\nfarms\nwould\nwin\none\nyear\nand\nthen\nnever\nagain,\nso\nhe\ndecided\nto\ninvestigate\nhow\nto\nproduce\nquality\ncoffee\nconsistently.\nThis\nled\nhim\nto\nexplore\nthe\ntrees\nplanted\non\nMonteblanco,\nwhere\nhe\ndiscovered\nvarious\nvarieties\nhis\ngrandfather\nhad\nplanted\nin\nthe\n1980’s.\nOne\nof\nthese\nvarieties\nis\nPurple\nCaturra,\na\ntype\nof\nCaturra\nwhose\ncherries\nripen\nto\na\ndeep\npurple\ncolor.\nRodrigo\nis\nproud\nthat\nhe,\nhis\nwife\nClaudia\nSamboni,\nfarm\nmanager\nDon\nGerardo,\nand\nthe\nteam\nthat\nworks\nin\nthe\nfields\nand\nat\nthe\nmill\nhave\nreached\nthe\ngoal\nof\nachieving\nconsistent\nquality.\nFinca\nMonteblanco\nproduces\nmicrolots\nwith\neach\nharvest\nthat\nserve\nas\ncompetition\ncoffees\naround\nthe\nworld,\nbut\nthe\nfarm\nalso\nconsistently\nproduces\ncontainers\nof\ndelicious\ncoffees\nthat\nappear\nyear-round\non\ncafé\nmenus\nand\nretail\nshelves.\nBy\napplying\nan\nethic\nof\nrigorous\nmonitoring,\nplanning,\nand\nmanagement\nat\neach\nstage\nof\nproduction\nand\nprocessing,\nall\ncoffees\nfrom\nMonteblanco\nshowcase\ntheir\nfull\npotential.\nHarvesting\nand\nprocessing\non\nMonteblanco\nhave\nhad\nto\nevolve\nwith\nthe\ntimes,\nadapting\nto\na\nchanging\nclimate\nthat\nyields\nharvest\ntimes\ndispersed\nthrough\nten\nmonths\nof\nthe\nyear\nrather\nthan\nin\na\nconcentrated\npeak.\nCoffees\nfrom\nMonteblanco\nare\nmilled\nand\nprepared\nfor\nexport\nat\nthe\nnew,\nstate-of-the-art\nAromas\ndel\nSur\ndrymill\nin\nPitalito.\nThis\nCitrullus\nNectar\nCo-fermented\nWashed\nprocess\nbegins\nwith\nthe\ncreation\nof\nthe\nfermentation\nculture\nthat\nwill\nbe\nused.\nFirst,\na\nmother\nculture\nwas\ncreated\ncontaining\nmicroorganisms\nlike\nlactobacillus\nand\nsaccharomyces\ncerevisiae\nwhich\nwere\nderived\nfrom\nRodrigo’s\nPurple\nCaturra\ncoffee\ncherries.\n80\nliters\nof\nthis\nculture\nis\nseparated\nto\nbe\nfed\nwith\nsugar,\nmolasses,\nand\nconcentrated\nmelon\nand\nwatermelon\njuice.\nThe\ningredient\nmixture\ncontributes\nflavor\nto\nthe\nculture,\nwhile\nthe\nsweetener\nenergizes\nthe\nfermentation\nand\nbrings\nthe\nculture’s\nsugar\ncontent\nto\na\nlevel\nthat\nmatches\nthe\ndegrees\nBrix\nof\nthe\ncoffee\nthat\nwill\nbe\nprocessed.\nThis\ninitial\nfermentation\nof\nthe\nmother\nculture\ntakes\n190\nhours\nto\nreach\nthe\nappropriate\ndegrees\nBrix\nand\npH\nvalue\nfor\ncoffee\nprocessing.\nBefore\nbeing\nprocessed\nwith\nthe\nfermented\nculture,\ncoffee\ncherries\nare\nmeasured\nfor\nsugar\ncontent\nas\nsoon\nas\nthey\nreach\nthe\nmill\nat\nMonteblanco.\nCherries\nare\nthen\nfloated\nto\nremove\nimpurities\nbefore\nbeing\npulped\nand\ndeposited\ninto\na\n200\nliter\nsealed\ntank.\nThe\n80\nliter\nculture\nthat\nwas\npreviously\nfermented\nwith\nthe\nfruits\nis\nadded\nto\nthe\nsealed\ntank,\nand\nthe\npulped\ncoffee\nis\nfermented\nfor\n150\nhours.\nDuring\nthis\nprocess,\nthe\nteam\nkeeps\nmeasurements\nto\nensure\nthat\nthe\nenvironment\ndoesn’t\nfall\nbelow\n6\ndegrees\nBrix,\nor\nbelow\na\npH\nof\n4.\nThe\ncoffee\nis\nthen\nmoved\nto\nthe\ndrying\narea,\nwhere\nit\nis\ndried\nfor\n2–3\ndays\nin\ndirect\nsunlight\nand\nthen\nfor\n15–18\ndays\nunder\nshaded\ncanopies\nuntil\nit\nreaches\n10–11%\nhumidity."
+        },
+        {
+          "name": "Espresso Club Mystery Coffee",
+          "url": "https://hydrangea.coffee/products/espresso-club-mystery-coffee",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 27,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 27,
+              "available": true
+            }
+          ],
+          "country": "Earth",
+          "region": null,
+          "producer": "Humans",
+          "farm": null,
+          "altitude": "Mountains",
+          "process": "yes",
+          "protocol": null,
+          "variety": [
+            "Arabica"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Mystry_3cf97320-128d-48b1-966e-814500d40ae1.png?v=1701972597",
+          "description": "Tastes\nLike:\nCoffee\nOrigin:\nEarth\nVariety:\nArabica\nProducer:\nHumans\nElevation:\nMountains\nProcess:\nYes\nLimited\nto\n167\nbags\nfor\nMCL"
+        },
+        {
+          "name": "Garage Sale",
+          "url": "https://hydrangea.coffee/products/garage-sale",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 36,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 36,
+              "available": true
+            },
+            {
+              "price": 20,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 20,
+              "available": false
+            },
+            {
+              "price": 18.4,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 18.4,
+              "available": false
+            },
+            {
+              "price": 22.4,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 22.4,
+              "available": false
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/DSC_4848_3d47b1d9-82ef-468e-916d-3673c795bd91.jpg?v=1738200462",
+          "description": "Hydrangea's\nGarage\nSale\nExperience\nexceptional\ncoffee\nat\nan\nexclusive\nvalue.\nOur\n3-weeks\npost\nroast\nselections\nhave\nhad\ntime\nto\nrest,\nallowing\ntheir\nflavors\nto\nharmonize\nand\ndeepen.\nEnjoy\n20%\noff\nthese\nbeautifully\nmatured\ncoffees\nare\nrefined,\nbalanced,\nand\nready\nto\nbrew\nat\ntheir\npeak."
+        },
+        {
+          "name": "Gesha - Letty Bermudez - Finca El Paraiso",
+          "url": "https://hydrangea.coffee/products/letty-bermudez",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 29,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 29,
+              "available": true
+            },
+            {
+              "price": 46,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 46,
+              "available": true
+            },
+            {
+              "price": 150,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 150,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Samuel",
+          "farm": null,
+          "altitude": "1930",
+          "process": "double",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/products/JasmineMilkTea_WhitePeachBlueBG.png?v=1675618863",
+          "description": "Tastes\nLike:\nWhite\nPeach,\nJasmine\nMilk\nTea,\nDried\nRose\nOrigin:\nEl\nParaiso,\nCauca,\nColombia\nVariety:\nGesha\nProducer:\nSamuel\nDiego\nBermudez\nElevation:\n1930\nmasl\nProcess:\nDouble\nfermentation\nthermal\nshock\nLetty\nshowcases\nthe\nrefined\nwork\nof\nFinca\nEl\nParaiso,\nusing\ndouble\nanaerobic\nfermentation\nat\nlow\ntemperatures\nwith\ntropical\nyeast.\nThe\ncoffee\nis\nfinished\nwith\na\nthermal\nshock\nwash\nto\nlock\nin\nflavor\nprecursors\nand\nmaintain\nstructure.\nExpect\nnotes\nof\nwhite\npeach,\njasmine\nmilk\ntea,\nand\ndried\nrose,\nsupported\nby\na\nmedium\nbody\nand\nprolonged\nacidity.\nWe\nselected\nthis\ncoffee\nfor\nits\nlayered\nfruit\nexpression\nand\nsilky,\nbalanced\nmouthfeel."
+        },
+        {
+          "name": "Gesha - Luna Bermudez - Finca El Paraiso",
+          "url": "https://hydrangea.coffee/products/luna-bermudez",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 29,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 29,
+              "available": true
+            },
+            {
+              "price": 46,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 46,
+              "available": true
+            },
+            {
+              "price": 150,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 150,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Samuel",
+          "farm": null,
+          "altitude": "1930",
+          "process": "double",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/EggWaffle_Blueberry_HighMountainOolongTea.jpg?v=1693232333",
+          "description": "Tastes\nLike:\nEgg\nWaffle,\nBlueberry,\nHigh\nMountain\nOolong\nTea\nOrigin:\nEl\nParaiso,\nCauca,\nColombia\nVariety:\nGesha\nProducer:\nSamuel\nDiego\nBermudez\nElevation:\n1930\nmasl\nProcess:\nDouble\nfermentation\nthermal\nshock\nProduced\nat\nFinca\nEl\nParaiso,\nLuna\nis\na\nGesha\nvariety\nprocessed\nthrough\nanaerobic\nfermentation\nin\ncherry\nand\npulped\nstages\nwith\na\nGesha\nyeast\nculture.\nAfter\nfermentation,\nthe\ncoffee\nis\nsealed\nand\nwashed\nwith\na\nthermal\nshock\ntechnique\nto\nfix\naromatic\nprecursors\nand\nenhance\nclarity.\nThe\ncup\nreveals\nnotes\nof\negg\nwaffle,\nblueberry,\nand\nhigh\nmountain\noolong\ntea,\nwith\na\nsilky\nbody\nand\nbrilliant\nacidity.\nWe\nselected\nthis\nlot\nfor\nits\ndelicate\nbalance\nof\nfruit\ncomplexity\nand\nvibrant\nfloral\naromatics."
+        },
+        {
+          "name": "Gesha - Natural Lot 15 - El Burro",
+          "url": "https://hydrangea.coffee/products/gesha-natural-lot-15-el-burro",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 42.5,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 42.5,
+              "available": true
+            },
+            {
+              "price": 72,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 72,
+              "available": true
+            },
+            {
+              "price": 254,
+              "currency": "USD",
+              "weightGrams": 950,
+              "priceUsd": 254,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Lamastus",
+          "farm": null,
+          "altitude": "1,575-1,626",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Mango_Violet_Strawberries.jpg?v=1725260422",
+          "description": "Tastes\nLike:\nMango,\nViolet,\nStrawberries\nOrigin:\nEl\nBurro\nEstate,\nChiriqui,\nPanama\nVariety:\nGesha\nProducer:\nLamastus\nFamily\nElevation:\n1,575-1,626\nmasl\nProcess:\nNatural\nThe\ntraditional\nnatural\nprocess\nwithout\nfermentation\ninvolves\ndrying\non\nbeds\nor\nin\nthe\nDRD\nfor\naround\n30\ndays.\nSometimes,\ngrapes-colored\nfruits\nare\nharvested\ninstead\nof\nburgundy\nred.\nEl\nBurro\nEstate,\none\nof\nthe\nsouthernmost\ncoffee\nfarms\nin\nPanama,\npartially\nlies\nwithin\nthe\nBaru\nVolcano\nNational\nPark\n(BVNP).\nCoffee\nhere\ngrows\nfrom\n1,550\nmasl\n(5,100\nfeet)\nup\nto\n1,800\nmasl\n(5,900\nfeet),\nwith\na\nmean\nelevation\nof\n1,675\nmasl.\nThe\nfarm\nfeatures\nyoung\nvolcanic\nsoils,\npristine\nforest,\nunique\nmicro-climate,\nand\ndifferent\ntemperatures,\nwinds,\nand\nprecipitation\ncompared\nto\nother\nfarms\nin\nthe\nregion.\nThis\ncoffee\nis\nproduced\nunder\nunique\nworld\nconditions\ndue\nto\nits\nhigh\nelevation,\nrich\nyoung\nvolcanic\nsoils,\nlow\ntemperatures,\ndry\nseasons,\nheavy\nprecipitation\nduring\nwet\nseasons\n(3200mm/125\ninches\non\naverage),\nand\nsurrounding\nvirgin\nnative\ncloudy\nrainforest.\nThe\ncold\nnights\nextend\nthe\nripening\ntime\nby\none\nmonth,\nenhancing\nbean\ndevelopment.\nThese\nunique\ngrowing\nconditions\nresult\nin\na\ndistinguished\ncup."
+        },
+        {
+          "name": "Gesha - Washed DRD - El Burro Lot 16",
+          "url": "https://hydrangea.coffee/products/gesha-washed-drd-el-burro-lot-16",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 42.5,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 42.5,
+              "available": true
+            },
+            {
+              "price": 72,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 72,
+              "available": true
+            },
+            {
+              "price": 254,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 254,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Lamastus",
+          "farm": null,
+          "altitude": "1,800",
+          "process": "dark",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/YellowPeach_RedTableGrape_Chrysanthemum.jpg?v=1757053794",
+          "description": "Tastes\nLike:\nYellow\nPeach,\nRed\nTable\nGrape,\nChrysanthemum\nOrigin:\nEl\nBurro\nEstate,\nChiriqui,\nPanama\nVariety:\nGesha\nProducer:\nLamastus\nFamily\nElevation:\n1,800\nmasl\nProcess:\nDark\nRoom\nDried\nWashed"
+        },
+        {
+          "name": "Gesha - Washed DRD - El Burro Lot 16 (Ultralight)",
+          "url": "https://hydrangea.coffee/products/gesha-washed-drd-el-burro-lot-16-ultralight",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 42.5,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 42.5,
+              "available": true
+            },
+            {
+              "price": 72,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 72,
+              "available": true
+            },
+            {
+              "price": 254,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 254,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Lamastus",
+          "farm": null,
+          "altitude": "1,800",
+          "process": "dark",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/YellowPeach_RedTableGrape_Chrysanthemum.jpg?v=1757053794",
+          "description": "Tastes\nLike:\nYellow\nPeach,\nRed\nTable\nGrape,\nChrysanthemum\nOrigin:\nEl\nBurro\nEstate,\nChiriqui,\nPanama\nVariety:\nGesha\nProducer:\nLamastus\nFamily\nElevation:\n1,800\nmasl\nProcess:\nDark\nRoom\nDried\nWashed"
+        },
+        {
+          "name": "Gesha - Washed Lot 17 - El Burro",
+          "url": "https://hydrangea.coffee/products/gesha-washed-lot-17-el-burro",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 42.5,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 42.5,
+              "available": true
+            },
+            {
+              "price": 72,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 72,
+              "available": true
+            },
+            {
+              "price": 254,
+              "currency": "USD",
+              "weightGrams": 950,
+              "priceUsd": 254,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Lamastus",
+          "farm": null,
+          "altitude": "1700-1800",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Gesha"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Whitepeach_MayerLemon_Jasmine_d32a8678-0e50-45ca-88a6-7ed35060153c.jpg?v=1725259074",
+          "description": "Tastes\nLike:\nWhite\nPeach,\nMeyer\nLemon,\nJasmine\nOrigin:\nEl\nBurro\nEstate,\nChiriqui,\nPanama\nVariety:\nGesha\nProducer:\nLamastus\nFamily\nElevation:\n1700-1800\nmasl\nProcess:\nWashed\nHarvested\nat\nburgundy-ripe,\npulped\n(skin\nremoved),\nand\nwashed\nonce\nfull\nfermentation\nis\nreached.\nFermentation\nat\nthe\nmill\nin\nElida\nwhere\nEl\nBurro\nis\nalso\nprocessed\n(night\ntemperatures\n13\nto\n15°C,\nday\n18\nto\n20°C)\nlasts\n24\nto\n36\nhours.\nAfter\nwashing,\nseeds\ndry\non\nbeds\nor\nin\nthe\nDark\nRoom\n(DR)\nfor\n15\nto\n20\ndays.\nEl\nBurro\nEstate,\none\nof\nthe\nsouthernmost\ncoffee\nfarms\nin\nPanama,\npartially\nlies\nwithin\nthe\nBaru\nVolcano\nNational\nPark\n(BVNP).\nCoffee\nhere\ngrows\nfrom\n1,550\nmasl\n(5,100\nfeet)\nup\nto\n1,800\nmasl\n(5,900\nfeet),\nwith\na\nmean\nelevation\nof\n1,675\nmasl.\nThe\nfarm\nfeatures\nyoung\nvolcanic\nsoils,\npristine\nforest,\nunique\nmicro-climate,\nand\ndifferent\ntemperatures,\nwinds,\nand\nprecipitation\ncompared\nto\nother\nfarms\nin\nthe\nregion.\nThis\ncoffee\nis\nproduced\nunder\nunique\nworld\nconditions\ndue\nto\nits\nhigh\nelevation,\nrich\nyoung\nvolcanic\nsoils,\nlow\ntemperatures,\ndry\nseasons,\nheavy\nprecipitation\nduring\nwet\nseasons\n(3200mm/125\ninches\non\naverage),\nand\nsurrounding\nvirgin\nnative\ncloudy\nrainforest.\nThe\ncold\nnights\nextend\nthe\nripening\ntime\nby\none\nmonth,\nenhancing\nbean\ndevelopment.\nThese\nunique\ngrowing\nconditions\nresult\nin\na\ndistinguished\ncup."
+        },
+        {
+          "name": "Landrace - Anaerobic Natural - Melese Wolde",
+          "url": "https://hydrangea.coffee/products/landrace-anaerobic-natural-melese-wolde",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 17,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 17,
+              "available": true
+            },
+            {
+              "price": 24,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 24,
+              "available": true
+            },
+            {
+              "price": 77,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 77,
+              "available": true
+            },
+            {
+              "price": 110,
+              "currency": "USD",
+              "weightGrams": 2320,
+              "priceUsd": 110,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": "Melese",
+          "farm": null,
+          "altitude": "2,000-2,100masl",
+          "process": "natural",
+          "protocol": null,
+          "variety": [
+            "74158"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Blueberries_Tropical_Rhubarb_1.jpg?v=1736143302",
+          "description": "Tastes\nLike:\nBlueberries,\nTropical,\nRhubarb\nOrigin:\nBensa,\nBombe,\nEthiopia\nVariety:\n74158\nProducer:\nMelese\nWolde\nElevation:\n2,000-2,100masl\nProcess:\nNatural\nMelese\nWolde’s\nfarm\nin\nShantawane\ndeveloped\na\nreputation\nfor\nquality\nafter\nwinning\na\ncompetition\nthrough\none\nof\nthe\nmajor\nspecialty\nimporters\ntwice—an\nimporter\nwho\nnever,\nin\nthe\nend,\nshowed\nup\nto\nbuy\nthe\ncoffee.\nMelese\nis\na\nfarmer\nthrough\nand\nthrough,\nhe\ntold\nus,\nas\nwe\nstood\nin\nhis\nwarehouse\nto\navoid\nthe\nrain,\nhis\ncoffee\nsleeping\nprotected\nunder\nplastic\ntarpaulins\non\nhis\nraised\nbeds.\nHe\nsaid\nwould\nhave\nhappily\ncontinued\nto\nsell\nhis\nfarm’s\ncherry\nto\nprivate\nwashing\nstations\nif\nthe\ngovernment\nhad\nnot\ngiven\nhim\nthe\nability\nto\nget\nhis\nown\nexport\nlicense—which\nhe\ndid,\nin\n2018.\nHis\nson,\nthe\noldest\nof\nhis\nsix\nchildren,\nhelps\nhim\nand\nruns\nthe\nharvest."
+        },
+        {
+          "name": "Landrace - Washed - Habtamu Fekadu Aga, Chelbesa Outgrowers",
+          "url": "https://hydrangea.coffee/products/landrace-washed-habtamu-fikadu-aga-chelbesa-outgrowers",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 18,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 18,
+              "available": true
+            },
+            {
+              "price": 23,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 23,
+              "available": true
+            },
+            {
+              "price": 73,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 73,
+              "available": true
+            },
+            {
+              "price": 118,
+              "currency": "USD",
+              "weightGrams": 2320,
+              "priceUsd": 118,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": "Habtamu",
+          "farm": null,
+          "altitude": "1,900-2,100",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "Kurume"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Honeysuckle_Citrus_Nectarine.jpg?v=1736232621",
+          "description": "Tastes\nLike:\nHoneysuckle,\nCitrus,\nNectarine\nOrigin:\nYirgacheffe,\nEthiopia\nVariety:\nKurume,\nDega\nProducer:\nHabtamu\nFekadu\nAga\nElevation:\n1,900-2,100\nmasl\nProcess:\nWashed\nHabtamu\nFekadu\nAga\n(‘Kuri\nMountain\nCoffee’)\nwas\nfounded\nin\n2015\nby\nAaga\nDinsa,\nthe\ngrandson\nof\na\ncoffee\nfarmer\nin\nKuri\nkebele.\nThe\nfarm\nHabtamu\nFikadu\ninherited\nfrom\nhis\ngrandfather,\nAaga\nDinsa,\ncontinues\nto\nserve\nas\nthe\ncenter\nof\nthe\nexport\noperation\nwith\n105\nhectares\nof\nplanting\nin\nKuri\nkebele\nand\n837\nhectares\ntotal\nincluding\nthe\nfarms\nof\nthe\n144\nregistered\noutgrowers\nthat\ncontribute\ncherry\nto\ncompany\nwashing\nstations\nin\nWolega,\nGuji\nand\nJimma.\nThe\ncompany\nholds\norganic\ncertification\nas\nwell\nas\nFair\nfor\nLife\ncertification.\nThrough\nFair\nfor\nLife,\nHabtamu\nFekadu\ncontributes\n$0.12\nper\npound\nof\nexports\nfor\nthe\nas\nwell\nas\n5%\nof\ncompany\nprofits\nto\na\ndevelopment\nfund\nreinvested\nin\nthe\ncommunity\nthrough\nfood,\nclothing,\nschooling,\nroads,\nand\nfacilities\nand\nequipment\nfor\nhealthcare.\nUntil\nliberalization\nof\nthe\nEthiopian\nexport\nsystem\nin\n2017,\nHabtamu\nFekadu\nsold\ncoffee\nthrough\nECX\nbut\nnow\nengages\nin\ndirect\nexport\nwith\ncoffee\ncollected\nand\nprocessed\nat\nrented\nwashing\nstations\nthroughout\nGuji\nand\nYirgacheffe."
+        },
+        {
+          "name": "Pink Bourbon - Peach - Finca El Paraiso",
+          "url": "https://hydrangea.coffee/products/el-paraiso-peach",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 21,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 21,
+              "available": true
+            },
+            {
+              "price": 31,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 31,
+              "available": true
+            },
+            {
+              "price": 98,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 98,
+              "available": true
+            }
+          ],
+          "country": "El",
+          "region": null,
+          "producer": "Samuel",
+          "farm": null,
+          "altitude": "1960",
+          "process": "thermal",
+          "protocol": null,
+          "variety": [
+            "Pink Bourbon"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Debbie_PeachGokuri_Rhubarb_Sakura.jpg?v=1684731823",
+          "description": "Tastes\nLike:\nPeach\nGokuri,\nRhubarb,\nSakura\nOrigin:\nEl\nParaiso,\nCauca,\nColombia\nVariety:\nPink\nBourbon\nProducer:\nSamuel\nDiego\nBermudez\nElevation:\n1960\nmasl\nProcess:\nThermal\nShock\n+\nTwo\nStage\nFermentation\nThis\nPink\nBourbon\nlot\nis\nthe\nresult\nof\ndouble-stage\nfermentation—first\n48\nhours\nwhole\ncherry,\nthen\n36\nhours\npulped\nwith\ntropical\nyeast.\nFinished\nwith\na\nthermal\nshock\nwash,\nthe\ncoffee\nis\ndried\ncarefully\nto\nretain\nvibrant\nfruit\nnotes.\nIn\nthe\ncup,\nexpect\nPeach\nGokuri,\nrhubarb,\nand\nsakura,\nframed\nby\na\ncreamy\nbody\nand\nprolonged\nacidity.\nWe\nselected\nthis\ncoffee\nfor\nits\ndynamic,\nfruit-forward\nprofile\nand\nclean,\ncreamy\nstructure."
+        },
+        {
+          "name": "Rested Coffee",
+          "url": "https://hydrangea.coffee/products/rested-coffee",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 79,
+              "currency": "USD",
+              "weightGrams": 60,
+              "priceUsd": 79,
+              "available": false
+            },
+            {
+              "price": 88,
+              "currency": "USD",
+              "weightGrams": 80,
+              "priceUsd": 88,
+              "available": true
+            },
+            {
+              "price": 60,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 60,
+              "available": false
+            },
+            {
+              "price": 32.5,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 32.5,
+              "available": false
+            },
+            {
+              "price": 35,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 35,
+              "available": false
+            },
+            {
+              "price": 42.5,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 42.5,
+              "available": false
+            },
+            {
+              "price": 28,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 28,
+              "available": true
+            },
+            {
+              "price": 26,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 26,
+              "available": true
+            },
+            {
+              "price": 23,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 23,
+              "available": false
+            },
+            {
+              "price": 24,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 24,
+              "available": true
+            },
+            {
+              "price": 25,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 25,
+              "available": false
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Q1020030copy.jpg?v=1749443515",
+          "description": "Hydrangea's\nRested\nCoffees\nThese\ncoffees\nfrom\nprevious\nroast\ndates\ncloser\nto\ntheir\npeak\nextraction\ntime,\n2-3\nweeks.\nAfter\nroasting,\nour\nbeans\nare\ngiven\na\nlittle\nbreathing\nroom\nto\nrest,\nusually\nfor\na\nweek\nor\ntwo,\nso\ntheir\nnatural\noils\nand\nflavors\ncan\nfully\ndevelop.\nThis\n“resting\nperiod”\nallows\nthe\ncoffee\nto\nrelease\nexcess\nCO₂\nfrom\nthe\nroasting\nprocess,\nand\nstrengthen\nthe\nbonds\nbetween\nthe\ncoffee\nbeans'\ncellulose\nstructure.\nLeading\nto\na\nsmoother,\nless\nbrittle\ngrounds,\nand\nmore\nbalanced\ncup\nwith\ngreater\nsweetness\nand\ndepth."
+        },
+        {
+          "name": "SL34, SL28, Ruiru 11, Batian - Washed - Gatuya AA",
+          "url": "https://hydrangea.coffee/products/sl34-sl28-ruiru-11-batian-washed-gatuya-aa",
+          "roasterId": "hydrangea",
+          "prices": [
+            {
+              "price": 18,
+              "currency": "USD",
+              "weightGrams": 134,
+              "priceUsd": 18,
+              "available": true
+            },
+            {
+              "price": 23,
+              "currency": "USD",
+              "weightGrams": 247,
+              "priceUsd": 23,
+              "available": true
+            },
+            {
+              "price": 73,
+              "currency": "USD",
+              "weightGrams": 937,
+              "priceUsd": 73,
+              "available": true
+            },
+            {
+              "price": 118,
+              "currency": "USD",
+              "weightGrams": 2320,
+              "priceUsd": 118,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": "Gatuya",
+          "farm": null,
+          "altitude": "1,850",
+          "process": "washed",
+          "protocol": null,
+          "variety": [
+            "SL-34"
+          ],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/0693/6887/3282/files/Blackcurrant_BlackTea_Plum.png?v=1759287041",
+          "description": "Tastes\nLike:\nOrigin:\nGatuya,\nMuranga,\nKenya\nVariety:\nSL-34,\nSL-28,\nRuiru-11,\nBatian\nProducer:\nGatuya\nF.C.S\nElevation:\n1,850\nmasl\nProcess:\nWashed\nAbout\nthe\nFarm\nand\nthe\nCoffee\nThe\nGatuya\nCoffee\nFactory\nis\none\nof\ntwo\nwashing\nstations\noperated\nby\nthe\nNewMurarandia\nFarmers\nCooperative\nSociety,\nwhich\nhas\na\ntotal\nof\naround\n3,500smallholder\nproducer\nmembers.\nEach\nfarmer\nowns\nabout\n1/5th\nto\n1/3rd\nof\nahectare\nand\ndelivers\ncoffee\nin\ncherry\nto\nthe\nfactory."
+        }
+      ],
+      "scrapedAt": "2026-01-17T13:20:01.496Z",
+      "errors": []
+    }
+  ],
+  "totalCoffees": 16
+}

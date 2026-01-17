@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* Brewlingo-inspired theme */
+@theme {
+  --color-primary: #ff6b35;
+  --color-primary-dark: #e55a2b;
+  --color-secondary: #4ecdc4;
+  --color-accent: #ffe66d;
+  --color-background: #fefefe;
+  --color-surface: #ffffff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #666666;
+  --color-border: #222222;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.5;
+  view-transition-name: root;
+}
+
+/* Dotted background pattern */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, #ddd 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* View transitions */
+.search-bar {
+  view-transition-name: search-bar;
+}
+
+.landing-title, .results-title {
+  view-transition-name: title;
+}
+
+::view-transition-old(search-bar),
+::view-transition-new(search-bar),
+::view-transition-old(title),
+::view-transition-new(title) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease-out;
+}
+
+::view-transition-old(root) {
+  animation: 0.3s ease-out fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.3s ease-out fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Results header sticky background */
+.results-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100vw;
+  right: -100vw;
+  bottom: 0;
+  background: var(--color-background);
+  z-index: -1;
+}

@@ -1,0 +1,546 @@
+{
+  "scrapedAt": "2026-01-17T15:34:42.268Z",
+  "results": [
+    {
+      "roasterId": "april",
+      "roasterName": "April Coffee Roasters",
+      "coffees": [
+        {
+          "name": "Volcan Azul - Costa Rica - Natural SL28",
+          "url": "https://www.aprilcoffeeroasters.com/products/volcan-azul-costa-rica-natural-sl28",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 169,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 24.51,
+              "available": true
+            },
+            {
+              "price": 250,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 36.25,
+              "available": true
+            },
+            {
+              "price": 820,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 118.9,
+              "available": true
+            }
+          ],
+          "country": "Costa Rica",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/naturalsl28_505d5fd0-b5d3-42a7-8f1b-7263466daac2.jpg?v=1767873088",
+          "description": "Location: Costa Rica, Alajuela Farm: Volcan Azul Producer: Alejo Castro Varietal: Natural processed SL28 Flavour Notes: Red Fruits, Brown Spice & Cooked Apple Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●●○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Volcan Azul - Costa Rica - Natural SL28",
+          "url": "https://www.aprilcoffeeroasters.com/products/volcan-azul-costa-rica-natural-sl28-1",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 250,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 36.25,
+              "available": true
+            },
+            {
+              "price": 820,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 118.9,
+              "available": true
+            }
+          ],
+          "country": "Costa Rica",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/naturalsl28_fff70eb0-0c29-4263-a2bf-3012c43d4a14.jpg?v=1759998318",
+          "description": "Location: Costa Rica, Alajuela Farm: Volcan Azul Producer: Alejo Castro Varietal: Natural processed SL28 Flavour Notes: Red Fruits, Brown Spice & Cooked Apple Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●●○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Sustainable Profile Coffee - Costa Rica",
+          "url": "https://www.aprilcoffeeroasters.com/products/sustainable-beans",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 135,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 19.58,
+              "available": true
+            },
+            {
+              "price": 530,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 76.85,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/spcostarica_3a8be65d-25bd-458c-b4ee-f28a6cd9317e.jpg?v=1755865600",
+          "description": "Location: Costa Rica Farm: Volcan Azul Producer: Alejo Castro Varietal: Caturra & Catuai Growing Altitude: 1500-1600 masl Processing Method: Washed Harvest: January - February 2024 Roast Profile: Medium (creating a rich and sweet character) works for Espresso & Filter Flavor Notes: Milk Chocolate, Brown Sugar & Red Cherries Sweetness: ●●●○○ Body: ●●●○○ Acidity: ●●●○○ More about the SP project. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Sustainable Profile Coffee - Kenya",
+          "url": "https://www.aprilcoffeeroasters.com/products/sustainable-profile-coffee-kenya",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 180,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 26.1,
+              "available": true
+            },
+            {
+              "price": 710,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 102.95,
+              "available": true
+            }
+          ],
+          "country": "Kenya",
+          "region": null,
+          "producer": null,
+          "farm": "Kamavindi Estate Producer: Peter Mbature Region: Embu, Kenya Varietal: SL28, SL34, Ruiru 11, Batian (AB) Processing: Washed Peter is producing several varietals familiar to buyers of Kenyan coffee, from SL28 to Ruiru 11, but he is also proudly farming 300 Gesha trees on his estate in Embu. He operates his own wet and dry processing. Flavor notes: Blackberries, Red Apple & Florals Sweetness: ●●●○○ Body: ●●●○○ Acidity: ●●●●○ Roasted Coffee Beans (Ristede hele kaffebønner)",
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/Spkenya_6224779d-1fd8-4c07-ae84-5eea4300a6c0.jpg?v=1755865594",
+          "description": "Farm: Kamavindi Estate Producer: Peter Mbature Region: Embu, Kenya Varietal: SL28, SL34, Ruiru 11, Batian (AB) Processing: Washed Peter is producing several varietals familiar to buyers of Kenyan coffee, from SL28 to Ruiru 11, but he is also proudly farming 300 Gesha trees on his estate in Embu. He operates his own wet and dry processing. Flavor notes: Blackberries, Red Apple & Florals Sweetness: ●●●○○ Body: ●●●○○ Acidity: ●●●●○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Sustainable Profile Coffee - Guatemala",
+          "url": "https://www.aprilcoffeeroasters.com/products/sustainable-profile-coffee-guatemala",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 154,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 22.33,
+              "available": true
+            },
+            {
+              "price": 606,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 87.87,
+              "available": true
+            }
+          ],
+          "country": "Guatemala",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/SPGuatemala_e2e75b5c-025b-4aa3-b79c-da757cb3c4ac.jpg?v=1759998034",
+          "description": "Location: Guatemala, Palencia Farm: El Socorro Producer: Diego de la Cerda Varietal: Washed Yellow Bourbon Roast Profile: Medium (creating a rich and sweet character) works for Espresso & Filter Flavor Notes: Macadamia & Honeydew melon Sweetness: ●●●●○ Body: ●●●●○ Acidity: ●●○○○ More about the SP project. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "El Tesoro - Colombia - Washed Tabi",
+          "url": "https://www.aprilcoffeeroasters.com/products/el-tesoro-colombia-washed-tabi",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 222,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 32.19,
+              "available": true
+            },
+            {
+              "price": 708,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 102.66,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/tabiesp_56496d1a-c46c-42f2-8ef1-5ae09f38b5c7.jpg?v=1755866821",
+          "description": "Location: Palestina, Huila, Colombia Producer: Viktor Barrera Farm: El Tesoro Varietal: Washed Tabi Flavour Notes: Plum, Red Apple & Brown Sugar Sweetness: ●●●○○ Body: ●●●○○ Acidity: ●●●●○ Learn more about this coffee. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "El Tesoro - Colombia - Washed Tabi",
+          "url": "https://www.aprilcoffeeroasters.com/products/el-tesoro-colombia-washed-tabi-1",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 145,
+              "currency": "DKK",
+              "weightGrams": 125,
+              "priceUsd": 21.03,
+              "available": true
+            },
+            {
+              "price": 222,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 32.19,
+              "available": true
+            },
+            {
+              "price": 709,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 102.81,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/tabi_db76cc96-db10-4ccc-8fff-fbd4c94715a0.jpg?v=1767872897",
+          "description": "Location: Palestina, Huila, Colombia Producer: Viktor Barrera Farm: El Tesoro Varietal: Washed Tabi Flavour Notes: Plum, Red Apple & Brown Sugar Sweetness: ●●●○○ Body: ●●●○○ Acidity: ●●●●○ Learn more about this coffee. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "El Morito - Guatemala - Washed Yellow Geisha",
+          "url": "https://www.aprilcoffeeroasters.com/products/el-morito-guatemala-washed-gesha-limited",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 425,
+              "currency": "DKK",
+              "weightGrams": 125,
+              "priceUsd": 61.62,
+              "available": true
+            },
+            {
+              "price": 662,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 95.99,
+              "available": true
+            },
+            {
+              "price": 2471,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 358.29,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/elmoritoyellowgesha2.jpg?v=1759998146",
+          "description": "Location: Jalapa department, Guatemala Farmer: Jose Roberto Monterroso Pineda Producer: El Morito Varietal: Washed Processed Yellow Geisha Flavour Notes: Mirabelle Plum, Citrus, Florals Sweetness: ●●●○○ Body: ●●○○○ Acidity: ●●●●○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Regassa - Ethiopia - Natural Krume 74158",
+          "url": "https://www.aprilcoffeeroasters.com/products/regassa-ethiopia-natural-krume-74158",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 171,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 24.8,
+              "available": true
+            },
+            {
+              "price": 273,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 39.58,
+              "available": true
+            },
+            {
+              "price": 913,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 132.39,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/regassa_680ba20d-5957-4ebe-b539-649bff2e910d.jpg?v=1767872911",
+          "description": "Location: Bombe, Bensa, Sidama Producer: Regassa Varietal: Natural processed Krume 74158 Flavour Notes: Raspberry, Dried Plum & Candied Citrus Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●○○ Learn more about this coffee and how to brew it. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Regassa - Ethiopia - Natural Krume 74158",
+          "url": "https://www.aprilcoffeeroasters.com/products/regassa-ethiopia-natural-krume-74159",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 273,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 39.58,
+              "available": true
+            },
+            {
+              "price": 913,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 132.39,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/regassaesp.jpg?v=1755866853",
+          "description": "Location: Bombe, Bensa, Sidama Producer: Regassa Varietal: Natural processed Krume 74158 Flavour Notes: Raspberry, Dried Plum & Candied Citrus Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●○○ Learn more about this coffee and how to brew it. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Sustainable Profile Coffee - Decaf",
+          "url": "https://www.aprilcoffeeroasters.com/products/sustainable-profile-coffee-decaf",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 150,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 21.75,
+              "available": true
+            },
+            {
+              "price": 590,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 85.55,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/decaf_652c7b94-a509-4834-9e91-de93d02e5d83.jpg?v=1755865608",
+          "description": "Location: Colombia Farm: Co-op, Decaf de Caña Varietal: Castillo, Caturra & Colombia (decaf) Growing Altitude: 1200 masl Processing Method: Washed Roast Profile: Medium (creating a rich and sweet character) works for Espresso & Filter Flavor Notes: Milk Chocolate, Biscuit, Candied Apple. Sweetness: ●●●●○ Body: ●●●●○ Acidity: ●●○○○ More about the SP project. Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Tadesse - Ethiopia - Washed Krume 74158",
+          "url": "https://www.aprilcoffeeroasters.com/products/tadesse-ethiopia-washed-krume-74158",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 171,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 24.8,
+              "available": true
+            },
+            {
+              "price": 273,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 39.58,
+              "available": true
+            },
+            {
+              "price": 913,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 132.39,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/tadesse_5b01f2f8-d0fc-4fa9-9c0e-dc04b3bd0d6b.jpg?v=1767872994",
+          "description": "Location: Bombe, Bensa, Sidama Producer: Tadesse Hanka Varietal: Washed processed Krume 74158 Flavour Notes: Citrus, floral & Stone Fruit Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●○○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Tadesse - Ethiopia - Washed Krume 74158",
+          "url": "https://www.aprilcoffeeroasters.com/products/tadesse-ethiopia-washed-krume-74159",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 273,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 39.58,
+              "available": true
+            },
+            {
+              "price": 913,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 132.39,
+              "available": true
+            }
+          ],
+          "country": "Ethiopia",
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/tadesseesp.jpg?v=1755866753",
+          "description": "Location: Bombe, Bensa, Sidama Producer: Tadesse Hanka Varietal: Washed processed Krume 74158 Flavour Notes: Citrus, floral, Black Tea & Stone Fruit Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●○○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        },
+        {
+          "name": "Volcan Azul - Costa Rica - Yellow Honey Geisha",
+          "url": "https://www.aprilcoffeeroasters.com/products/volcan-azul-costa-rica-yellow-honey-geisha",
+          "roasterId": "april",
+          "prices": [
+            {
+              "price": 185,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 26.83,
+              "available": true
+            },
+            {
+              "price": 296,
+              "currency": "DKK",
+              "weightGrams": 250,
+              "priceUsd": 42.92,
+              "available": true
+            },
+            {
+              "price": 1005,
+              "currency": "DKK",
+              "weightGrams": 1000,
+              "priceUsd": 145.73,
+              "available": true
+            }
+          ],
+          "country": null,
+          "region": null,
+          "producer": null,
+          "farm": null,
+          "altitude": null,
+          "process": null,
+          "protocol": null,
+          "variety": [],
+          "notes": [],
+          "blendComponents": [],
+          "roastFor": null,
+          "available": true,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1510/0358/files/yellow_gesha.jpg?v=1767873451",
+          "description": "Location: Costa Rica Producer: Alejo Castro Varietal: Yellow Honey processed Geisha Flavour Notes: Florals, Candied Lemon, Nougat Sweetness: ●●●●○ Body: ●●●○○ Acidity: ●●●○○ Roasted Coffee Beans (Ristede hele kaffebønner)"
+        }
+      ],
+      "scrapedAt": "2026-01-17T15:34:42.267Z",
+      "errors": []
+    }
+  ],
+  "totalCoffees": 14
+}
