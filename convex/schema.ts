@@ -37,16 +37,20 @@ export default defineSchema({
     protocol: v.array(v.string()),
     variety: v.array(v.string()),
 
+    // Tasting notes
+    notes: v.array(v.string()),
+
     // Metadata
     available: v.boolean(),
     imageUrl: v.union(v.string(), v.null()),
     skipped: v.boolean(),
 
-    // Convex metadata
+    // Versioning (URL reuse support)
+    isActive: v.boolean(),
     scrapedAt: v.number(),
   })
-    .index("by_roaster", ["roasterId"])
-    .index("by_url", ["url"]),
+    .index("by_roaster", ["roasterId", "isActive"])
+    .index("by_url_active", ["url", "isActive"]),
 
   // Roaster metadata
   roasters: defineTable({

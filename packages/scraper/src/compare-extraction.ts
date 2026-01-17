@@ -70,6 +70,7 @@ async function main() {
         console.log(`Process: ${JSON.stringify(coffee.process)}`);
         console.log(`Protocol: ${JSON.stringify(coffee.protocol)}`);
         console.log(`Variety: ${JSON.stringify(coffee.variety)}`);
+        console.log(`Notes: ${JSON.stringify(coffee.notes)}`);
       } else {
         console.log("AI extraction failed");
       }
@@ -96,6 +97,7 @@ async function main() {
     process: c.process || [],
     protocol: c.protocol || [],
     variety: c.variety || [],
+    notes: c.notes || [],
     prices: c.prices,
   }));
 

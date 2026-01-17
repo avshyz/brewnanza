@@ -1,0 +1,340 @@
+[
+  {
+    "name": "El Porvenir Gesha Washed",
+    "url": "https://daturacoffee.com/products/la-palma-y-el-tucan-heroes-gesha-lactic",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/DDA81B52-5F1D-413B-9953-DA722E6A1866.png?v=1768147959",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Tambo",
+      "Cauca"
+    ],
+    "producer": [
+      "Pedro Fabian"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [],
+    "variety": [
+      "Gesha"
+    ],
+    "notes": [
+      "lime",
+      "lemongrass",
+      "violet"
+    ],
+    "prices": [
+      {
+        "price": 34,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 36.72,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Altieri Dilgo Gesha Asd Natural",
+    "url": "https://daturacoffee.com/products/altieri-estate-dilgo-gesha-washed",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/D48E8997-D73B-4886-A52B-7DF826E67B0F.png?v=1764323724",
+    "skipped": false,
+    "country": [
+      "Panama"
+    ],
+    "region": [
+      "Boquete"
+    ],
+    "producer": [
+      "Altieri Estate"
+    ],
+    "process": [
+      "asd natural"
+    ],
+    "protocol": [
+      "72hr whole cherry hermetic tanks 24 days in raised beds"
+    ],
+    "variety": [
+      "Gesha"
+    ],
+    "notes": [
+      "caramelized pineapple",
+      "violet",
+      "grape",
+      "white flowers"
+    ],
+    "prices": [
+      {
+        "price": 48,
+        "currency": "EUR",
+        "weightGrams": 100,
+        "priceUsd": 51.84,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Hacienda Barbara - La Huaca Gesha Washed Lot 12",
+    "url": "https://daturacoffee.com/products/hacienda-barbara-gesha-washed-lot-12",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/827D1724-F148-4A2D-9B89-97BFCFBB2CB1.png?v=1764354353",
+    "skipped": false,
+    "country": [
+      "Panama"
+    ],
+    "region": [
+      "Boquete"
+    ],
+    "producer": [
+      "Hunter Tedman"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [],
+    "variety": [
+      "Gesha"
+    ],
+    "notes": [],
+    "prices": [
+      {
+        "price": 28,
+        "currency": "EUR",
+        "weightGrams": 100,
+        "priceUsd": 30.24,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Alo Chilaka 74158 Hybrid Washed",
+    "url": "https://daturacoffee.com/products/alo-chilaka-74158-natural",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/IMG-3515.png?v=1768148112",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Sidama"
+    ],
+    "producer": [
+      "Tamiru Tadesse"
+    ],
+    "process": [
+      "hybrid washed"
+    ],
+    "protocol": [
+      "Ripe coffee cherries are fermented in tanks for 72 hours. They are then depulped and immediately washed using a mechanical washer. The freshly washed parchment is transferred to African drying beds, where it is carefully dried over a period of approximately 12 days. The team turns the parchment every hour to ensure even drying and to prevent over-fermentation. To protect the coffee from intense sunlight, the beds are covered with shade daily between 12:00 pm and 3:00 pm."
+    ],
+    "variety": [
+      "74158"
+    ],
+    "notes": [
+      "fresh",
+      "floral"
+    ],
+    "prices": [
+      {
+        "price": 28,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 30.24,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Shantawene Heirloom Anaerobic Natural",
+    "url": "https://daturacoffee.com/products/shantawene-heirloom-anaerobic-natural",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/IMG-3517.png?v=1768150870",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Sidama"
+    ],
+    "producer": [
+      "Shantawene"
+    ],
+    "process": [
+      "anaerobic natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "jammy",
+      "creamy",
+      "ripe fruit"
+    ],
+    "prices": [
+      {
+        "price": 22,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 23.76,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Gesha Village Oma 056 Natural",
+    "url": "https://daturacoffee.com/products/24-098-oma-natural-gesha-village",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/6E4417DC-44BE-4200-99A6-5B047299F808.png?v=1762156789",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Gesha Village"
+    ],
+    "producer": [
+      "Gesha Village"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "Coffee cherries are sun-dried whole in thin layers on raised African beds. A parabolic plastic cover is used in the evening to improve airflow. The natural drying process takes 18 to 30 days."
+    ],
+    "variety": [
+      "Gesha"
+    ],
+    "notes": [
+      "apricot jam",
+      "orange blossom",
+      "berries",
+      "tangerine"
+    ],
+    "prices": [
+      {
+        "price": 30,
+        "currency": "EUR",
+        "weightGrams": 100,
+        "priceUsd": 32.4,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Alo Village 74158 Mosto",
+    "url": "https://daturacoffee.com/products/alo-village-74158-mosto",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/2EE9F633-18CB-4670-80C2-E10282F179B2.png?v=1758106820",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Sidama"
+    ],
+    "producer": [
+      "Tamiru Tadesse"
+    ],
+    "process": [
+      "anaerobic natural"
+    ],
+    "protocol": [
+      "Ripe cherries are meticulously handpicked for uniformity, then placed into blue plastic tanks and sealed for 96 hours of anaerobic fermentation with mosto in a cool environment",
+      "Following fermentation, the cherries are spread across African raised beds for 28 days of drying, with consistent turning every hour to ensure even dehydration",
+      "The beds are covered during peak sunlight hours (12–3 PM) to prevent overheating",
+      "Once the cherries reach the ideal moisture level of 11–11.5%, they are sealed in GrainPro bags to preserve and enhance aromatic development",
+      "The dried cherries are rested for a minimum of 45 days before dry milling"
+    ],
+    "variety": [
+      "74158"
+    ],
+    "notes": [
+      "pineapple",
+      "golden kiwi",
+      "papaya",
+      "red fruits",
+      "yellow fruit",
+      "tropical"
+    ],
+    "prices": [
+      {
+        "price": 20,
+        "currency": "EUR",
+        "weightGrams": 100,
+        "priceUsd": 21.6,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Gerba Dogo Heirloom – Washed",
+    "url": "https://daturacoffee.com/products/gerba-dogo-heirloom-washed",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/47B644A6-D574-4D70-AEF7-8158E6691C3A.png?v=1756127056",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Guji"
+    ],
+    "producer": [
+      "Shonora Coffee"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "floral",
+      "peach",
+      "bergamot"
+    ],
+    "prices": [
+      {
+        "price": 20,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 21.6,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Tabe Burka – Uraga Heirloom – Washed",
+    "url": "https://daturacoffee.com/products/tabe-burka-uraga-heirloom-washed",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0868/5446/7925/files/684B5963-F2C3-44A9-A253-B651E497DA2B.png?v=1756127122",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Guji"
+    ],
+    "producer": [
+      "Tabe Burka"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "citrus",
+      "florals",
+      "stone fruit",
+      "vegetal"
+    ],
+    "prices": [
+      {
+        "price": 20,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 21.6,
+        "available": true
+      }
+    ]
+  }
+]

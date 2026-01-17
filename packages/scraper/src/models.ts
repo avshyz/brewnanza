@@ -52,6 +52,9 @@ export const CoffeeSchema = z.object({
   protocol: z.array(z.string()).default([]),
   variety: z.array(z.string()).default([]),
 
+  // Tasting notes
+  notes: z.array(z.string()).default([]),
+
   // Metadata
   available: z.boolean().default(true),
   imageUrl: z.string().nullable().default(null),

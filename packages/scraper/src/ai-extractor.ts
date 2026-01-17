@@ -115,6 +115,13 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
 8. **variety** (array): Coffee varietals/cultivars with canonical names.
    Example: ["SL-28", "Gesha", "Bourbon"]
 
+9. **notes** (array): Tasting notes - individual flavor descriptors.
+   Extract from descriptions, flavor profiles, or cupping notes.
+   Example: ["blueberry", "jasmine", "dark chocolate", "citrus"]
+   - Use lowercase, single words or short phrases (1-3 words max)
+   - Extract specific flavors, not general descriptors like "complex" or "balanced"
+   - Common categories: fruits, florals, chocolate, nuts, spices, sugars
+
 ## OUTPUT FORMAT:
 
 {
@@ -125,7 +132,8 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
   "producer": ["Smallholder Farmers"],
   "process": ["natural"],
   "protocol": [],
-  "variety": ["Heirloom"]
+  "variety": ["Heirloom"],
+  "notes": ["blueberry", "jasmine"]
 }
 
 For a blend:
@@ -137,7 +145,8 @@ For a blend:
   "producer": [],
   "process": ["natural", "washed"],
   "protocol": [],
-  "variety": ["Heirloom", "Castillo"]
+  "variety": ["Heirloom", "Castillo"],
+  "notes": []
 }
 
 Text to extract from:
@@ -266,6 +275,7 @@ export interface ExtractedDetails {
   process: string[];
   protocol: string[];
   variety: string[];
+  notes: string[];
 }
 
 /**
@@ -350,6 +360,7 @@ export async function extractDetails(url: string, html: string): Promise<Extract
     if (!Array.isArray(result.process)) result.process = [];
     if (!Array.isArray(result.protocol)) result.protocol = [];
     if (!Array.isArray(result.variety)) result.variety = [];
+    if (!Array.isArray(result.notes)) result.notes = [];
 
     // Cache result
     cache[url] = result;
@@ -374,6 +385,7 @@ export function applyExtractedDetails(coffee: Coffee, details: ExtractedDetails)
   if (details.process?.length) coffee.process = details.process;
   if (details.protocol?.length) coffee.protocol = details.protocol;
   if (details.variety?.length) coffee.variety = details.variety;
+  if (details.notes?.length) coffee.notes = details.notes;
 }
 
 /**

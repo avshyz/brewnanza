@@ -28,64 +28,73 @@ const coffeeValidator = v.object({
   process: v.array(v.string()),
   protocol: v.array(v.string()),
   variety: v.array(v.string()),
+  notes: v.array(v.string()),
   available: v.boolean(),
   imageUrl: v.union(v.string(), v.null()),
   skipped: v.boolean(),
 });
 
 /**
- * Get all coffees (for search).
+ * Get all active coffees (for search).
  */
 export const getAll = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("coffees").collect();
+    return await ctx.db
+      .query("coffees")
+      .filter((q) => q.eq(q.field("isActive"), true))
+      .collect();
   },
 });
 
 /**
- * Get coffees by roaster.
+ * Get active coffees by roaster.
  */
 export const getByRoaster = query({
   args: { roasterId: v.string() },
   handler: async (ctx, { roasterId }) => {
     return await ctx.db
       .query("coffees")
-      .withIndex("by_roaster", (q) => q.eq("roasterId", roasterId))
+      .withIndex("by_roaster", (q) =>
+        q.eq("roasterId", roasterId).eq("isActive", true)
+      )
       .collect();
   },
 });
 
 /**
- * Upsert a single coffee (insert or update by URL).
+ * Upsert a single coffee.
+ * Deactivates any existing active record with same URL, inserts new as active.
  */
 export const upsert = mutation({
   args: { coffee: coffeeValidator },
   handler: async (ctx, { coffee }) => {
     const existing = await ctx.db
       .query("coffees")
-      .withIndex("by_url", (q) => q.eq("url", coffee.url))
+      .withIndex("by_url_active", (q) =>
+        q.eq("url", coffee.url).eq("isActive", true)
+      )
       .first();
 
     const now = Date.now();
 
+    // Deactivate old record if exists
     if (existing) {
-      await ctx.db.patch(existing._id, {
-        ...coffee,
-        scrapedAt: now,
-      });
-      return existing._id;
-    } else {
-      return await ctx.db.insert("coffees", {
-        ...coffee,
-        scrapedAt: now,
-      });
+      await ctx.db.patch(existing._id, { isActive: false });
     }
+
+    // Insert new active record
+    return await ctx.db.insert("coffees", {
+      ...coffee,
+      isActive: true,
+      scrapedAt: now,
+    });
   },
 });
 
 /**
  * Batch upsert coffees (for scraper results).
+ * Deactivates existing active records with same URLs, inserts new as active.
  */
 export const batchUpsert = mutation({
   args: {
@@ -95,28 +104,30 @@ export const batchUpsert = mutation({
   },
   handler: async (ctx, { coffees, roasterId, roasterName }) => {
     const now = Date.now();
+    let deactivated = 0;
     let inserted = 0;
-    let updated = 0;
 
     for (const coffee of coffees) {
+      // Deactivate existing active record if exists
       const existing = await ctx.db
         .query("coffees")
-        .withIndex("by_url", (q) => q.eq("url", coffee.url))
+        .withIndex("by_url_active", (q) =>
+          q.eq("url", coffee.url).eq("isActive", true)
+        )
         .first();
 
       if (existing) {
-        await ctx.db.patch(existing._id, {
-          ...coffee,
-          scrapedAt: now,
-        });
-        updated++;
-      } else {
-        await ctx.db.insert("coffees", {
-          ...coffee,
-          scrapedAt: now,
-        });
-        inserted++;
+        await ctx.db.patch(existing._id, { isActive: false });
+        deactivated++;
       }
+
+      // Insert new active record
+      await ctx.db.insert("coffees", {
+        ...coffee,
+        isActive: true,
+        scrapedAt: now,
+      });
+      inserted++;
     }
 
     // Update roaster metadata
@@ -144,7 +155,7 @@ export const batchUpsert = mutation({
       });
     }
 
-    return { inserted, updated };
+    return { inserted, deactivated };
   },
 });
 
@@ -165,5 +176,125 @@ export const clearAll = mutation({
     }
 
     return { coffeesDeleted: coffees.length, roastersDeleted: roasters.length };
+  },
+});
+
+/**
+ * Delete inactive records for a roaster.
+ */
+export const clearInactive = mutation({
+  args: { roasterId: v.string() },
+  handler: async (ctx, { roasterId }) => {
+    const inactive = await ctx.db
+      .query("coffees")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("roasterId"), roasterId),
+          q.eq(q.field("isActive"), false)
+        )
+      )
+      .collect();
+
+    for (const coffee of inactive) {
+      await ctx.db.delete(coffee._id);
+    }
+
+    return { deleted: inactive.length };
+  },
+});
+
+/**
+ * Get active URLs for a roaster (for sync diffing).
+ */
+export const getActiveUrlsByRoaster = query({
+  args: { roasterId: v.string() },
+  handler: async (ctx, { roasterId }) => {
+    const coffees = await ctx.db
+      .query("coffees")
+      .withIndex("by_roaster", (q) =>
+        q.eq("roasterId", roasterId).eq("isActive", true)
+      )
+      .collect();
+
+    return coffees.map((c) => ({ url: c.url }));
+  },
+});
+
+/**
+ * Update availability and scrapedAt for existing coffees.
+ */
+export const updateAvailability = mutation({
+  args: {
+    roasterId: v.string(),
+    updates: v.array(
+      v.object({
+        url: v.string(),
+        prices: v.array(priceVariantValidator),
+        available: v.boolean(),
+      })
+    ),
+  },
+  handler: async (ctx, { roasterId, updates }) => {
+    const now = Date.now();
+    let updated = 0;
+
+    for (const update of updates) {
+      const existing = await ctx.db
+        .query("coffees")
+        .withIndex("by_url_active", (q) =>
+          q.eq("url", update.url).eq("isActive", true)
+        )
+        .first();
+
+      if (existing && existing.roasterId === roasterId) {
+        await ctx.db.patch(existing._id, {
+          prices: update.prices,
+          available: update.available,
+          scrapedAt: now,
+        });
+        updated++;
+      }
+    }
+
+    // Update roaster lastScrapedAt
+    const roaster = await ctx.db
+      .query("roasters")
+      .withIndex("by_roasterId", (q) => q.eq("roasterId", roasterId))
+      .first();
+
+    if (roaster) {
+      await ctx.db.patch(roaster._id, { lastScrapedAt: now });
+    }
+
+    return { updated };
+  },
+});
+
+/**
+ * Batch deactivate coffees by URL.
+ */
+export const batchDeactivate = mutation({
+  args: {
+    roasterId: v.string(),
+    urls: v.array(v.string()),
+  },
+  handler: async (ctx, { roasterId, urls }) => {
+    let deactivated = 0;
+
+    for (const url of urls) {
+      const existing = await ctx.db
+        .query("coffees")
+        .withIndex("by_url_active", (q) =>
+          q.eq("url", url).eq("isActive", true)
+        )
+        .first();
+
+      if (existing && existing.roasterId === roasterId) {
+        await ctx.db.patch(existing._id, { isActive: false });
+        deactivated++;
+      }
+    }
+
+    return { deactivated };
   },
 });
