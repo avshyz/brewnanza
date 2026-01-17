@@ -29,7 +29,7 @@ const coffeeValidator = v.object({
   protocol: v.array(v.string()),
   variety: v.array(v.string()),
   notes: v.array(v.string()),
-  caffeine: v.optional(v.union(v.literal("decaf"), v.literal("lowcaf"), v.null())),
+  caffeine: v.union(v.literal("decaf"), v.literal("lowcaf"), v.null()),
   available: v.boolean(),
   imageUrl: v.union(v.string(), v.null()),
   skipped: v.boolean(),
@@ -299,3 +299,29 @@ export const batchDeactivate = mutation({
     return { deactivated };
   },
 });
+
+/**
+ * Mark a coffee as skipped by URL.
+ */
+export const setSkipped = mutation({
+  args: {
+    url: v.string(),
+    skipped: v.boolean(),
+  },
+  handler: async (ctx, { url, skipped }) => {
+    const existing = await ctx.db
+      .query("coffees")
+      .withIndex("by_url_active", (q) =>
+        q.eq("url", url).eq("isActive", true)
+      )
+      .first();
+
+    if (!existing) {
+      throw new Error(`No active coffee found with URL: ${url}`);
+    }
+
+    await ctx.db.patch(existing._id, { skipped });
+    return { url, skipped, name: existing.name };
+  },
+});
+

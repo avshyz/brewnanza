@@ -161,6 +161,8 @@ export class WooCommerceScraper extends BaseScraper {
       process: process ? [process] : [],
       protocol: [],
       variety,
+      notes: [],
+      caffeine: null,
       available: product.is_in_stock ?? true,
       imageUrl: getFirstImage(product.images),
       skipped: false,

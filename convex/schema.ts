@@ -41,7 +41,7 @@ export default defineSchema({
     notes: v.array(v.string()),
 
     // Caffeine level: null/undefined = regular, "decaf" = decaffeinated, "lowcaf" = low caffeine
-    caffeine: v.optional(v.union(v.literal("decaf"), v.literal("lowcaf"), v.null())),
+    caffeine: v.union(v.literal("decaf"), v.literal("lowcaf"), v.null()),
 
     // Metadata
     available: v.boolean(),

@@ -4,6 +4,7 @@
  */
 
 import * as cheerio from "cheerio";
+import type { AnyNode } from "domhandler";
 import { FIELD_PATTERNS } from "./config.js";
 
 /**
@@ -65,7 +66,7 @@ const MAIN_CONTENT_SELECTORS = [
 export function findMainContent(
   $: cheerio.CheerioAPI,
   selectors?: string[]
-): cheerio.Cheerio<cheerio.Element> {
+): cheerio.Cheerio<AnyNode> {
   const allSelectors = [...(selectors || []), ...MAIN_CONTENT_SELECTORS];
 
   for (const selector of allSelectors) {

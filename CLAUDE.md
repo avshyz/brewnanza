@@ -43,6 +43,10 @@ bun run dev              # Start Next.js only
 - **Styling**: Tailwind + tailwind-merge + clsx
 - **Scraper**: TypeScript, cheerio, Claude AI for extraction
 
+## Convex
+
+Before changing schema or functions, ensure `bunx convex dev` is running (start in background if needed).
+
 ## Scraper Commands
 
 Run from `packages/scraper/`:
