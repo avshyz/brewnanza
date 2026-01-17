@@ -92,6 +92,8 @@ export class ShopifyJsonScraper extends BaseScraper {
       variety: [],
       notes: [],
       caffeine: null,
+      roastLevel: null,
+      roastedFor: null,
       // Metadata
       available: variants.some((v) => v.available !== false),
       imageUrl: getFirstImage(product.images),

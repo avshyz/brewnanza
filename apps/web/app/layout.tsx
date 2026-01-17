@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
+import { Sora } from "next/font/google";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import "./globals.css";
+
+const sora = Sora({
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Brewnanza - Specialty Coffee Search",
@@ -14,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={sora.className}>
         <ConvexClientProvider>{children}</ConvexClientProvider>
       </body>
     </html>

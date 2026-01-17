@@ -7,13 +7,14 @@ import { flushSync } from "react-dom";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
 import { FilterChip } from "../components/ui/filter-chip";
+import { EspressoIcon, FilterIcon, DecafIcon } from "../components/icons";
 
 export default function Home() {
   const coffees = useQuery(api.coffees.getAll);
   const [search, setSearch] = useState("");
   const [groupByRoaster, setGroupByRoaster] = useState(false);
-  const [countryFilter, setCountryFilter] = useState<string | null>(null);
-  const [processFilter, setProcessFilter] = useState<string | null>(null);
+  const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(null);
+  const [decafOnly, setDecafOnly] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Store search in ref for stable callback (Rule 5.5)
@@ -21,7 +22,7 @@ export default function Home() {
   searchRef.current = search;
 
   // Determine if we're in "results" mode
-  const showResults = search.trim() || countryFilter || processFilter;
+  const showResults = search.trim() || roastedForFilter || decafOnly;
 
   // Refocus input after view transition
   useEffect(() => {
@@ -30,36 +31,6 @@ export default function Home() {
     }, 50);
     return () => clearTimeout(timer);
   }, [showResults]);
-
-  // Get unique countries and processes for filters
-  // Rule 7.12: Use toSorted() for immutability
-  const { countries, processes } = useMemo(() => {
-    if (!coffees) return { countries: [], processes: [] };
-
-    const countryCount = new Map<string, number>();
-    const processCount = new Map<string, number>();
-
-    for (const coffee of coffees) {
-      for (const c of coffee.country) {
-        countryCount.set(c, (countryCount.get(c) || 0) + 1);
-      }
-      for (const p of coffee.process) {
-        processCount.set(p, (processCount.get(p) || 0) + 1);
-      }
-    }
-
-    const countries = [...countryCount.entries()]
-      .toSorted((a, b) => b[1] - a[1])
-      .slice(0, 8)
-      .map(([name]) => name);
-
-    const processes = [...processCount.entries()]
-      .toSorted((a, b) => b[1] - a[1])
-      .slice(0, 6)
-      .map(([name]) => name);
-
-    return { countries, processes };
-  }, [coffees]);
 
   // Rule 7.6: Combine multiple filter iterations into single loop
   const filteredCoffees = useMemo(() => {
@@ -72,11 +43,12 @@ export default function Home() {
       // Skip check
       if (coffee.skipped) continue;
 
-      // Country filter
-      if (countryFilter && !coffee.country.includes(countryFilter)) continue;
+      // Roasted for filter (espresso/filter) - each includes omni (null)
+      if (roastedForFilter === "espresso" && coffee.roastedFor !== "espresso" && coffee.roastedFor !== null) continue;
+      if (roastedForFilter === "filter" && coffee.roastedFor !== "filter" && coffee.roastedFor !== null) continue;
 
-      // Process filter
-      if (processFilter && !coffee.process.includes(processFilter)) continue;
+      // Decaf filter
+      if (decafOnly && coffee.caffeine !== "decaf") continue;
 
       // Search filter
       if (searchTerms) {
@@ -100,7 +72,7 @@ export default function Home() {
     }
 
     return result;
-  }, [coffees, search, countryFilter, processFilter]);
+  }, [coffees, search, roastedForFilter, decafOnly]);
 
   // Group by roaster
   const groupedByRoaster = useMemo(() => {
@@ -131,15 +103,15 @@ export default function Home() {
   }, []);
 
   // Rule 5.7: Use startTransition for non-urgent filter updates
-  const handleCountryFilter = useCallback((country: string | null) => {
+  const handleRoastedForFilter = useCallback((value: "espresso" | "filter" | null) => {
     startTransition(() => {
-      setCountryFilter(country);
+      setRoastedForFilter(value);
     });
   }, []);
 
-  const handleProcessFilter = useCallback((process: string | null) => {
+  const handleDecafToggle = useCallback(() => {
     startTransition(() => {
-      setProcessFilter(process);
+      setDecafOnly(prev => !prev);
     });
   }, []);
 
@@ -200,9 +172,9 @@ export default function Home() {
 
   // Results view
   return (
-    <main className="max-w-[1200px] mx-auto px-4 pt-0">
+    <main className="max-w-[1200px] mx-auto px-4 pt-0 overflow-x-hidden">
       <header className="results-header sticky top-0 bg-background py-4 z-10 border-b-3 border-border mb-6">
-        <div className="flex items-center gap-4 mb-3">
+        <div className="flex items-center gap-3 mb-3 flex-wrap">
           <h1 className="main-title text-2xl font-black uppercase tracking-tight">
             Brewnanza
           </h1>
@@ -226,37 +198,28 @@ export default function Home() {
         </div>
 
         {/* Filter chips */}
-        <div className="flex flex-col gap-2">
-          <div className="flex gap-1.5 flex-wrap items-center">
-            <span className="text-xs text-text-muted font-bold uppercase mr-1">Country:</span>
-            {countries.map((country) => (
-              <FilterChip
-                key={country}
-                active={countryFilter === country}
-                onClick={() => handleCountryFilter(countryFilter === country ? null : country)}
-              >
-                {country}
-              </FilterChip>
-            ))}
-            {countryFilter ? (
-              <FilterChip onClick={() => handleCountryFilter(null)}>X</FilterChip>
-            ) : null}
-          </div>
-          <div className="flex gap-1.5 flex-wrap items-center">
-            <span className="text-xs text-text-muted font-bold uppercase mr-1">Process:</span>
-            {processes.map((process) => (
-              <FilterChip
-                key={process}
-                active={processFilter === process}
-                onClick={() => handleProcessFilter(processFilter === process ? null : process)}
-              >
-                {process}
-              </FilterChip>
-            ))}
-            {processFilter ? (
-              <FilterChip onClick={() => handleProcessFilter(null)}>X</FilterChip>
-            ) : null}
-          </div>
+        <div className="flex gap-1.5 flex-wrap items-center">
+          <FilterChip
+            active={roastedForFilter === "espresso"}
+            onClick={() => handleRoastedForFilter(roastedForFilter === "espresso" ? null : "espresso")}
+          >
+            <EspressoIcon className="w-3 h-3" />
+            Espresso
+          </FilterChip>
+          <FilterChip
+            active={roastedForFilter === "filter"}
+            onClick={() => handleRoastedForFilter(roastedForFilter === "filter" ? null : "filter")}
+          >
+            <FilterIcon className="w-3 h-3" />
+            Filter
+          </FilterChip>
+          <FilterChip
+            active={decafOnly}
+            onClick={handleDecafToggle}
+          >
+            <DecafIcon className="w-3 h-3" />
+            Decaf
+          </FilterChip>
         </div>
 
         <p className="mt-2 text-sm text-text-muted font-bold uppercase tracking-wide">

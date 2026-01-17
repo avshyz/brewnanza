@@ -21,6 +21,7 @@ export * from "./currency.js";
 import { registerRoaster, type RoasterConfig } from "./config.js";
 import { ShopifyJsonScraper } from "./scrapers/shopify-json.js";
 import { WooCommerceScraper } from "./scrapers/woocommerce.js";
+import { DakScraper } from "./scrapers/dak.js";
 
 // Register all roasters
 const roasters: RoasterConfig[] = [
@@ -142,6 +143,14 @@ const roasters: RoasterConfig[] = [
     scraper: WooCommerceScraper,
     categoryFilter: "23",
     currency: "ILS",
+  },
+  {
+    id: "dak",
+    name: "DAK Coffee Roasters",
+    baseUrl: "https://www.dakcoffeeroasters.com",
+    collectionUrl: "https://www.dakcoffeeroasters.com/shop",
+    scraper: DakScraper,
+    currency: "EUR",
   },
 ];
 

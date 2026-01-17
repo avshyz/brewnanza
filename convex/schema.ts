@@ -40,8 +40,14 @@ export default defineSchema({
     // Tasting notes
     notes: v.array(v.string()),
 
-    // Caffeine level: null/undefined = regular, "decaf" = decaffeinated, "lowcaf" = low caffeine
+    // Caffeine level: null = regular, "decaf" = decaffeinated, "lowcaf" = low caffeine
     caffeine: v.union(v.literal("decaf"), v.literal("lowcaf"), v.null()),
+
+    // Roast level: null = unknown (optional for existing data)
+    roastLevel: v.optional(v.union(v.literal("light"), v.literal("medium"), v.literal("dark"), v.null())),
+
+    // Roasted for: null = omni/both (optional for existing data)
+    roastedFor: v.optional(v.union(v.literal("filter"), v.literal("espresso"), v.null())),
 
     // Metadata
     available: v.boolean(),

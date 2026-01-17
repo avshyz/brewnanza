@@ -163,6 +163,8 @@ export class WooCommerceScraper extends BaseScraper {
       variety,
       notes: [],
       caffeine: null,
+      roastLevel: null,
+      roastedFor: null,
       available: product.is_in_stock ?? true,
       imageUrl: getFirstImage(product.images),
       skipped: false,

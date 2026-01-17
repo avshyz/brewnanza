@@ -10,6 +10,7 @@
  *   bun run src/cli.ts lacabra kbcoffee   # Scrape specific roasters
  *   bun run src/cli.ts --list             # List available roasters
  *   bun run src/cli.ts --dry-run          # Preview changes without writing
+ *   bun run src/cli.ts --clear-db         # Clear all coffees and roasters
  *   bun run src/cli.ts -v                 # Verbose output
  */
 
@@ -30,6 +31,7 @@ const args = process.argv.slice(2);
 const verbose = args.includes("-v") || args.includes("--verbose");
 const listOnly = args.includes("--list");
 const dryRun = args.includes("--dry-run");
+const clearDb = args.includes("--clear-db");
 
 // Convex HTTP URL (note: .convex.site for HTTP endpoints, not .convex.cloud)
 const CONVEX_SITE_URL =
@@ -273,8 +275,26 @@ async function syncRoaster(
   return { updated, deactivated, inserted, skipped, errors };
 }
 
+async function clearAllData(): Promise<void> {
+  const url = `${CONVEX_SITE_URL}/clear-all`;
+  const response = await fetch(url, { method: "POST" });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Failed to clear DB: ${response.status} ${text}`);
+  }
+
+  const result = await response.json();
+  console.log(`Cleared: ${result.coffeesDeleted} coffees, ${result.roastersDeleted} roasters`);
+}
+
 async function main() {
   const allRoasters = getAllRoasters();
+
+  if (clearDb) {
+    await clearAllData();
+    return;
+  }
 
   if (listOnly) {
     console.log("Available roasters:");

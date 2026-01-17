@@ -58,6 +58,12 @@ export const CoffeeSchema = z.object({
   // Caffeine level: null = regular, "decaf" = decaffeinated, "lowcaf" = low caffeine
   caffeine: z.enum(["decaf", "lowcaf"]).nullable().default(null),
 
+  // Roast level: null = unknown
+  roastLevel: z.enum(["light", "medium", "dark"]).nullable().default(null),
+
+  // Roasted for: null = omni/both
+  roastedFor: z.enum(["filter", "espresso"]).nullable().default(null),
+
   // Metadata
   available: z.boolean().default(true),
   imageUrl: z.string().nullable().default(null),

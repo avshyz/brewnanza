@@ -11,7 +11,7 @@
     "scrape": "bun run src/cli.ts",
     "scrape:test": "bun run src/compare-extraction.ts",
     "scrape:list": "bun run src/cli.ts --list",
-    "cache:clear": "rm -rf cache"
+    "db:clear": "cd ../.. && bunx convex run coffees:clearAll"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
@@ -20,6 +20,9 @@
     "openai": "^6.16.0",
     "sanitize-html": "^2.17.0",
     "zod": "^3.24.1"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.57.0"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -4,20 +4,11 @@
  * This module handles:
  * 1. Product qualification (is this actual coffee or bundle/subscription?)
  * 2. Detail extraction (extract structured coffee data from HTML)
- * 3. File-based caching to avoid re-processing
  */
 
 import Anthropic from "@anthropic-ai/sdk";
 import sanitizeHtml from "sanitize-html";
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
 import type { Coffee } from "./models.js";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const CACHE_DIR = join(__dirname, "..", "cache");
-const DETAILS_CACHE_FILE = join(CACHE_DIR, "ai_details.json");
-const QUALIFY_CACHE_FILE = join(CACHE_DIR, "ai_qualify.json");
 
 const MODEL = "claude-sonnet-4-20250514";
 
@@ -128,6 +119,17 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
    - "lowcaf": Low caffeine coffee (look for "low caffeine", "half-caf", "low caf", naturally low caffeine varieties)
    - If not explicitly mentioned, assume null (regular coffee)
 
+11. **roastLevel** (string or null): Roast darkness level.
+   - "light": Light roast (look for "light roast", "light", "nordic", "filter roast" typically implies light)
+   - "medium": Medium roast (look for "medium roast", "medium", "city roast")
+   - "dark": Dark roast (look for "dark roast", "dark", "espresso roast" may imply darker)
+   - null: If not explicitly mentioned
+
+12. **roastedFor** (string or null): Intended brewing method.
+   - "filter": For pour-over, drip, Aeropress (look for "filter", "pour over", "drip")
+   - "espresso": For espresso machines (look for "espresso")
+   - null: Omni-roast/both methods or not specified (look for "omni", "versatile", "all brewing methods")
+
 ## OUTPUT FORMAT:
 
 {
@@ -140,7 +142,9 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
   "protocol": [],
   "variety": ["Heirloom"],
   "notes": ["blueberry", "jasmine"],
-  "caffeine": null
+  "caffeine": null,
+  "roastLevel": "light",
+  "roastedFor": "filter"
 }
 
 For a blend:
@@ -154,7 +158,9 @@ For a blend:
   "protocol": [],
   "variety": ["Heirloom", "Castillo"],
   "notes": [],
-  "caffeine": null
+  "caffeine": null,
+  "roastLevel": "medium",
+  "roastedFor": null
 }
 
 For decaf:
@@ -168,69 +174,13 @@ For decaf:
   "protocol": [],
   "variety": ["Castillo"],
   "notes": ["chocolate", "caramel"],
-  "caffeine": "decaf"
+  "caffeine": "decaf",
+  "roastLevel": null,
+  "roastedFor": "espresso"
 }
 
 Text to extract from:
 `;
-
-// ============================================================================
-// Cache Management
-// ============================================================================
-
-type DetailsCache = Record<string, ExtractedDetails>;
-type QualifyCache = Record<string, boolean>;
-
-let detailsCache: DetailsCache | null = null;
-let qualifyCache: QualifyCache | null = null;
-
-function ensureCacheDir(): void {
-  if (!existsSync(CACHE_DIR)) {
-    mkdirSync(CACHE_DIR, { recursive: true });
-  }
-}
-
-function loadDetailsCache(): DetailsCache {
-  if (detailsCache) return detailsCache;
-  ensureCacheDir();
-  if (existsSync(DETAILS_CACHE_FILE)) {
-    try {
-      detailsCache = JSON.parse(readFileSync(DETAILS_CACHE_FILE, "utf-8"));
-      return detailsCache!;
-    } catch {
-      // Ignore
-    }
-  }
-  detailsCache = {};
-  return detailsCache;
-}
-
-function saveDetailsCache(): void {
-  if (!detailsCache) return;
-  ensureCacheDir();
-  writeFileSync(DETAILS_CACHE_FILE, JSON.stringify(detailsCache, null, 2));
-}
-
-function loadQualifyCache(): QualifyCache {
-  if (qualifyCache) return qualifyCache;
-  ensureCacheDir();
-  if (existsSync(QUALIFY_CACHE_FILE)) {
-    try {
-      qualifyCache = JSON.parse(readFileSync(QUALIFY_CACHE_FILE, "utf-8"));
-      return qualifyCache!;
-    } catch {
-      // Ignore
-    }
-  }
-  qualifyCache = {};
-  return qualifyCache;
-}
-
-function saveQualifyCache(): void {
-  if (!qualifyCache) return;
-  ensureCacheDir();
-  writeFileSync(QUALIFY_CACHE_FILE, JSON.stringify(qualifyCache, null, 2));
-}
 
 // ============================================================================
 // HTML Processing
@@ -299,20 +249,14 @@ export interface ExtractedDetails {
   variety: string[];
   notes: string[];
   caffeine: "decaf" | "lowcaf" | null;
+  roastLevel: "light" | "medium" | "dark" | null;
+  roastedFor: "filter" | "espresso" | null;
 }
 
 /**
  * Qualify if a product name represents actual coffee (vs bundle/subscription).
- * Uses cache to avoid re-querying.
  */
 export async function qualifyProduct(name: string): Promise<boolean> {
-  const cache = loadQualifyCache();
-
-  // Check cache
-  if (name in cache) {
-    return cache[name];
-  }
-
   const client = getClient();
   const prompt = QUALIFY_PROMPT.replace("{name}", name);
 
@@ -325,13 +269,7 @@ export async function qualifyProduct(name: string): Promise<boolean> {
 
     const text = response.content[0].type === "text" ? response.content[0].text : "";
     const result = JSON.parse(text.trim());
-    const isCoffee = result.isCoffee === true;
-
-    // Cache result
-    cache[name] = isCoffee;
-    saveQualifyCache();
-
-    return isCoffee;
+    return result.isCoffee === true;
   } catch (error) {
     console.warn(`Failed to qualify "${name}":`, error);
     // Default to true (include) on error
@@ -341,16 +279,8 @@ export async function qualifyProduct(name: string): Promise<boolean> {
 
 /**
  * Extract coffee details from HTML using AI.
- * Uses cache to avoid re-querying.
  */
 export async function extractDetails(url: string, html: string): Promise<ExtractedDetails | null> {
-  const cache = loadDetailsCache();
-
-  // Check cache
-  if (url in cache) {
-    return cache[url];
-  }
-
   const client = getClient();
   const strippedHtml = stripHtml(html);
 
@@ -390,9 +320,15 @@ export async function extractDetails(url: string, html: string): Promise<Extract
       result.caffeine = null;
     }
 
-    // Cache result
-    cache[url] = result;
-    saveDetailsCache();
+    // Normalize roastLevel field
+    if (result.roastLevel !== "light" && result.roastLevel !== "medium" && result.roastLevel !== "dark") {
+      result.roastLevel = null;
+    }
+
+    // Normalize roastedFor field
+    if (result.roastedFor !== "filter" && result.roastedFor !== "espresso") {
+      result.roastedFor = null;
+    }
 
     return result;
   } catch (error) {
@@ -415,14 +351,6 @@ export function applyExtractedDetails(coffee: Coffee, details: ExtractedDetails)
   if (details.variety?.length) coffee.variety = details.variety;
   if (details.notes?.length) coffee.notes = details.notes;
   if (details.caffeine) coffee.caffeine = details.caffeine;
-}
-
-/**
- * Clear all AI caches (for testing).
- */
-export function clearCaches(): void {
-  detailsCache = {};
-  qualifyCache = {};
-  saveDetailsCache();
-  saveQualifyCache();
+  if (details.roastLevel) coffee.roastLevel = details.roastLevel;
+  if (details.roastedFor) coffee.roastedFor = details.roastedFor;
 }
