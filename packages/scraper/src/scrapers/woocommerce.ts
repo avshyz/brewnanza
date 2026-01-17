@@ -10,8 +10,7 @@ import type { Coffee, PriceVariant } from "../models.js";
 import { createPriceVariant } from "../models.js";
 import { parseWeightGrams } from "../currency.js";
 import { DEFAULT_WEIGHT_GRAMS, DEFAULT_CURRENCY } from "../config.js";
-import { KNOWN_REGIONS, countryFromSku } from "../countries.js";
-import { htmlToText, getFirstImage, logScrapeError } from "../utils.js";
+import { getFirstImage, logScrapeError } from "../utils.js";
 
 interface WooVariation {
   id?: number;
@@ -56,16 +55,6 @@ interface WooVariationDetail {
 export class WooCommerceScraper extends BaseScraper {
   private get apiUrl(): string {
     return `${this.config.baseUrl}/wp-json/wc/store/products`;
-  }
-
-  /**
-   * Extract known coffee region from description text.
-   */
-  private regionFromDescription(description: string): string | null {
-    if (!description) return null;
-    const descLower = description.toLowerCase();
-    const found = KNOWN_REGIONS.filter((r) => descLower.includes(r.toLowerCase()));
-    return found.length > 0 ? found.join(", ") : null;
   }
 
   /**
@@ -134,10 +123,6 @@ export class WooCommerceScraper extends BaseScraper {
       }
     }
 
-    // Get description
-    const rawDesc = product.description || product.short_description || "";
-    const description = htmlToText(rawDesc, " ");
-
     // Build attribute lookup
     const attrs = new Map<string, string[]>();
     for (const a of product.attributes || []) {
@@ -158,63 +143,26 @@ export class WooCommerceScraper extends BaseScraper {
       return values.length > 0 ? values[0] : null;
     };
 
-    // Extract fields
-    const country =
-      getFirst(["country", "origine", "origin", "pays"]) || countryFromSku(product.sku);
-    const region =
-      getFirst(["region", "région"]) || this.regionFromDescription(description);
+    // Extract fields (AI extractor handles normalization and translation)
+    const country = getFirst(["country", "origine", "origin", "pays"]);
+    const region = getFirst(["region", "région"]);
     const producer = getFirst(["producer", "producteur", "farm", "ferme"]);
     const process = getFirst(["process", "procédé", "processing"]);
     const variety = getAttr(["variety", "variété", "varietal", "varieties"]);
-    let notes = getAttr([
-      "aromatic profile",
-      "profil aromatique",
-      "aromatics",
-      "tasting notes",
-      "notes de dégustation",
-      "notes",
-    ]);
-
-    // Fallback: extract notes from French description
-    if (notes.length === 0 && description) {
-      const match = description.match(
-        /notes?\s+(?:de\s+|élégantes?\s+de\s+|aromatiques?\s+de\s+)([^.]+)/i
-      );
-      if (match) {
-        notes = match[1]
-          .split(/,\s*|\s+et\s+/)
-          .map((n) => n.trim())
-          .filter(Boolean);
-      }
-    }
-
-    // Fallback: extract altitude from description
-    let altitude = getFirst(["altitude", "élévation"]);
-    if (!altitude && description) {
-      const match = description.match(/(\d{3,4})\s*m(?:asl|ètres)?(?:\s|$|,)/);
-      if (match) altitude = `${match[1]}m`;
-    }
 
     return {
       name: product.name || "Unknown",
       url: product.permalink || "",
       roasterId: this.config.id,
       prices: priceVariants,
-      country,
-      region,
-      producer,
-      farm: null,
-      altitude,
-      process,
-      protocol: null,
+      country: country ? [country] : [],
+      region: region ? [region] : [],
+      producer: producer ? [producer] : [],
+      process: process ? [process] : [],
+      protocol: [],
       variety,
-      harvestDate: null,
-      notes,
-      blendComponents: [],
-      roastedFor: getFirst(["torréfaction", "roasted for", "roast", "roast type"]),
       available: product.is_in_stock ?? true,
       imageUrl: getFirstImage(product.images),
-      description,
       skipped: false,
     };
   }

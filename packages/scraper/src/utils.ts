@@ -5,7 +5,6 @@
 
 import * as cheerio from "cheerio";
 import { FIELD_PATTERNS } from "./config.js";
-import { normalizeCountry, countryFromRegion } from "./countries.js";
 
 /**
  * Split a string field into a list, handling common delimiters.
@@ -77,29 +76,6 @@ export function findMainContent(
   }
 
   return $("body"); // Fallback to whole page
-}
-
-/**
- * Extract country name from product title.
- */
-export function extractCountryFromTitle(title: string | null | undefined): string | null {
-  if (!title) return null;
-
-  const words = title.split(/\s+/);
-  // Try multi-word combinations first, then single words
-  for (let length = Math.min(3, words.length); length > 0; length--) {
-    for (let i = 0; i <= words.length - length; i++) {
-      const candidate = words.slice(i, i + length).join(" ");
-      // Try direct country match
-      const normalized = normalizeCountry(candidate);
-      if (normalized) return normalized;
-      // Try region->country mapping
-      const country = countryFromRegion(candidate);
-      if (country) return country;
-    }
-  }
-
-  return null;
 }
 
 /**

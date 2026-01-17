@@ -19,7 +19,6 @@ import { REQUEST_TIMEOUT, USER_AGENT, REQUEST_DELAY } from "./config.js";
 import {
   qualifyProduct,
   extractDetails,
-  translateDetails,
   applyExtractedDetails,
 } from "./ai-extractor.js";
 
@@ -51,8 +50,6 @@ export interface ScrapeOptions {
   skipQualification?: boolean;
   /** Skip AI detail extraction (use platform scraper data only) */
   skipExtraction?: boolean;
-  /** Skip translation */
-  skipTranslation?: boolean;
   /** Verbose logging */
   verbose?: boolean;
   /** Max products to process (for testing) */
@@ -74,14 +71,13 @@ export interface ScrapeResult {
  * Flow:
  * 1. Platform scraper gets catalogue (products + prices + availability)
  * 2. AI qualifier filters out non-coffee products (marks as skipped)
- * 3. AI extractor gets detailed fields from HTML (cached by URL)
- * 4. Translation if non-English
+ * 3. AI extractor gets detailed fields from HTML (cached by URL, includes translation)
  */
 export async function scrapeRoasterWithAI(
   config: RoasterConfig,
   options: ScrapeOptions = {}
 ): Promise<ScrapeResult> {
-  const { skipQualification, skipExtraction, skipTranslation, verbose, limit } = options;
+  const { skipQualification, skipExtraction, verbose, limit } = options;
   const errors: string[] = [];
   let skippedCount = 0;
 
@@ -131,15 +127,11 @@ export async function scrapeRoasterWithAI(
         const html = await fetchHtml(coffee.url);
         await delay(REQUEST_DELAY);
 
-        // Extract details via AI
+        // Extract details via AI (includes translation and normalization)
         const details = await extractDetails(coffee.url, html);
 
         if (details) {
-          // Translate if needed
-          const translated = skipTranslation ? details : await translateDetails(details);
-
-          // Apply to coffee object
-          applyExtractedDetails(coffee, translated);
+          applyExtractedDetails(coffee, details);
           log(`    ✓ Extracted`);
         } else {
           log(`    ✗ No details extracted`);

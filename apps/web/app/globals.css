@@ -11,16 +11,18 @@
   --color-text: #000000;
   --color-text-muted: #444444;
   --color-border: #000000;
+}
 
-  /* Neo-brutalist: no rounded corners */
-  --radius-none: 0px;
+@view-transition {
+  navigation: auto;
 }
 
 /* Base styles */
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
 }
 
 body {
@@ -43,27 +45,27 @@ body::before {
   z-index: -1;
 }
 
-/* View Transitions - Fast crossfade only (GPU accelerated) */
-::view-transition-old(root),
-::view-transition-new(root) {
+/* View Transitions */
+.search-bar {
+  view-transition-name: search-bar;
+}
+
+.main-title {
+  view-transition-name: main-title;
+}
+
+::view-transition-group(search-bar),
+::view-transition-group(main-title) {
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(search-bar),
+::view-transition-new(search-bar),
+::view-transition-old(main-title),
+::view-transition-new(main-title) {
   animation: none;
   mix-blend-mode: normal;
-}
-
-::view-transition-old(root) {
-  animation: 150ms ease-out vt-fade-out;
-}
-
-::view-transition-new(root) {
-  animation: 150ms ease-out vt-fade-in;
-}
-
-@keyframes vt-fade-out {
-  to { opacity: 0; }
-}
-
-@keyframes vt-fade-in {
-  from { opacity: 0; }
 }
 
 /* Results header sticky background */
@@ -89,14 +91,4 @@ body::before {
 
 .brutal-shadow-sm {
   box-shadow: 2px 2px 0 var(--color-border);
-}
-
-.brutal-shadow-hover:hover {
-  box-shadow: 6px 6px 0 var(--color-border);
-  transform: translate(-2px, -2px);
-}
-
-.brutal-shadow-active:active {
-  box-shadow: 2px 2px 0 var(--color-border);
-  transform: translate(2px, 2px);
 }

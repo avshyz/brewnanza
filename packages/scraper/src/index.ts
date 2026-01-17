@@ -16,9 +16,6 @@ export * from "./scrapers/index.js";
 // Utilities
 export * from "./utils.js";
 export * from "./currency.js";
-export * from "./countries.js";
-export * from "./varieties.js";
-export * from "./normalizers.js";
 
 // Roaster registration
 import { registerRoaster, type RoasterConfig } from "./config.js";

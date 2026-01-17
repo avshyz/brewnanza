@@ -8,12 +8,9 @@
  *   bun run src/cli.ts --list             # List available roasters
  *   bun run src/cli.ts -v --stdout        # Verbose + output to stdout
  *   bun run src/cli.ts --push             # Push to Convex
- *   bun run src/cli.ts --translate        # Translate non-English content
  */
 
 import { getAllRoasters, getRoaster } from "./config.js";
-import { globalFieldRemapper } from "./normalizers.js";
-import { translateCoffees } from "./translate.js";
 import type { ScrapeResult } from "./models.js";
 
 // Import index to register roasters
@@ -26,7 +23,6 @@ const verbose = args.includes("-v") || args.includes("--verbose");
 const toStdout = args.includes("--stdout");
 const listOnly = args.includes("--list");
 const pushToConvex = args.includes("--push");
-const doTranslate = args.includes("--translate");
 
 // Convex HTTP URL (note: .convex.site for HTTP endpoints, not .convex.cloud)
 const CONVEX_SITE_URL =
@@ -102,18 +98,11 @@ async function main() {
     try {
       const result = await scraper.run();
 
-      // Apply global normalizations
+      // Apply per-roaster remapper if defined
       for (const coffee of result.coffees) {
-        globalFieldRemapper(coffee);
-        // Apply per-roaster remapper if defined
         if (config.fieldRemapper) {
           config.fieldRemapper(coffee);
         }
-      }
-
-      // Translate non-English content if requested
-      if (doTranslate) {
-        await translateCoffees(result.coffees, config.id);
       }
 
       results.push(result);

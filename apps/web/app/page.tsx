@@ -2,7 +2,7 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useMemo, useRef, useEffect, useCallback } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback, startTransition } from "react";
 import { flushSync } from "react-dom";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
@@ -16,6 +16,10 @@ export default function Home() {
   const [processFilter, setProcessFilter] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Store search in ref for stable callback (Rule 5.5)
+  const searchRef = useRef(search);
+  searchRef.current = search;
+
   // Determine if we're in "results" mode
   const showResults = search.trim() || countryFilter || processFilter;
 
@@ -28,6 +32,7 @@ export default function Home() {
   }, [showResults]);
 
   // Get unique countries and processes for filters
+  // Rule 7.12: Use toSorted() for immutability
   const { countries, processes } = useMemo(() => {
     if (!coffees) return { countries: [], processes: [] };
 
@@ -35,45 +40,46 @@ export default function Home() {
     const processCount = new Map<string, number>();
 
     for (const coffee of coffees) {
-      // country is now an array
       for (const c of coffee.country) {
         countryCount.set(c, (countryCount.get(c) || 0) + 1);
       }
-      // process is now an array
       for (const p of coffee.process) {
         processCount.set(p, (processCount.get(p) || 0) + 1);
       }
     }
 
     const countries = [...countryCount.entries()]
-      .sort((a, b) => b[1] - a[1])
+      .toSorted((a, b) => b[1] - a[1])
       .slice(0, 8)
       .map(([name]) => name);
 
     const processes = [...processCount.entries()]
-      .sort((a, b) => b[1] - a[1])
+      .toSorted((a, b) => b[1] - a[1])
       .slice(0, 6)
       .map(([name]) => name);
 
     return { countries, processes };
   }, [coffees]);
 
-  // Simple client-side filtering
+  // Rule 7.6: Combine multiple filter iterations into single loop
   const filteredCoffees = useMemo(() => {
     if (!coffees) return [];
 
-    let filtered = coffees.filter((c) => !c.skipped);
+    const searchTerms = search.trim() ? search.toLowerCase().split(/\s+/) : null;
+    const result: typeof coffees = [];
 
-    if (countryFilter) {
-      filtered = filtered.filter((c) => c.country.includes(countryFilter));
-    }
-    if (processFilter) {
-      filtered = filtered.filter((c) => c.process.includes(processFilter));
-    }
+    for (const coffee of coffees) {
+      // Skip check
+      if (coffee.skipped) continue;
 
-    if (search.trim()) {
-      const terms = search.toLowerCase().split(/\s+/);
-      filtered = filtered.filter((coffee) => {
+      // Country filter
+      if (countryFilter && !coffee.country.includes(countryFilter)) continue;
+
+      // Process filter
+      if (processFilter && !coffee.process.includes(processFilter)) continue;
+
+      // Search filter
+      if (searchTerms) {
         const searchableText = [
           coffee.name,
           ...coffee.country,
@@ -87,11 +93,13 @@ export default function Home() {
           .join(" ")
           .toLowerCase();
 
-        return terms.every((term) => searchableText.includes(term));
-      });
+        if (!searchTerms.every((term) => searchableText.includes(term))) continue;
+      }
+
+      result.push(coffee);
     }
 
-    return filtered;
+    return result;
   }, [coffees, search, countryFilter, processFilter]);
 
   // Group by roaster
@@ -105,8 +113,9 @@ export default function Home() {
     return groups;
   }, [filteredCoffees]);
 
+  // Rule 5.5: Stable callback using ref for current search value
   const handleSearchChange = useCallback((value: string) => {
-    const wasEmpty = !search.trim();
+    const wasEmpty = !searchRef.current.trim();
     const willBeEmpty = !value.trim();
     const shouldTransition = wasEmpty !== willBeEmpty;
 
@@ -119,7 +128,26 @@ export default function Home() {
     } else {
       setSearch(value);
     }
-  }, [search]);
+  }, []);
+
+  // Rule 5.7: Use startTransition for non-urgent filter updates
+  const handleCountryFilter = useCallback((country: string | null) => {
+    startTransition(() => {
+      setCountryFilter(country);
+    });
+  }, []);
+
+  const handleProcessFilter = useCallback((process: string | null) => {
+    startTransition(() => {
+      setProcessFilter(process);
+    });
+  }, []);
+
+  const handleGroupToggle = useCallback(() => {
+    startTransition(() => {
+      setGroupByRoaster(prev => !prev);
+    });
+  }, []);
 
   // Loading state
   if (!coffees) {
@@ -136,7 +164,9 @@ export default function Home() {
             type="text"
             placeholder="loading coffees..."
             disabled
-            className=" w-full px-8 py-6 text-xl border-3 border-border bg-surface outline-none font-medium"
+            value=""
+            readOnly
+            className="w-full px-8 py-6 text-xl border-3 border-border bg-surface outline-none font-medium"
           />
         </div>
       </main>
@@ -147,7 +177,7 @@ export default function Home() {
   if (!showResults) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center p-8">
-        <h1 className="text-7xl font-black mb-2 tracking-tighter uppercase">
+        <h1 className="main-title text-7xl font-black mb-2 tracking-tighter uppercase">
           Brewnanza
         </h1>
         <p className="text-xl text-text-muted mb-12 font-bold uppercase tracking-wide">
@@ -160,13 +190,10 @@ export default function Home() {
             placeholder="fruity natural ethiopia..."
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full px-8 py-6 text-xl border-3 border-border bg-surface outline-none font-medium brutal-shadow transition-shadow duration-150 focus:shadow-[6px_6px_0_var(--color-primary)]"
+            className="search-bar w-full p-4 text-xl border-3 border-border bg-surface outline-none font-medium brutal-shadow transition-shadow duration-150 focus:shadow-[6px_6px_0_var(--color-primary)]"
             autoFocus
           />
         </div>
-        <p className="mt-8 text-sm text-text-muted font-bold uppercase tracking-wide">
-          {coffees.filter(c => !c.skipped).length} coffees from {new Set(coffees.filter(c => !c.skipped).map(c => c.roasterId)).size} roasters
-        </p>
       </main>
     );
   }
@@ -176,7 +203,7 @@ export default function Home() {
     <main className="max-w-[1200px] mx-auto px-4 pt-0">
       <header className="results-header sticky top-0 bg-background py-4 z-10 border-b-3 border-border mb-6">
         <div className="flex items-center gap-4 mb-3">
-          <h1 className="text-2xl font-black uppercase tracking-tight">
+          <h1 className="main-title text-2xl font-black uppercase tracking-tight">
             Brewnanza
           </h1>
           <input
@@ -185,14 +212,14 @@ export default function Home() {
             placeholder="Search..."
             value={search}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className=" flex-1 max-w-[400px] px-4 py-3 border-3 border-border bg-surface outline-none font-medium brutal-shadow-sm transition-shadow duration-150 focus:shadow-[4px_4px_0_var(--color-primary)]"
+            className="search-bar flex-1 max-w-[400px] p-4 border-3 border-border bg-surface outline-none font-medium brutal-shadow-sm transition-shadow duration-150 focus:shadow-[4px_4px_0_var(--color-primary)]"
           />
-          {search && (
+          {search ? (
             <Button onClick={() => handleSearchChange("")}>Clear</Button>
-          )}
+          ) : null}
           <Button
             variant={groupByRoaster ? "primary" : "default"}
-            onClick={() => setGroupByRoaster(!groupByRoaster)}
+            onClick={handleGroupToggle}
           >
             {groupByRoaster ? "Ungrouped" : "By Roaster"}
           </Button>
@@ -206,14 +233,14 @@ export default function Home() {
               <FilterChip
                 key={country}
                 active={countryFilter === country}
-                onClick={() => setCountryFilter(countryFilter === country ? null : country)}
+                onClick={() => handleCountryFilter(countryFilter === country ? null : country)}
               >
                 {country}
               </FilterChip>
             ))}
-            {countryFilter && (
-              <FilterChip onClick={() => setCountryFilter(null)}>X</FilterChip>
-            )}
+            {countryFilter ? (
+              <FilterChip onClick={() => handleCountryFilter(null)}>X</FilterChip>
+            ) : null}
           </div>
           <div className="flex gap-1.5 flex-wrap items-center">
             <span className="text-xs text-text-muted font-bold uppercase mr-1">Process:</span>
@@ -221,14 +248,14 @@ export default function Home() {
               <FilterChip
                 key={process}
                 active={processFilter === process}
-                onClick={() => setProcessFilter(processFilter === process ? null : process)}
+                onClick={() => handleProcessFilter(processFilter === process ? null : process)}
               >
                 {process}
               </FilterChip>
             ))}
-            {processFilter && (
-              <FilterChip onClick={() => setProcessFilter(null)}>X</FilterChip>
-            )}
+            {processFilter ? (
+              <FilterChip onClick={() => handleProcessFilter(null)}>X</FilterChip>
+            ) : null}
           </div>
         </div>
 

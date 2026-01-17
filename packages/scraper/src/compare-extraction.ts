@@ -6,8 +6,6 @@
 
 import { getRoaster } from "./config.js";
 import { extractDetails, applyExtractedDetails, qualifyProduct } from "./ai-extractor.js";
-import { globalFieldRemapper } from "./normalizers.js";
-import type { Coffee } from "./models.js";
 
 let skippedCount = 0;
 let coffeeCount = 0;
@@ -65,7 +63,6 @@ async function main() {
 
       if (details) {
         applyExtractedDetails(coffee, details);
-        globalFieldRemapper(coffee);
 
         console.log(`Country: ${JSON.stringify(coffee.country)}`);
         console.log(`Region: ${JSON.stringify(coffee.region)}`);
@@ -85,6 +82,25 @@ async function main() {
 
   console.log("=".repeat(80));
   console.log(`SUMMARY: ${coffeeCount} coffees, ${skippedCount} skipped`);
+
+  // Output JSON with all items (including skipped)
+  const outputFile = `output-${roasterId}.json`;
+  const output = coffees.map(c => ({
+    name: c.name,
+    url: c.url,
+    imageUrl: c.imageUrl,
+    skipped: c.skipped,
+    country: c.country || [],
+    region: c.region || [],
+    producer: c.producer || [],
+    process: c.process || [],
+    protocol: c.protocol || [],
+    variety: c.variety || [],
+    prices: c.prices,
+  }));
+
+  await Bun.write(outputFile, JSON.stringify(output, null, 2));
+  console.log(`\nWrote ${coffees.length} items (including ${skippedCount} skipped) to ${outputFile}`);
 }
 
 main().catch((error) => {

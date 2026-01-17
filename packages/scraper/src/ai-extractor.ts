@@ -49,12 +49,33 @@ const EXTRACT_PROMPT = `Extract coffee information from this product page.
 
 IMPORTANT: Return ONLY raw JSON. No markdown, no code blocks, no explanation, no preamble.
 CRITICAL: Extract data ONLY from the MAIN PRODUCT. Ignore "Related Products" or "You might also like" sections.
-LANGUAGE: ALL values MUST be in ENGLISH. Translate any non-English text (French, Spanish, etc.):
-- Countries: Mexique → Mexico, Brésil → Brazil, Équateur → Ecuador, Pérou → Peru
-- Protocols: Translate processing descriptions to English
-- All other fields: Use English equivalents
-SANITIZE: Clean all output values:
-- Decode HTML entities: &#8211; → –, &amp; → &, etc.
+
+## TRANSLATION (CRITICAL)
+ALL fields MUST be in ENGLISH. Translate Hebrew, French, Spanish, etc.:
+- Product names: Translate fully to English
+- Descriptions: Translate fully to English
+- Countries: Mexique → Mexico, Brésil → Brazil, אתיופיה → Ethiopia
+- All other fields: Use standard English coffee terminology
+
+## NORMALIZATION
+Countries: Use official English names (Ethiopia, not Éthiopie/ethiopie/אתיופיה)
+Infer country from region if missing:
+- Yirgacheffe, Sidamo, Guji, Gedeo → Ethiopia
+- Huila, Nariño, Cauca → Colombia
+- Tarrazú → Costa Rica
+- Nyeri, Kirinyaga → Kenya
+- Aceh, Gayo → Indonesia
+
+Varieties: Use canonical names:
+- SL-28 (not sl28, SL28, "SL 28")
+- SL-34 (not sl34, SL34)
+- Gesha (not Geisha)
+- Catuaí (not Catuai)
+- JARC 74112 (not 74112, jarc74112)
+- Heirloom (for Ethiopian landraces)
+
+## SANITIZE
+- Decode HTML entities: &#8211; → –, &amp; → &
 - Remove extra whitespace, normalize spacing
 - No HTML tags in output values
 
@@ -63,36 +84,42 @@ SANITIZE: Clean all output values:
 For SINGLE ORIGIN coffee: use arrays with one element, e.g., country: ["Ethiopia"]
 For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colombia"]
 
-## FIELDS TO EXTRACT (use empty array [] if not found):
+## FIELDS TO EXTRACT (use empty array [] or null if not found):
 
-1. **country** (array): Origin countries where the coffee was grown.
+1. **name** (string): Product name translated to English. null if not found.
+
+2. **description** (string): Product description translated to English. null if not found.
+
+3. **country** (array): Origin countries where the coffee was grown.
    Single origin: ["Ethiopia"]
    Blend: ["Ethiopia", "Colombia"]
 
-2. **region** (array): Specific growing regions within the countries.
+4. **region** (array): Specific growing regions within the countries.
    Single origin: ["Yirgacheffe"]
    Blend: ["Yirgacheffe", "Huila"]
 
-3. **producer** (array): Names of farmers, families, cooperatives who grew the coffee.
+5. **producer** (array): Names of farmers, families, cooperatives who grew the coffee.
    Single origin: ["Fredy Sabillon"]
    Blend: ["Fredy Sabillon", "Finca El Paraiso"]
    - ONLY the name (max 5 words), not descriptions
 
-4. **process** (array): Processing method names ONLY (1-3 words each).
+6. **process** (array): Processing method names ONLY (1-3 words each).
    Single origin: ["natural"]
    Blend: ["natural", "washed"]
    Valid values: "washed", "natural", "honey", "anaerobic", "carbonic maceration", etc.
 
-5. **protocol** (array): Detailed processing descriptions.
+7. **protocol** (array): Detailed processing descriptions.
    Example: ["Cherries dried on raised beds for 21 days"]
    - Leave empty [] if only process name is mentioned without details
 
-6. **variety** (array): Coffee varietals/cultivars.
-   Example: ["SL28", "Gesha", "Bourbon"]
+8. **variety** (array): Coffee varietals/cultivars with canonical names.
+   Example: ["SL-28", "Gesha", "Bourbon"]
 
 ## OUTPUT FORMAT:
 
 {
+  "name": "Ethiopia Yirgacheffe Natural",
+  "description": "A bright and fruity coffee with notes of blueberry and jasmine.",
   "country": ["Ethiopia"],
   "region": ["Yirgacheffe"],
   "producer": ["Smallholder Farmers"],
@@ -103,6 +130,8 @@ For BLENDS: use arrays with multiple elements, e.g., country: ["Ethiopia", "Colo
 
 For a blend:
 {
+  "name": "House Blend",
+  "description": "Our signature blend combining Ethiopian and Colombian beans.",
   "country": ["Ethiopia", "Colombia"],
   "region": ["Sidama", "Huila"],
   "producer": [],
@@ -229,6 +258,8 @@ function getClient(): Anthropic {
 // ============================================================================
 
 export interface ExtractedDetails {
+  name: string | null;
+  description: string | null;
   country: string[];
   region: string[];
   producer: string[];
@@ -293,7 +324,7 @@ export async function extractDetails(url: string, html: string): Promise<Extract
   try {
     const response = await client.messages.create({
       model: MODEL,
-      max_tokens: 1000,
+      max_tokens: 2000,
       messages: [{ role: "user", content: EXTRACT_PROMPT + strippedHtml }],
     });
 
@@ -308,7 +339,11 @@ export async function extractDetails(url: string, html: string): Promise<Extract
 
     const result = JSON.parse(text.trim()) as ExtractedDetails;
 
-    // Ensure all fields are arrays
+    // Ensure string fields are strings or null
+    if (typeof result.name !== "string") result.name = null;
+    if (typeof result.description !== "string") result.description = null;
+
+    // Ensure all array fields are arrays
     if (!Array.isArray(result.country)) result.country = [];
     if (!Array.isArray(result.region)) result.region = [];
     if (!Array.isArray(result.producer)) result.producer = [];
@@ -329,8 +364,10 @@ export async function extractDetails(url: string, html: string): Promise<Extract
 
 /**
  * Apply extracted details to a Coffee object.
+ * Note: description is extracted but not stored in Coffee (use for display purposes elsewhere).
  */
 export function applyExtractedDetails(coffee: Coffee, details: ExtractedDetails): void {
+  if (details.name) coffee.name = details.name;
   if (details.country?.length) coffee.country = details.country;
   if (details.region?.length) coffee.region = details.region;
   if (details.producer?.length) coffee.producer = details.producer;

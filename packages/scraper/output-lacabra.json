@@ -1,0 +1,387 @@
+[
+  {
+    "name": "La Divina Natural SL28",
+    "url": "https://lacabra.com/products/la-divina-natural-sl28-1",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/La_Divina_Natural_SL28_La_Cabra_Coffee_Box_200g.png?v=1768303956",
+    "skipped": false,
+    "country": [
+      "El Salvador"
+    ],
+    "region": [
+      "Santa Ana"
+    ],
+    "producer": [
+      "Roberto Ulloa"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "dried directly on raised beds for 30 days"
+    ],
+    "variety": [
+      "SL-28"
+    ],
+    "prices": [
+      {
+        "price": 189,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 204.12,
+        "available": true
+      },
+      {
+        "price": 720,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 777.6,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Santa Teresa Typica",
+    "url": "https://lacabra.com/products/santa-teresa-typica",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Santa_Teresa_La_Cabra_Coffee_Box_200g_4086c135-1be3-4b24-a8f0-47bc53e22f0d.png?v=1767968512",
+    "skipped": false,
+    "country": [
+      "Costa Rica"
+    ],
+    "region": [
+      "Tarrazu"
+    ],
+    "producer": [
+      "Roger and Alex Ureña"
+    ],
+    "process": [
+      "honey"
+    ],
+    "protocol": [],
+    "variety": [
+      "Typica"
+    ],
+    "prices": [
+      {
+        "price": 149,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 160.92,
+        "available": true
+      },
+      {
+        "price": 720,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 777.6,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Santa Rosa 1900",
+    "url": "https://lacabra.com/products/santa-rosa-1900",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Santa_Rosa_La_Cabra_Coffee_Box_250g.png?v=1768303900",
+    "skipped": false,
+    "country": [
+      "Costa Rica"
+    ],
+    "region": [
+      "Tarrazu"
+    ],
+    "producer": [
+      "Naranjo Family"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "Seeds are laid out on the beds to dry slowly for around 14 days"
+    ],
+    "variety": [
+      "Catuaí"
+    ],
+    "prices": [
+      {
+        "price": 149,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 160.92,
+        "available": true
+      },
+      {
+        "price": 552,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 596.16,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "La Divina Washed SL28",
+    "url": "https://lacabra.com/products/la-divina-washed-sl28",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/La_Divina_Washed_SL28_La_Cabra_Coffee_Box_250g.png?v=1767094155",
+    "skipped": false,
+    "country": [
+      "El Salvador"
+    ],
+    "region": [
+      "Santa Ana"
+    ],
+    "producer": [
+      "Roberto Ulloa"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "De-pulped immediately and fermented in tanks for around 48 hours before the coffee is washed twice with fresh water, making sure all of the mucilage is removed"
+    ],
+    "variety": [
+      "SL-28"
+    ],
+    "prices": [
+      {
+        "price": 175,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 189,
+        "available": true
+      },
+      {
+        "price": 659,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 711.72,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Fredy Sabillon",
+    "url": "https://lacabra.com/products/fredy-sabillon-2",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Fredy_Sabillon_La_Cabra_Coffee_Box_250g.png?v=1767966977",
+    "skipped": false,
+    "country": [
+      "Honduras"
+    ],
+    "region": [
+      "Santa Barbara"
+    ],
+    "producer": [
+      "Fredy Sabillon"
+    ],
+    "process": [
+      "honey"
+    ],
+    "protocol": [
+      "20 hour pre-fermentation in closed tanks, before drying on raised beds for around 15 days"
+    ],
+    "variety": [
+      "Parainema"
+    ],
+    "prices": [
+      {
+        "price": 149,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 160.92,
+        "available": true
+      },
+      {
+        "price": 564,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 609.12,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Sagastume Washed Parainema",
+    "url": "https://lacabra.com/products/sagastume-washed-parainema-1",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Sagastume_washed_parainema_La_Cabra_Coffee_Box_250g_d145a4db-9a2e-4027-b092-9dddb3f01900.png?v=1767093870",
+    "skipped": false,
+    "country": [
+      "Honduras"
+    ],
+    "region": [
+      "Santa Barbara"
+    ],
+    "producer": [
+      "Yeltsin Sagastume"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "De-pulped, fermented for 20 hours and washed carefully, before 14 days of drying on raised beds underneath plastic solar drying tunnels"
+    ],
+    "variety": [
+      "Parainema"
+    ],
+    "prices": [
+      {
+        "price": 155,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 167.4,
+        "available": true
+      },
+      {
+        "price": 576,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 622.08,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Luna",
+    "url": "https://lacabra.com/products/luna-250g",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Luna-1kg-Profile-Coffee-Whole-Bean-La-Cabra.webp?v=1767792680",
+    "skipped": false,
+    "country": [
+      "Ethiopia",
+      "Guatemala"
+    ],
+    "region": [
+      "Sidamo",
+      "Atitlan"
+    ],
+    "producer": [
+      "SNAP Coffee",
+      "Chacaya Smallholders"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "Long, slow fermentation of up to 60 hours"
+    ],
+    "variety": [],
+    "prices": [
+      {
+        "price": 135,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 145.8,
+        "available": true
+      },
+      {
+        "price": 500,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 540,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Terra",
+    "url": "https://lacabra.com/products/terra-250g",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Terra-1kg-Profile-Coffee-Whole-Bean-La-Cabra.webp?v=1767792615",
+    "skipped": false,
+    "country": [
+      "Brazil",
+      "Ethiopia"
+    ],
+    "region": [
+      "Cerrado Mineiro",
+      "Yirgacheffe"
+    ],
+    "producer": [
+      "Marta de Paula Borges"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Catuai"
+    ],
+    "prices": [
+      {
+        "price": 135,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 145.8,
+        "available": true
+      },
+      {
+        "price": 500,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 540,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Chevas Washed",
+    "url": "https://lacabra.com/products/chevas-washed",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Chevas-Washed-Rare_Box.webp?v=1768565754",
+    "skipped": false,
+    "country": [
+      "Panama"
+    ],
+    "region": [
+      "Boquete"
+    ],
+    "producer": [
+      "José Luis Chevas"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "First fermented in sealed tanks for 72 hours, before de-pulping and drying in a temperature and humidity controlled dark room"
+    ],
+    "variety": [
+      "Gesha"
+    ],
+    "prices": [
+      {
+        "price": 349,
+        "currency": "EUR",
+        "weightGrams": 100,
+        "priceUsd": 376.92,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Chevas Natural",
+    "url": "https://lacabra.com/products/chevas-natural",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/1094/5212/files/Natural-Rare_Box.webp?v=1768565695",
+    "skipped": false,
+    "country": [
+      "Panama"
+    ],
+    "region": [
+      "Boquete"
+    ],
+    "producer": [
+      "José Luis Chevas"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "Rested first in open tanks for 12 hours to kickstart fermentation, before drying on raised beds for 7 days, followed by climate controlled dark rooms"
+    ],
+    "variety": [
+      "Gesha"
+    ],
+    "prices": [
+      {
+        "price": 349,
+        "currency": "EUR",
+        "weightGrams": 100,
+        "priceUsd": 376.92,
+        "available": true
+      }
+    ]
+  }
+]
