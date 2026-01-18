@@ -2,27 +2,52 @@
 
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useMemo, useRef, useEffect, useCallback, startTransition } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback, startTransition, useDeferredValue } from "react";
 import { flushSync } from "react-dom";
+import Fuse from "fuse.js";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
 import { FilterChip } from "../components/ui/filter-chip";
 import { EspressoIcon, FilterIcon, DecafIcon } from "../components/icons";
 
+const TRANSITION_DEBOUNCE_MS = 400;
+
 export default function Home() {
   const coffees = useQuery(api.coffees.getAll);
   const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(null);
   const [decafOnly, setDecafOnly] = useState(false);
+  const [hasTransitioned, setHasTransitioned] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Store search in ref for stable callback (Rule 5.5)
-  const searchRef = useRef(search);
-  searchRef.current = search;
+  // Once transitioned, stay in results view
+  const showResults = hasTransitioned;
 
-  // Determine if we're in "results" mode
-  const showResults = search.trim() || roastedForFilter || decafOnly;
+  // Trigger transition after user stops typing
+  useEffect(() => {
+    if (hasTransitioned) return;
+
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    if (search.trim()) {
+      debounceRef.current = setTimeout(() => {
+        if (document.startViewTransition) {
+          document.startViewTransition(() => {
+            flushSync(() => setHasTransitioned(true));
+          });
+        } else {
+          setHasTransitioned(true);
+        }
+      }, TRANSITION_DEBOUNCE_MS);
+    }
+
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [search, hasTransitioned]);
 
   // Refocus input after view transition
   useEffect(() => {
@@ -30,49 +55,47 @@ export default function Home() {
       inputRef.current?.focus();
     }, 50);
     return () => clearTimeout(timer);
-  }, [showResults]);
+  }, [hasTransitioned]);
 
-  // Rule 7.6: Combine multiple filter iterations into single loop
-  const filteredCoffees = useMemo(() => {
+  // Pre-filter coffees (skip, roastedFor, decaf)
+  const preFilteredCoffees = useMemo(() => {
     if (!coffees) return [];
 
-    const searchTerms = search.trim() ? search.toLowerCase().split(/\s+/) : null;
-    const result: typeof coffees = [];
+    return coffees.filter((coffee) => {
+      if (coffee.skipped) return false;
+      if (roastedForFilter === "espresso" && coffee.roastedFor !== "espresso" && coffee.roastedFor !== null) return false;
+      if (roastedForFilter === "filter" && coffee.roastedFor !== "filter" && coffee.roastedFor !== null) return false;
+      if (decafOnly && coffee.caffeine !== "decaf") return false;
+      return true;
+    });
+  }, [coffees, roastedForFilter, decafOnly]);
 
-    for (const coffee of coffees) {
-      // Skip check
-      if (coffee.skipped) continue;
+  // Fuse instance for fuzzy search
+  const fuse = useMemo(() => {
+    return new Fuse(preFilteredCoffees, {
+      keys: [
+        { name: "name", weight: 2 },
+        { name: "country", weight: 1.5 },
+        { name: "region", weight: 1 },
+        { name: "producer", weight: 1 },
+        { name: "process", weight: 1.5 },
+        { name: "variety", weight: 1 },
+        { name: "notes", weight: 1.5 },
+        { name: "roasterId", weight: 0.5 },
+      ],
+      threshold: 0.4,
+      ignoreLocation: true,
+      useExtendedSearch: true,
+    });
+  }, [preFilteredCoffees]);
 
-      // Roasted for filter (espresso/filter) - each includes omni (null)
-      if (roastedForFilter === "espresso" && coffee.roastedFor !== "espresso" && coffee.roastedFor !== null) continue;
-      if (roastedForFilter === "filter" && coffee.roastedFor !== "filter" && coffee.roastedFor !== null) continue;
+  // Apply fuzzy search (uses deferred value for responsiveness)
+  const filteredCoffees = useMemo(() => {
+    const query = deferredSearch.trim();
+    if (!query) return preFilteredCoffees;
 
-      // Decaf filter
-      if (decafOnly && coffee.caffeine !== "decaf") continue;
-
-      // Search filter
-      if (searchTerms) {
-        const searchableText = [
-          coffee.name,
-          ...coffee.country,
-          ...coffee.region,
-          ...coffee.producer,
-          ...coffee.process,
-          coffee.roasterId,
-          ...coffee.variety,
-        ]
-          .filter(Boolean)
-          .join(" ")
-          .toLowerCase();
-
-        if (!searchTerms.every((term) => searchableText.includes(term))) continue;
-      }
-
-      result.push(coffee);
-    }
-
-    return result;
-  }, [coffees, search, roastedForFilter, decafOnly]);
+    return fuse.search(query).map((result) => result.item);
+  }, [deferredSearch, preFilteredCoffees, fuse]);
 
   // Group by roaster
   const groupedByRoaster = useMemo(() => {
@@ -85,21 +108,8 @@ export default function Home() {
     return groups;
   }, [filteredCoffees]);
 
-  // Rule 5.5: Stable callback using ref for current search value
   const handleSearchChange = useCallback((value: string) => {
-    const wasEmpty = !searchRef.current.trim();
-    const willBeEmpty = !value.trim();
-    const shouldTransition = wasEmpty !== willBeEmpty;
-
-    if (shouldTransition && document.startViewTransition) {
-      document.startViewTransition(() => {
-        flushSync(() => {
-          setSearch(value);
-        });
-      });
-    } else {
-      setSearch(value);
-    }
+    setSearch(value);
   }, []);
 
   // Rule 5.7: Use startTransition for non-urgent filter updates
@@ -172,7 +182,7 @@ export default function Home() {
 
   // Results view
   return (
-    <main className="max-w-[1200px] mx-auto px-4 pt-0 overflow-x-hidden">
+    <main className="max-w-[1600px] mx-auto px-4 pt-0 overflow-x-hidden">
       <header className="results-header sticky top-0 bg-background py-4 z-10 border-b-3 border-border mb-6">
         <div className="flex items-center gap-3 mb-3 flex-wrap">
           <h1 className="main-title text-2xl font-black uppercase tracking-tight">
@@ -238,7 +248,7 @@ export default function Home() {
               <h2 className="text-xl font-black mb-4 uppercase border-b-3 border-border pb-2">
                 {roasterId} <span className="text-text-muted font-bold">({roasterCoffees.length})</span>
               </h2>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {roasterCoffees.map((coffee) => (
                   <CoffeeCard key={coffee._id} coffee={coffee} showRoaster={false} />
                 ))}

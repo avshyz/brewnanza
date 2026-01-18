@@ -1,0 +1,1375 @@
+[
+  {
+    "name": "Milky Cake - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/milky-cake",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Transparant_Thumb__Min_4000_x_4000_yxcory.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [],
+    "producer": [
+      "Cata Export",
+      "Diego Bermudez"
+    ],
+    "process": [
+      "anaerobic"
+    ],
+    "protocol": [
+      "Anaerobic fermentation for 48 hours at 20 Celsius, then thermic shock washed, controlled drying for 34 hours at 35°C and 25% relative humidity"
+    ],
+    "variety": [
+      "Castillo"
+    ],
+    "notes": [
+      "cardamom",
+      "pistachio",
+      "vanilla cake",
+      "honey"
+    ],
+    "prices": [
+      {
+        "price": 19.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 21.55,
+        "available": true
+      },
+      {
+        "price": 77.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 83.38,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Apricoast - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/apricoast",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/58e63f78-6dea-4c47-b555-5d3b6610f165_pibkph.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [],
+    "producer": [
+      "Rumu Damo"
+    ],
+    "process": [
+      "anaerobic washed"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "toffee",
+      "citrus",
+      "apricot"
+    ],
+    "prices": [
+      {
+        "price": 19.95,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 21.55,
+        "available": true
+      },
+      {
+        "price": 97.15,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 104.92,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Orange Flirt - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/orange-flirt",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Orange-Flirt_2025_Website_89x89_Labels_Transparant-Thumb_min4000_xnaf0e.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Guji"
+    ],
+    "producer": [
+      "Esayas Beriso"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "nougat",
+      "orange confit",
+      "dried apricot",
+      "milky oolong",
+      "kumquat jam"
+    ],
+    "prices": [
+      {
+        "price": 16,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.28,
+        "available": true
+      },
+      {
+        "price": 61.8,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 66.74,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Cream Donut - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/cream-donut",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Cream-Donut_Website_89x89_Labels_Transparant-Thumb_min4000_nhytwt.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "El Encanto"
+    ],
+    "producer": [
+      "Cream Donut"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "yeast inoculated natural",
+      "advanced fermentation"
+    ],
+    "variety": [
+      "Caturra",
+      "Chiroso"
+    ],
+    "notes": [
+      "chocolate milk",
+      "cherry",
+      "doughnut",
+      "vanilla"
+    ],
+    "prices": [
+      {
+        "price": 19.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 21.55,
+        "available": true
+      },
+      {
+        "price": 77.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 83.38,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Strawberry Kiss - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/strawberry-kiss",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Strawberry-Kiss_Website_89x89_Labels_Transparant-Thumb_min4000_twdvbf.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Bensa",
+      "Sidama"
+    ],
+    "producer": [
+      "Daye Bensa"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "strawberry",
+      "star fruit",
+      "apricot"
+    ],
+    "prices": [
+      {
+        "price": 18.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 20.47,
+        "available": true
+      },
+      {
+        "price": 73.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 79.06,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "White Lotus - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/white-lotus",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/White-Lotus_2025_Website89x89_Labels_Transparant-Thumb_min4000_kqhxom.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [],
+    "producer": [
+      "Joan Vergara"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "Pulped and left oxidizing with mucilage for 12 hours, submerged fermentation in 28-degree water for 8 hours, washed with hot water at 65-70 degrees for thermal shock effect, dried to 11% humidity over 18-24 days"
+    ],
+    "variety": [
+      "Java"
+    ],
+    "notes": [
+      "florals",
+      "lime keffir",
+      "white chocolate"
+    ],
+    "prices": [
+      {
+        "price": 25.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 28.03,
+        "available": true
+      },
+      {
+        "price": 100.72,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 108.78,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Floral Mist - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/floral-mist",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Floral_Mist_Transparant_Thumb__Min_4000_x_4000_qg7sjw.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [],
+    "producer": [
+      "Henry Bonilla"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "The cherries are first collected and submerged in water to remove floaters. They then undergo a two-day oxidation in cherry, sealed in bags. Afterward, they are dry-depulped to retain the mucilage for a second two-day fermentation in tanks. Once complete, the coffee is washed in fresh water for 10–15 minutes and then dried in a controlled room for eight days, until reaching 11% humidity."
+    ],
+    "variety": [
+      "Gesha"
+    ],
+    "notes": [
+      "rooibos",
+      "hibiscus",
+      "orange blossom",
+      "jasmine"
+    ],
+    "prices": [
+      {
+        "price": 14.95,
+        "currency": "EUR",
+        "weightGrams": 125,
+        "priceUsd": 16.15,
+        "available": true
+      },
+      {
+        "price": 117,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 126.36,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Strawberry Jelly - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/strawberry-jelly",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Strawberry_Jelly_Magenta_Box_Transparant_Thumb__Min_4000_x_4000_c7gfi0.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [],
+    "producer": [
+      "Rumu Damo"
+    ],
+    "process": [
+      "anaerobic natural"
+    ],
+    "protocol": [
+      "Extended anaerobic fermentation"
+    ],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "strawberry jam",
+      "mandarine",
+      "sweet cherries"
+    ],
+    "prices": [
+      {
+        "price": 24.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 26.95,
+        "available": true
+      },
+      {
+        "price": 124.75,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 134.73,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Jam Rush - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/jam-rush",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Jam-Rush_Website_89x89_Labels_Transparant-Thumb_min4000_tewt2p.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Tolima"
+    ],
+    "producer": [
+      "Jorge Elias Rojas"
+    ],
+    "process": [
+      "anaerobic",
+      "washed"
+    ],
+    "protocol": [
+      "Meticulous hand selection, followed by 72 hours of sealed-tank fermentation. The coffee is then depulped and fermented again for 38 hours before being washed."
+    ],
+    "variety": [
+      "Red Bourbon"
+    ],
+    "notes": [
+      "apple compote",
+      "raspberry coulis",
+      "raisins"
+    ],
+    "prices": [
+      {
+        "price": 17.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 19.39,
+        "available": true
+      },
+      {
+        "price": 69.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 74.74,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Rumba - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/rumba",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Rumba_Website_89x89_Labels_Transparant-Thumb_min4000_kqyn0j.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [],
+    "producer": [
+      "Gatta Farm"
+    ],
+    "process": [
+      "yeast semi-anaerobic natural"
+    ],
+    "protocol": [
+      "yeast-assisted semi-anaerobic natural processing with cherries processed at Gatta Farm drying station"
+    ],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "stewed strawberries",
+      "apricot",
+      "brown sugar"
+    ],
+    "prices": [
+      {
+        "price": 22.95,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 24.79,
+        "available": true
+      },
+      {
+        "price": 112.15,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 121.12,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Lemon Squeeze - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/lemon-squeeze",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Lemon-Squeeze_Website_89x89_Labels_Transparant-Thumb_min4000_fwjrbe.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [],
+    "producer": [
+      "Rumu Damo Washing Station"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "Cherries placed in water for sorting and removal of floaters, then pulped and undergo wet fermentation for 48 hours, washed before being laid to dry in African beds for 8-12 days"
+    ],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "lemon",
+      "nectarine",
+      "wild flowers"
+    ],
+    "prices": [
+      {
+        "price": 17,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 18.36,
+        "available": true
+      },
+      {
+        "price": 65.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 70.63,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Cassis - Kenya",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/cassis",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Cassis-NEW_89x89_Labels_Transparant-Thumb_min4000_wpaz8u.png",
+    "skipped": false,
+    "country": [
+      "Kenya"
+    ],
+    "region": [],
+    "producer": [
+      "Thiririka Farmers Cooperative Society"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "Pulped and washed at Githembe, then dried at Kiganjo factory"
+    ],
+    "variety": [
+      "SL-28",
+      "SL-34",
+      "Batian",
+      "Ruiru 11"
+    ],
+    "notes": [
+      "black currant",
+      "crème de cassis",
+      "rhubarb"
+    ],
+    "prices": [
+      {
+        "price": 16,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.28,
+        "available": true
+      },
+      {
+        "price": 61.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 66.31,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Sun Drip - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/sun-drip",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Sun_Drip_Transparant_Thumb__Min_4000_x_4000_zymqcu.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Huila"
+    ],
+    "producer": [
+      "Faver Ninco"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "Cherries are handpicked selectively to ensure only fully ripe fruits are processed. They ferment for 24–30 hours, are depulped, then undergo a second anaerobic fermentation for 60–80 hours. The coffee is washed once, leaving a thin layer of mucilage to enhance body and fruit notes, and dries in marquesina for 10–15 days."
+    ],
+    "variety": [
+      "Chiroso"
+    ],
+    "notes": [
+      "red grapes",
+      "honey",
+      "peach milk"
+    ],
+    "prices": [
+      {
+        "price": 12.35,
+        "currency": "EUR",
+        "weightGrams": 125,
+        "priceUsd": 13.34,
+        "available": true
+      },
+      {
+        "price": 93.6,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 101.09,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Pinky Swear - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/pinky-swear",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Pinky_Swear_Transparant_Thumb__Min_4000_x_4000_so2egb.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Huila"
+    ],
+    "producer": [
+      "Faver Ninco"
+    ],
+    "process": [
+      "washed",
+      "anaerobic"
+    ],
+    "protocol": [
+      "Cherries are handpicked selectively to ensure only fully ripe fruits are processed. They ferment for 24–30 hours, are depulped, then undergo a second anaerobic fermentation for 60–80 hours. The coffee is washed once, leaving a thin layer of mucilage to enhance body and fruit notes, and dries in marquesina for 10–15 days."
+    ],
+    "variety": [
+      "Pink Bourbon"
+    ],
+    "notes": [
+      "figs",
+      "jasmine",
+      "hibiscus"
+    ],
+    "prices": [
+      {
+        "price": 12.35,
+        "currency": "EUR",
+        "weightGrams": 125,
+        "priceUsd": 13.34,
+        "available": true
+      },
+      {
+        "price": 93.6,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 101.09,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Jiggly Berry - Costa Rica",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/jiggly-berry",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Jiggly-Berry_Website_89x89_Labels_Transparant-Thumb_min4000_qu1myc.png",
+    "skipped": false,
+    "country": [
+      "Costa Rica"
+    ],
+    "region": [],
+    "producer": [
+      "Finca El Salitre"
+    ],
+    "process": [
+      "anaerobic natural"
+    ],
+    "protocol": [
+      "Natural Reposado method with fully ripe cherries rested in sealed tanks under controlled anaerobic conditions, then dried naturally on raised beds and patios for several weeks"
+    ],
+    "variety": [
+      "Millenio F1"
+    ],
+    "notes": [
+      "sweet cherries",
+      "purple grapes",
+      "liquorice"
+    ],
+    "prices": [
+      {
+        "price": 17.9,
+        "currency": "EUR",
+        "weightGrams": 200,
+        "priceUsd": 19.33,
+        "available": true
+      },
+      {
+        "price": 86.9,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 93.85,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Sprinkles - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/sprinkles",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Sprinkles_Transparant_Thumb__Min_4000_x_4000_odmbnz.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [],
+    "producer": [
+      "Finca Anaya"
+    ],
+    "process": [
+      "anaerobic",
+      "natural"
+    ],
+    "protocol": [
+      "Cherries are hand-picked and washed, then undergo a first stage of oxidation. They are fermented anaerobically with wild yeasts under controlled conditions at 30°C for four days. After fermentation, the coffee is sun-dried for 15 to 20 days until it reaches the ideal moisture content."
+    ],
+    "variety": [
+      "Sidra"
+    ],
+    "notes": [
+      "candies",
+      "fruit yoghurt",
+      "pineapple juice"
+    ],
+    "prices": [
+      {
+        "price": 22.45,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 24.25,
+        "available": true
+      },
+      {
+        "price": 87.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 94.18,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Blue Lagoon - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/blue-lagoon",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Blue-Lagoon_Website_89x89_Labels_Transparant-Thumb_min4000_pmhxho.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Guji"
+    ],
+    "producer": [
+      "Buku Abel"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "Cherries are sorted and then sundried on African raised beds"
+    ],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "blueberries",
+      "strawberries",
+      "orange cake"
+    ],
+    "prices": [
+      {
+        "price": 15.75,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.01,
+        "available": true
+      },
+      {
+        "price": 60.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 65.23,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Milky Cake - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/milky-cake",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Transparant_Thumb__Min_4000_x_4000_yxcory.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [],
+    "producer": [
+      "Diego Bermudez"
+    ],
+    "process": [
+      "anaerobic"
+    ],
+    "protocol": [
+      "Castillo cherries undergo anaerobic fermentation for 48 hours at 20 Celsius, then thermic shock washed, followed by controlled drying for 34 hours at 35°C and 25% relative humidity until reaching 10%-11% grain moisture"
+    ],
+    "variety": [
+      "Castillo"
+    ],
+    "notes": [
+      "cardamom",
+      "pistachio",
+      "vanilla cake",
+      "honey",
+      "chai"
+    ],
+    "prices": [
+      {
+        "price": 19.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 21.55,
+        "available": true
+      },
+      {
+        "price": 77.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 83.38,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Jazz Fruits - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/jazz-fruits",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Transparant_Thumb__Min_4000_x_4000_f42ft0.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Sidama Bensa"
+    ],
+    "producer": [
+      "Daye Bensa"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "strawberry",
+      "white chocolate",
+      "orange"
+    ],
+    "prices": [
+      {
+        "price": 13.25,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 14.31,
+        "available": true
+      },
+      {
+        "price": 50.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 54.43,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Orange Flirt - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/orange-flirt",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Orange-Flirt_2025_Website_89x89_Labels_Transparant-Thumb_min4000_xnaf0e.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Guji"
+    ],
+    "producer": [
+      "Esayas Beriso"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "nougat",
+      "orange confit",
+      "dried apricot",
+      "milky oolong",
+      "kumquat jam"
+    ],
+    "prices": [
+      {
+        "price": 16,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.28,
+        "available": true
+      },
+      {
+        "price": 61.8,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 66.74,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Plum Marmalade - Honduras",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/plum-marmelade",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Plum-Marmelade_Website_89x89_Labels_Transparant-Thumb_min4000_c5l8vt.png",
+    "skipped": true,
+    "country": [
+      "Honduras"
+    ],
+    "region": [],
+    "producer": [
+      "Caballeros"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Catuaí"
+    ],
+    "notes": [
+      "milk chocolate",
+      "hazelnut",
+      "berry marmalade",
+      "plum",
+      "dark berry jam"
+    ],
+    "prices": [
+      {
+        "price": 13.85,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 14.96,
+        "available": true
+      },
+      {
+        "price": 53.5,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 57.78,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Cream Donut - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/cream-donut",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Cream-Donut_Website_89x89_Labels_Transparant-Thumb_min4000_nhytwt.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "El Encanto"
+    ],
+    "producer": [
+      "Cream Donut"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "yeast inoculated natural",
+      "advanced fermentation"
+    ],
+    "variety": [
+      "Catuaí",
+      "Chiroso"
+    ],
+    "notes": [
+      "chocolate milk",
+      "cherry",
+      "vanilla"
+    ],
+    "prices": [
+      {
+        "price": 19.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 21.55,
+        "available": true
+      },
+      {
+        "price": 77.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 83.38,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Strawberry Kiss - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/strawberry-kiss",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Strawberry-Kiss_Website_89x89_Labels_Transparant-Thumb_min4000_twdvbf.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Sidama"
+    ],
+    "producer": [
+      "Daye Bensa"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "strawberry",
+      "star fruit",
+      "apricot"
+    ],
+    "prices": [
+      {
+        "price": 18.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 20.47,
+        "available": true
+      },
+      {
+        "price": 73.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 79.06,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Mocha Mousse - Brazil",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/mocha-mousse",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Mocha_Mousse_Transparant_htzqxt.png",
+    "skipped": false,
+    "country": [
+      "Brazil"
+    ],
+    "region": [],
+    "producer": [
+      "Natália Moreira Brito"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Acaia"
+    ],
+    "notes": [
+      "mocha",
+      "hazelnut",
+      "caramel"
+    ],
+    "prices": [
+      {
+        "price": 14.5,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 15.66,
+        "available": true
+      },
+      {
+        "price": 55.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 59.83,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Mirabelle - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/mirabelle",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Mirabelle_Website_Transparant-Thumb_min4000_v85x6b.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Bensa"
+    ],
+    "producer": [
+      "Mirabelle"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [],
+    "variety": [],
+    "notes": [
+      "yellow raisin",
+      "mirabelle plum",
+      "raspberry",
+      "jasmine",
+      "black tea"
+    ],
+    "prices": [
+      {
+        "price": 14.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 16.15,
+        "available": true
+      },
+      {
+        "price": 57.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 61.78,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Lush Buds - Ethiopia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/lush-buds",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Lush-Buds_Website_89x89_Labels_Transparant-Thumb_min4000_jacqdw.png",
+    "skipped": false,
+    "country": [
+      "Ethiopia"
+    ],
+    "region": [
+      "Guji"
+    ],
+    "producer": [
+      "Lush Buds"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [
+      "Heirloom"
+    ],
+    "notes": [
+      "white flowers",
+      "raspberry cream",
+      "red plum"
+    ],
+    "prices": [
+      {
+        "price": 15.75,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.01,
+        "available": true
+      },
+      {
+        "price": 60.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 65.23,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Jam Rush - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/jam-rush",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Jam-Rush_Website_89x89_Labels_Transparant-Thumb_min4000_tewt2p.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Tolima"
+    ],
+    "producer": [
+      "Jorge Elias Rojas"
+    ],
+    "process": [
+      "anaerobic",
+      "washed"
+    ],
+    "protocol": [
+      "72 hours of sealed-tank fermentation, then depulped and fermented again for 38 hours before washing"
+    ],
+    "variety": [
+      "Red Bourbon"
+    ],
+    "notes": [
+      "apple compote",
+      "raspberry coulis",
+      "raisins"
+    ],
+    "prices": [
+      {
+        "price": 17.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 19.39,
+        "available": true
+      },
+      {
+        "price": 69.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 74.74,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Guavalanche - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/guavalanche",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Guavalanche_Website_89x89_Labels_Transparant-Thumb_min4000_ry02ox.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Aponte"
+    ],
+    "producer": [
+      "Inga community"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [],
+    "variety": [],
+    "notes": [
+      "guava",
+      "purple fruits",
+      "cacao"
+    ],
+    "prices": [
+      {
+        "price": 16.25,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.55,
+        "available": true
+      },
+      {
+        "price": 62.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 67.39,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Pillow Talk - Colombia",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/pillow-talk",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Pillow-talk_Website_89x89_Labels_Transparant-Thumb_min4000_jdu4ef.png",
+    "skipped": false,
+    "country": [
+      "Colombia"
+    ],
+    "region": [
+      "Ombligon"
+    ],
+    "producer": [
+      "Nestor Lasso"
+    ],
+    "process": [
+      "anaerobic",
+      "natural"
+    ],
+    "protocol": [
+      "Cherries undergo alternating aerobic oxidation and anaerobic fermentation, finishing with a mossto fermentation and a thermal shock before drying",
+      "Decaffeinated using Colombia's Sugar Cane (EA) Process, where naturally derived ethyl acetate removes caffeine while preserving a clean, sweet cup profile"
+    ],
+    "variety": [],
+    "notes": [
+      "raspberry coulis",
+      "strawberry",
+      "sugar"
+    ],
+    "prices": [
+      {
+        "price": 25.5,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 27.54,
+        "available": true
+      },
+      {
+        "price": 99.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 107.35,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Tropical-storm - Rwanda",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/tropical-storm",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Tropical-Storm_Website_89x89_Labels_Transparant-Thumb_min4000_k6kyxb.png",
+    "skipped": false,
+    "country": [
+      "Rwanda"
+    ],
+    "region": [
+      "Nyamasheke District"
+    ],
+    "producer": [
+      "Kirambo Washing Station"
+    ],
+    "process": [
+      "washed"
+    ],
+    "protocol": [
+      "A disk pulper removes the cherry skin and pulp before the coffee undergoes dry fermentation. After this stage, the coffee is washed and graded. It is then dried on raised beds for 15–22 days."
+    ],
+    "variety": [
+      "Red Bourbon"
+    ],
+    "notes": [
+      "tropical fruits",
+      "rhubarb",
+      "milk chocolate"
+    ],
+    "prices": [
+      {
+        "price": 15.75,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 17.01,
+        "available": true
+      },
+      {
+        "price": 60.4,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 65.23,
+        "available": true
+      }
+    ]
+  },
+  {
+    "name": "Cranberry Lane - Kenya",
+    "url": "https://www.dakcoffeeroasters.com/shop/coffee/cranberry-lane",
+    "imageUrl": "https://res.cloudinary.com/dak-coffee-roasters/image/upload/c_thumb,w_250/v1618496837/Products/Thumbs/Cranberry-Lane_Website_89x89_Labels_Transparant-Thumb_min4000_hu2xmb.png",
+    "skipped": false,
+    "country": [
+      "Kenya"
+    ],
+    "region": [
+      "Trans-Nzoia County"
+    ],
+    "producer": [
+      "Endebess Estate"
+    ],
+    "process": [
+      "natural"
+    ],
+    "protocol": [
+      "Handpicked cherries are carefully selected and sun-dried for 21 to 35 days"
+    ],
+    "variety": [
+      "Batian",
+      "SL-28",
+      "SL-34",
+      "Ruiru 11"
+    ],
+    "notes": [
+      "cranberries",
+      "blood orange",
+      "oolong",
+      "cacao"
+    ],
+    "prices": [
+      {
+        "price": 14.95,
+        "currency": "EUR",
+        "weightGrams": 250,
+        "priceUsd": 16.15,
+        "available": true
+      },
+      {
+        "price": 57.2,
+        "currency": "EUR",
+        "weightGrams": 1000,
+        "priceUsd": 61.78,
+        "available": true
+      }
+    ]
+  }
+]

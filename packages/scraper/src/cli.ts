@@ -11,6 +11,7 @@
  *   bun run src/cli.ts --list             # List available roasters
  *   bun run src/cli.ts --dry-run          # Preview changes without writing
  *   bun run src/cli.ts --clear-db         # Clear all coffees and roasters
+ *   bun run src/cli.ts --sample 3         # Limit to N new items (saves API costs)
  *   bun run src/cli.ts -v                 # Verbose output
  */
 
@@ -21,6 +22,7 @@ import {
   extractDetails,
   applyExtractedDetails,
 } from "./ai-extractor.js";
+import type { BaseScraper } from "./scrapers/base.js";
 
 // Import index to register roasters
 import "./index.js";
@@ -33,12 +35,23 @@ const listOnly = args.includes("--list");
 const dryRun = args.includes("--dry-run");
 const clearDb = args.includes("--clear-db");
 
+// Sample limit: --sample N limits new items to N (saves API costs during testing)
+const sampleIdx = args.findIndex((a) => a === "--sample");
+const sampleLimit = sampleIdx !== -1 && args[sampleIdx + 1]
+  ? parseInt(args[sampleIdx + 1], 10)
+  : Infinity;
+
 // Convex HTTP URL (note: .convex.site for HTTP endpoints, not .convex.cloud)
 const CONVEX_SITE_URL =
   process.env.CONVEX_SITE_URL || "https://healthy-dodo-333.convex.site";
 
-// Filter out flags to get roaster IDs
-const roasterIds = args.filter((a) => !a.startsWith("-"));
+// Filter out flags and their values to get roaster IDs
+const roasterIds = args.filter((a, i) => {
+  if (a.startsWith("-")) return false;
+  // Skip value after --sample
+  if (i > 0 && args[i - 1] === "--sample") return false;
+  return true;
+});
 
 async function pushResult(result: ScrapeResult): Promise<void> {
   const url = `${CONVEX_SITE_URL}/ingest`;
@@ -135,7 +148,8 @@ async function fetchProductHtml(productUrl: string): Promise<string> {
 async function syncRoaster(
   config: RoasterConfig,
   isDryRun: boolean,
-  isVerbose: boolean
+  isVerbose: boolean,
+  maxNewItems: number = Infinity
 ): Promise<{
   updated: number;
   deactivated: number;
@@ -148,7 +162,7 @@ async function syncRoaster(
   // 1. Scrape catalog (no AI)
   if (isVerbose) console.log(`  Scraping catalog...`);
   const ScraperClass = config.scraper;
-  const scraper = new ScraperClass(config);
+  const scraper = new ScraperClass(config) as BaseScraper & { fetchRenderedHtml?: (url: string) => Promise<string> };
   const result = await scraper.run();
 
   // Apply per-roaster remapper
@@ -225,13 +239,27 @@ async function syncRoaster(
     deactivated = res.deactivated;
   }
 
-  // 6. AI extract new items
+  // 6. AI extract new items (limited by maxNewItems)
   let inserted = 0;
   let skipped = 0;
   const coffeesToInsert: Coffee[] = [];
+  const itemsToProcess = toInsert.slice(0, maxNewItems);
 
-  for (const coffee of toInsert) {
+  if (itemsToProcess.length < toInsert.length && isVerbose) {
+    console.log(`  Limiting to ${maxNewItems} new items (--sample)`);
+  }
+
+  for (const coffee of itemsToProcess) {
     try {
+      // Skip AI extraction if scraper already enriched (has notes, process, or variety)
+      const alreadyEnriched = coffee.notes.length > 0 || coffee.process.length > 0 || coffee.variety.length > 0;
+
+      if (alreadyEnriched) {
+        if (isVerbose) console.log(`    Pre-enriched: ${coffee.name}`);
+        coffeesToInsert.push(coffee);
+        continue;
+      }
+
       // Qualify
       const isCoffee = await qualifyProduct(coffee.name);
       if (!isCoffee) {
@@ -240,9 +268,14 @@ async function syncRoaster(
         continue;
       }
 
-      // Fetch HTML and extract
+      // Fetch HTML - use scraper's fetchRenderedHtml for SPAs, plain fetch otherwise
       if (isVerbose) console.log(`    Extracting: ${coffee.name}`);
-      const html = await fetchProductHtml(coffee.url);
+      let html: string;
+      if (scraper.fetchRenderedHtml) {
+        html = await scraper.fetchRenderedHtml(coffee.url);
+      } else {
+        html = await fetchProductHtml(coffee.url);
+      }
       const details = await extractDetails(coffee.url, html);
 
       if (!details) {
@@ -331,7 +364,7 @@ async function main() {
 
     console.log(`\n[${config.name}]`);
     try {
-      const stats = await syncRoaster(config, dryRun, verbose);
+      const stats = await syncRoaster(config, dryRun, verbose, sampleLimit);
       totalUpdated += stats.updated;
       totalDeactivated += stats.deactivated;
       totalInserted += stats.inserted;

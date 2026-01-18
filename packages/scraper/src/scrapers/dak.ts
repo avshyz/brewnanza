@@ -1,85 +1,88 @@
 /**
  * DAK Coffee Roasters scraper.
  * Uses Playwright for SPA rendering (optional dependency).
+ * Catalog-only scrape; AI extraction happens in CLI for new items.
  */
 
 import { BaseScraper } from "./base.js";
-import type { Coffee, PriceVariant } from "../models.js";
+import type { Coffee } from "../models.js";
 import { createPriceVariant } from "../models.js";
-import { parseWeightGrams } from "../currency.js";
-import { DEFAULT_WEIGHT_GRAMS } from "../config.js";
 
 interface SnipcartProduct {
   name: string;
   id: string;
   price: string; // JSON: {"eur":"19.95","cad":"30.00"}
   image: string;
-  custom1Options?: string; // Weight: "250g[+0.00]|1kg[+57.25]"
-  custom2Options?: string; // Roast: "espresso|filter"
 }
 
 /**
- * Parse weight options like "250g[+0.00]|1kg[+57.25]" into price variants.
+ * Parse DAK product name like "Milky Cake - Colombia" into name, country, and slug.
  */
-function parseWeightOptions(
-  options: string | undefined,
-  basePrice: number,
-  currency: string
-): PriceVariant[] {
-  if (!options) {
-    return [createPriceVariant(basePrice, currency, DEFAULT_WEIGHT_GRAMS)];
+function parseProductName(fullName: string): { name: string; country: string | null; slug: string } {
+  const parts = fullName.split(" - ");
+  if (parts.length >= 2) {
+    const country = parts[parts.length - 1].trim();
+    const name = parts.slice(0, -1).join(" - ").trim();
+    // Create URL slug from coffee name: "Milky Cake" -> "milky-cake"
+    const slug = name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+    return { name, country, slug };
   }
-
-  const variants: PriceVariant[] = [];
-  const parts = options.split("|");
-
-  for (const part of parts) {
-    // Format: "250g[+0.00]" or "1kg[+57.25]"
-    const match = part.match(/^([^[]+)\[([+-]?\d+\.?\d*)\]$/);
-    if (!match) continue;
-
-    const [, weightStr, priceModStr] = match;
-    const weight = parseWeightGrams(weightStr) || DEFAULT_WEIGHT_GRAMS;
-    const priceMod = parseFloat(priceModStr) || 0;
-    const finalPrice = basePrice + priceMod;
-
-    variants.push(createPriceVariant(finalPrice, currency, weight));
-  }
-
-  return variants.length > 0
-    ? variants
-    : [createPriceVariant(basePrice, currency, DEFAULT_WEIGHT_GRAMS)];
+  const slug = fullName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+  return { name: fullName, country: null, slug };
 }
 
-/**
- * Parse roast options like "espresso|filter" into roastedFor value.
- */
-function parseRoastOptions(
-  options: string | undefined
-): "filter" | "espresso" | null {
-  if (!options) return null;
-
-  const lower = options.toLowerCase();
-  const hasFilter = lower.includes("filter");
-  const hasEspresso = lower.includes("espresso");
-
-  // If both or neither, return null (omni)
-  if (hasFilter && hasEspresso) return null;
-  if (hasFilter) return "filter";
-  if (hasEspresso) return "espresso";
-  return null;
-}
 
 /**
  * Scraper for DAK Coffee Roasters (SPA using Snipcart).
- * Requires Playwright to be installed: `bun add playwright && bunx playwright install chromium`
+ * Catalog-only: extracts product list from shop page.
+ * AI extraction for new items happens in CLI using fetchRenderedHtml().
  */
 export class DakScraper extends BaseScraper {
   /**
-   * Scrape all coffees from DAK using Playwright.
+   * Scrape catalog from DAK shop page.
    */
   async scrape(): Promise<Coffee[]> {
-    // Dynamic import - fails gracefully if Playwright not installed
+    const { page, browser } = await this.launchBrowser();
+
+    try {
+      await page.goto(this.config.collectionUrl, { waitUntil: "networkidle" });
+      await page.waitForSelector(".snipcart-add-item", { timeout: 15000 });
+      await page.waitForTimeout(2000);
+
+      const products = await page.evaluate(() => {
+        return [...document.querySelectorAll(".snipcart-add-item")].map(
+          (el) => ({
+            name: (el as HTMLElement).dataset.itemName || "",
+            id: (el as HTMLElement).dataset.itemId || "",
+            price: (el as HTMLElement).dataset.itemPrice || "{}",
+            image: (el as HTMLElement).dataset.itemImage || "",
+          })
+        );
+      });
+
+      return this.parseProducts(products);
+    } finally {
+      await browser.close();
+    }
+  }
+
+  /**
+   * Fetch rendered HTML from a product page (for AI extraction).
+   * Called by CLI for new items only.
+   */
+  async fetchRenderedHtml(url: string): Promise<string> {
+    const { page, browser } = await this.launchBrowser();
+
+    try {
+      await page.goto(url, { waitUntil: "networkidle" });
+      await page.waitForTimeout(1500);
+      return await page.content();
+    } finally {
+      await browser.close();
+    }
+  }
+
+  private async launchBrowser() {
     let playwright;
     try {
       playwright = await import("playwright");
@@ -92,38 +95,12 @@ export class DakScraper extends BaseScraper {
 
     const browser = await playwright.chromium.launch({ headless: true });
     const page = await browser.newPage();
-
-    try {
-      await page.goto(this.config.collectionUrl, { waitUntil: "networkidle" });
-
-      // Wait for Snipcart products to render
-      await page.waitForSelector(".snipcart-add-item", { timeout: 15000 });
-
-      // Extra wait for React to fully render all products
-      await page.waitForTimeout(2000);
-
-      // Extract product data from Snipcart elements
-      const products = await page.evaluate(() => {
-        return [...document.querySelectorAll(".snipcart-add-item")].map(
-          (el) => ({
-            name: (el as HTMLElement).dataset.itemName || "",
-            id: (el as HTMLElement).dataset.itemId || "",
-            price: (el as HTMLElement).dataset.itemPrice || "{}",
-            image: (el as HTMLElement).dataset.itemImage || "",
-            custom1Options: (el as HTMLElement).dataset.itemCustom1Options,
-            custom2Options: (el as HTMLElement).dataset.itemCustom2Options,
-          })
-        );
-      });
-
-      return this.parseProducts(products);
-    } finally {
-      await browser.close();
-    }
+    return { browser, page };
   }
 
   /**
    * Parse Snipcart products into Coffee models.
+   * Uses fixed 250g/1kg weights.
    */
   private parseProducts(products: SnipcartProduct[]): Coffee[] {
     const coffees: Coffee[] = [];
@@ -149,21 +126,22 @@ export class DakScraper extends BaseScraper {
 
         if (basePrice <= 0) continue;
 
-        const prices = parseWeightOptions(
-          product.custom1Options,
-          basePrice,
-          this.config.currency
-        );
+        // Fixed weights: 250g base price, 1kg = base + 57.25
+        const currency = this.config.currency;
+        const prices = [
+          createPriceVariant(basePrice, currency, 250),
+          createPriceVariant(basePrice + 57.25, currency, 1000),
+        ];
 
-        const roastedFor = parseRoastOptions(product.custom2Options);
+        // Parse name and country from "Coffee Name - Country" format
+        const { country, slug } = parseProductName(product.name);
 
         coffees.push({
           name: product.name,
-          url: `${this.config.baseUrl}/shop#${product.id}`, // Use product ID for unique URL
+          url: `${this.config.baseUrl}/shop/coffee/${slug}`,
           roasterId: this.config.id,
           prices,
-          // Origin fields - AI will populate from name
-          country: [],
+          country: country ? [country] : [],
           region: [],
           producer: [],
           process: [],
@@ -172,7 +150,7 @@ export class DakScraper extends BaseScraper {
           notes: [],
           caffeine: null,
           roastLevel: null,
-          roastedFor,
+          roastedFor: null, // AI will extract this
           available: true,
           imageUrl: product.image || null,
           skipped: false,

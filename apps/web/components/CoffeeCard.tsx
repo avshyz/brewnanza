@@ -11,19 +11,8 @@ interface CoffeeCardProps {
   showRoaster?: boolean;
 }
 
-// Process emoji mapping
-const PROCESS_EMOJI: Record<string, string> = {
-  washed: "💧",
-  wet: "💧",
-  natural: "☀️",
-  dry: "☀️",
-  honey: "🍯",
-  anaerobic: "🧪",
-  carbonic: "🫧",
-  "carbonic maceration": "🫧",
-  fermented: "🧫",
-  experimental: "🔬",
-};
+// Single process emoji for all processing methods
+const PROCESS_EMOJI = "⚗️";
 
 // Country name to ISO code
 const COUNTRY_CODES: Record<string, string> = {
@@ -77,12 +66,8 @@ function isoToFlag(iso: string): string {
   return String.fromCodePoint(...codePoints);
 }
 
-function getProcessEmoji(process: string): string {
-  const lower = process.toLowerCase();
-  for (const [key, emoji] of Object.entries(PROCESS_EMOJI)) {
-    if (lower.includes(key)) return emoji;
-  }
-  return "⚗️";
+function getProcessEmoji(): string {
+  return PROCESS_EMOJI;
 }
 
 function getCountryFlag(country: string): string {
@@ -111,8 +96,7 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
   const country = coffee.country[0];
   const notes = coffee.notes || [];
 
-  // Fallback: if no producer/variety, show coffee name
-  const title = producer || coffee.name;
+  const title = coffee.name;
 
   return (
     <a
@@ -143,9 +127,9 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
         </div>
       )}
 
-      {/* Thumbnail */}
+      {/* Thumbnail - flexible width, square aspect ratio */}
       {coffee.imageUrl && (
-        <div className="w-44 flex-shrink-0 border-r-2 border-border rounded-l-xl overflow-hidden">
+        <div className="w-[38%] flex-shrink-0 aspect-square border-r-2 border-border overflow-hidden">
           <img
             src={coffee.imageUrl}
             alt={coffee.name}
@@ -155,52 +139,73 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
       )}
 
       {/* Content */}
-      <div className="flex-1 py-4 px-5 min-w-0 flex flex-col gap-1">
+      <div className="flex-1 p-3 min-w-0 flex flex-col">
         {/* Title */}
         <div className={cn(
-          "font-bold text-lg uppercase tracking-tight",
+          "font-bold text-sm uppercase tracking-tight leading-tight",
           "transition-all duration-200",
           "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
         )}>
           {title}
         </div>
 
-        {/* Variety */}
-        {variety && (
-          <div className={cn(
-            "text-sm uppercase tracking-tight text-muted-foreground",
-            "transition-all duration-200",
-            "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
-          )}>
-            {variety}
-          </div>
-        )}
+        {/* Meta info */}
+        <div className="flex flex-col gap-0 mt-0.5">
+          {/* Variety */}
+          {variety && (
+            <div className={cn(
+              "text-[0.7rem] uppercase tracking-tight text-muted-foreground flex items-center gap-1",
+              "transition-all duration-200",
+              "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
+            )}>
+              <span className="text-[0.6rem]">🫘</span>
+              <span className="truncate">{variety}</span>
+            </div>
+          )}
 
-        {/* Process */}
-        {process && (
-          <div className={cn(
-            "text-sm uppercase tracking-tight",
-            "transition-all duration-200",
-            "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
-          )}>
-            {process} {getProcessEmoji(process)}
-          </div>
-        )}
+          {/* Process */}
+          {process && (
+            <div className={cn(
+              "text-[0.7rem] uppercase tracking-tight flex items-center gap-1",
+              "transition-all duration-200",
+              "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
+            )}>
+              <span className="text-[0.6rem]">{getProcessEmoji()}</span>
+              <span className="truncate">{process}</span>
+            </div>
+          )}
 
-        {/* Country */}
-        {country && (
-          <div className={cn(
-            "text-xs uppercase tracking-wide text-muted-foreground",
-            "transition-all duration-200",
-            "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
-          )}>
-            {country} {getCountryFlag(country)}
-          </div>
-        )}
+          {/* Country */}
+          {country && (
+            <div className={cn(
+              "text-[0.65rem] uppercase tracking-wide text-muted-foreground flex items-center gap-1",
+              "transition-all duration-200",
+              "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
+            )}>
+              <span className="text-[0.55rem]">{getCountryFlag(country)}</span>
+              <span className="truncate">{country}</span>
+            </div>
+          )}
+
+          {/* Producer */}
+          {producer && (
+            <div className={cn(
+              "text-[0.65rem] uppercase tracking-wide text-muted-foreground flex items-center gap-1",
+              "transition-all duration-200",
+              "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
+            )}>
+              <span className="text-[0.55rem]">👨‍🌾</span>
+              <span className="truncate">{producer}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Spacer to push notes to bottom */}
+        <div className="flex-1" />
 
         {/* Tasting notes */}
         {notes.length > 0 && (
-          <div className="flex gap-1.5 flex-wrap mt-auto pt-2">
+          <div className="flex gap-1 flex-wrap">
             {notes.slice(0, 3).map((note, i) => {
               const { emoji, color } = getTastingNoteInfo(note);
               return (
@@ -208,10 +213,10 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
                   key={i}
                   className={cn(
                     color,
-                    "uppercase border-black transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)]"
+                    "uppercase border-black transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] text-[0.6rem] px-1 py-0.5"
                   )}
                 >
-                  {note} {emoji}
+                  {emoji} {note}
                 </Chip>
               );
             })}

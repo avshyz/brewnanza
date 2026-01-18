@@ -4,7 +4,7 @@
  */
 
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { mutation, query, internalMutation } from "./_generated/server";
 
 // Price variant validator
 const priceVariantValidator = v.object({
@@ -164,8 +164,9 @@ export const batchUpsert = mutation({
 
 /**
  * Clear all data from coffees and roasters tables.
+ * Internal only - run via: bunx convex run --internal coffees:clearAll
  */
-export const clearAll = mutation({
+export const clearAll = internalMutation({
   args: {},
   handler: async (ctx) => {
     const coffees = await ctx.db.query("coffees").collect();
@@ -184,8 +185,9 @@ export const clearAll = mutation({
 
 /**
  * Delete inactive records for a roaster.
+ * Internal only - run via: bunx convex run --internal coffees:clearInactive '{"roasterId": "xxx"}'
  */
-export const clearInactive = mutation({
+export const clearInactive = internalMutation({
   args: { roasterId: v.string() },
   handler: async (ctx, { roasterId }) => {
     const inactive = await ctx.db
@@ -203,6 +205,35 @@ export const clearInactive = mutation({
     }
 
     return { deleted: inactive.length };
+  },
+});
+
+/**
+ * Delete all coffees and roaster record for a roaster.
+ * Internal only - run via: bunx convex run --internal coffees:clearRoaster '{"roasterId": "xxx"}'
+ */
+export const clearRoaster = internalMutation({
+  args: { roasterId: v.string() },
+  handler: async (ctx, { roasterId }) => {
+    const coffees = await ctx.db
+      .query("coffees")
+      .filter((q) => q.eq(q.field("roasterId"), roasterId))
+      .collect();
+
+    for (const coffee of coffees) {
+      await ctx.db.delete(coffee._id);
+    }
+
+    const roaster = await ctx.db
+      .query("roasters")
+      .withIndex("by_roasterId", (q) => q.eq("roasterId", roasterId))
+      .first();
+
+    if (roaster) {
+      await ctx.db.delete(roaster._id);
+    }
+
+    return { coffeesDeleted: coffees.length, roasterDeleted: !!roaster };
   },
 });
 

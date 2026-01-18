@@ -157,27 +157,4 @@ http.route({
   }),
 });
 
-/**
- * POST /clear-all - Clear all coffees and roasters
- */
-http.route({
-  path: "/clear-all",
-  method: "POST",
-  handler: httpAction(async (ctx) => {
-    try {
-      const result = await ctx.runMutation(api.coffees.clearAll, {});
-
-      return new Response(JSON.stringify({ success: true, ...result }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
-    } catch (error) {
-      return new Response(JSON.stringify({ error: String(error) }), {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-  }),
-});
-
 export default http;

@@ -20,6 +20,7 @@
         "autoprefixer": "^10.4.23",
         "clsx": "^2.1.1",
         "convex": "^1.17.4",
+        "fuse.js": "^7.1.0",
         "next": "^15.1.6",
         "postcss": "^8.5.6",
         "react": "^19.0.0",
@@ -42,7 +43,6 @@
         "cheerio": "^1.0.0",
         "fuzzysort": "^3.1.0",
         "openai": "^6.16.0",
-        "playwright": "^1.57.0",
         "sanitize-html": "^2.17.0",
         "zod": "^3.24.1",
       },
@@ -51,6 +51,9 @@
         "@types/sanitize-html": "^2.16.0",
         "domhandler": "^5.0.3",
         "typescript": "^5.7.3",
+      },
+      "optionalDependencies": {
+        "playwright": "^1.57.0",
       },
     },
   },
@@ -326,6 +329,8 @@
     "fraction.js": ["fraction.js@5.3.4", "", {}, "sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ=="],
 
     "fsevents": ["fsevents@2.3.2", "", { "os": "darwin" }, "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="],
+
+    "fuse.js": ["fuse.js@7.1.0", "", {}, "sha512-trLf4SzuuUxfusZADLINj+dE8clK1frKdmqiJNb1Es75fmI5oY6X2mxLVUciLLjxqw/xr72Dhy+lER6dGd02FQ=="],
 
     "fuzzysort": ["fuzzysort@3.1.0", "", {}, "sha512-sR9BNCjBg6LNgwvxlBd0sBABvQitkLzoVY9MYYROQVX/FvfJ4Mai9LsGhDgd8qYdds0bY77VzYd5iuB+v5rwQQ=="],
 
