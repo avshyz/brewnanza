@@ -220,6 +220,11 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
                 </Chip>
               );
             })}
+            {notes.length > 3 && (
+              <Chip className="uppercase border-black transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] text-[0.6rem] px-1 py-0.5 bg-gray-100">
+                +{notes.length - 3}
+              </Chip>
+            )}
           </div>
         )}
       </div>

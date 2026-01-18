@@ -249,35 +249,57 @@ async function syncRoaster(
     console.log(`  Limiting to ${maxNewItems} new items (--sample)`);
   }
 
+  // Pre-qualify items and collect URLs for batch fetching
+  const toExtract: Coffee[] = [];
+  if (isVerbose) console.log(`  Qualifying ${itemsToProcess.length} items...`);
   for (const coffee of itemsToProcess) {
+    // Skip AI extraction if scraper already enriched
+    const alreadyEnriched = coffee.notes.length > 0 || coffee.process.length > 0 || coffee.variety.length > 0;
+    if (alreadyEnriched) {
+      if (isVerbose) console.log(`    Pre-enriched: ${coffee.name}`);
+      coffeesToInsert.push(coffee);
+      continue;
+    }
+
+    // Qualify
+    if (isVerbose) console.log(`    Qualifying: ${coffee.name}`);
+    const isCoffee = await qualifyProduct(coffee.name);
+    if (!isCoffee) {
+      if (isVerbose) console.log(`    Skip (not coffee): ${coffee.name}`);
+      skipped++;
+      continue;
+    }
+
+    toExtract.push(coffee);
+  }
+
+  // Batch fetch HTML if scraper supports it (SPA scrapers)
+  const scraperWithBatch = scraper as BaseScraper & { fetchRenderedHtmlBatch?: (urls: string[]) => Promise<Map<string, string>> };
+  let htmlMap: Map<string, string> | null = null;
+
+  if (scraperWithBatch.fetchRenderedHtmlBatch && toExtract.length > 0) {
+    if (isVerbose) console.log(`  Fetching ${toExtract.length} product pages...`);
+    htmlMap = await scraperWithBatch.fetchRenderedHtmlBatch(toExtract.map((c) => c.url));
+  }
+
+  // Extract details from each coffee
+  for (const coffee of toExtract) {
     try {
-      // Skip AI extraction if scraper already enriched (has notes, process, or variety)
-      const alreadyEnriched = coffee.notes.length > 0 || coffee.process.length > 0 || coffee.variety.length > 0;
-
-      if (alreadyEnriched) {
-        if (isVerbose) console.log(`    Pre-enriched: ${coffee.name}`);
-        coffeesToInsert.push(coffee);
-        continue;
-      }
-
-      // Qualify
-      const isCoffee = await qualifyProduct(coffee.name);
-      if (!isCoffee) {
-        if (isVerbose) console.log(`    Skip (not coffee): ${coffee.name}`);
-        skipped++;
-        continue;
-      }
-
-      // Fetch HTML - use scraper's fetchRenderedHtml for SPAs, plain fetch otherwise
       if (isVerbose) console.log(`    Extracting: ${coffee.name}`);
       let html: string;
-      if (scraper.fetchRenderedHtml) {
-        html = await scraper.fetchRenderedHtml(coffee.url);
+      if (htmlMap) {
+        html = htmlMap.get(coffee.url) || "";
       } else {
         html = await fetchProductHtml(coffee.url);
       }
-      const details = await extractDetails(coffee.url, html);
 
+      if (!html) {
+        console.error(`    Failed to fetch HTML: ${coffee.url}`);
+        errors.push(`Fetch failed: ${coffee.url}`);
+        continue;
+      }
+
+      const details = await extractDetails(coffee.url, html);
       if (!details) {
         console.error(`    Failed to extract: ${coffee.url}`);
         errors.push(`Extract failed: ${coffee.url}`);

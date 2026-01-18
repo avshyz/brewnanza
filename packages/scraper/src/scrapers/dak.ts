@@ -67,19 +67,37 @@ export class DakScraper extends BaseScraper {
   }
 
   /**
+   * Fetch rendered HTML from multiple product pages (for AI extraction).
+   * Uses a single browser instance for efficiency.
+   */
+  async fetchRenderedHtmlBatch(urls: string[]): Promise<Map<string, string>> {
+    const { page, browser } = await this.launchBrowser();
+    const results = new Map<string, string>();
+
+    try {
+      for (const url of urls) {
+        try {
+          await page.goto(url, { waitUntil: "networkidle" });
+          await page.waitForTimeout(1000);
+          results.set(url, await page.content());
+        } catch (err) {
+          console.error(`Failed to fetch ${url}:`, err);
+          results.set(url, "");
+        }
+      }
+      return results;
+    } finally {
+      await browser.close();
+    }
+  }
+
+  /**
    * Fetch rendered HTML from a product page (for AI extraction).
    * Called by CLI for new items only.
    */
   async fetchRenderedHtml(url: string): Promise<string> {
-    const { page, browser } = await this.launchBrowser();
-
-    try {
-      await page.goto(url, { waitUntil: "networkidle" });
-      await page.waitForTimeout(1500);
-      return await page.content();
-    } finally {
-      await browser.close();
-    }
+    const results = await this.fetchRenderedHtmlBatch([url]);
+    return results.get(url) || "";
   }
 
   private async launchBrowser() {
