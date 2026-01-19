@@ -15,6 +15,7 @@ import { v } from "convex/values";
 import { action, internalQuery, query } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { Id, Doc } from "./_generated/dataModel";
+import Fuse from "fuse.js";
 
 // Types
 interface SearchResult {
@@ -107,46 +108,163 @@ export const getCoffeesWithEmbeddings = internalQuery({
   },
 });
 
-// LLM system prompt for query parsing
-const PARSE_SYSTEM_PROMPT = `You are a specialty coffee search assistant. Parse user queries into structured filters and semantic mappings.
+// Internal query to get distinct notes and processes from all active coffees
+export const getDistinctVocabulary = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const coffees = await ctx.db
+      .query("coffees")
+      .filter((q) =>
+        q.and(q.eq(q.field("isActive"), true), q.eq(q.field("skipped"), false))
+      )
+      .collect();
 
-Extract:
-1. Explicit filters: price constraints, country names, roaster mentions
-2. Semantic notes: map coffee jargon to specific tasting notes
-3. Semantic processes: map terms to coffee processing methods
+    const notes = new Set<string>();
+    const processes = new Set<string>();
+
+    for (const coffee of coffees) {
+      for (const note of coffee.notes) {
+        notes.add(note.toLowerCase());
+      }
+      for (const proc of coffee.process) {
+        processes.add(proc.toLowerCase());
+      }
+      for (const prot of coffee.protocol) {
+        processes.add(prot.toLowerCase());
+      }
+    }
+
+    return {
+      notes: Array.from(notes).sort(),
+      processes: Array.from(processes).sort(),
+    };
+  },
+});
+
+/**
+ * Find candidate notes via fuzzy matching using fuse.js.
+ * Handles typos like "choclate" → "chocolate", "rasberry" → "raspberry".
+ * Also includes exact/substring matches for precise queries.
+ */
+function findCandidateNotes(query: string, allNotes: string[]): string[] {
+  if (allNotes.length === 0) return [];
+
+  const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  const candidates = new Set<string>();
+
+  // First: exact and substring matches (for precise queries like "pear")
+  for (const word of words) {
+    for (const note of allNotes) {
+      const noteLower = note.toLowerCase();
+      if (noteLower.includes(word) || word.includes(noteLower)) {
+        candidates.add(note);
+      }
+    }
+  }
+
+  // Second: fuzzy matches for typos (fuse.js)
+  const fuse = new Fuse(allNotes, {
+    threshold: 0.4,      // 0 = exact match, 1 = match anything
+    distance: 100,       // how far to search for a match
+    minMatchCharLength: 3,
+  });
+
+  for (const word of words) {
+    const results = fuse.search(word);
+    for (const result of results.slice(0, 5)) {
+      candidates.add(result.item);
+    }
+  }
+
+  // Also search the full query for multi-word notes like "black cherry"
+  const fullResults = fuse.search(query);
+  for (const result of fullResults.slice(0, 5)) {
+    candidates.add(result.item);
+  }
+
+  return Array.from(candidates).slice(0, 15);
+}
+
+/**
+ * Find candidate processes via fuzzy matching using fuse.js.
+ * Includes exact/substring matches plus fuzzy for typos.
+ */
+function findCandidateProcesses(query: string, allProcesses: string[]): string[] {
+  if (allProcesses.length === 0) return [];
+
+  const words = query.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  const candidates = new Set<string>();
+
+  // Exact/substring matches
+  for (const word of words) {
+    for (const proc of allProcesses) {
+      const procLower = proc.toLowerCase();
+      if (procLower.includes(word) || word.includes(procLower)) {
+        candidates.add(proc);
+      }
+    }
+  }
+
+  // Fuzzy matches for typos
+  const fuse = new Fuse(allProcesses, {
+    threshold: 0.4,
+    distance: 100,
+    minMatchCharLength: 3,
+  });
+
+  for (const word of words) {
+    const results = fuse.search(word);
+    for (const result of results.slice(0, 3)) {
+      candidates.add(result.item);
+    }
+  }
+
+  return Array.from(candidates);
+}
+
+// LLM system prompt - simpler, asks to validate candidates
+function buildParsePrompt(candidateNotes: string[], candidateProcesses: string[]): string {
+  return `Parse this coffee search query. Extract filters and select relevant tasting notes/processes.
 
 Return JSON only:
 {
-  "filters": {
-    "maxPrice": number | null,
-    "minPrice": number | null,
-    "country": string | null
-  },
+  "filters": { "maxPrice": number|null, "minPrice": number|null, "country": string|null },
   "mappedNotes": string[],
   "mappedProcesses": string[],
   "semanticQuery": string
 }
 
-Note mappings:
-- "funky" → notes: ["fermented", "wild", "yeasty"], processes: ["natural", "anaerobic"]
-- "berry bomb" → notes: ["berry", "blueberry", "strawberry", "raspberry"], processes: ["natural"]
-- "clean cup" → notes: ["tea", "crisp", "bright"], processes: ["washed"]
-- "fruity" → notes: ["berry", "citrus", "tropical", "stone fruit"]
-- "floral" → notes: ["jasmine", "rose", "lavender", "violet"]
-- "chocolatey" → notes: ["chocolate", "cocoa", "dark chocolate"]
+${candidateNotes.length > 0 ? `Candidate notes found: [${candidateNotes.join(", ")}]
+Select which are relevant to the query intent. Add related notes if needed.` : ""}
 
-Price patterns: "under $X" → maxPrice: X, "above $X" → minPrice: X
-Country patterns: "Ethiopian" → country: "Ethiopia", "Kenyan" → country: "Kenya"
+${candidateProcesses.length > 0 ? `Candidate processes found: [${candidateProcesses.join(", ")}]
+Select which are relevant.` : ""}
 
-semanticQuery should be the core flavor/characteristic terms for embedding.`;
+Jargon expansions:
+- "funky" → fermented, wild, yeasty + natural/anaerobic process
+- "berry bomb" → berry, blueberry, raspberry + natural process
+- "clean cup" → tea, crisp, bright + washed process
+- "fruity" → berry, citrus, tropical, stone fruit
+
+Price: "under $X" → maxPrice, "above $X" → minPrice
+Country: "Ethiopian" → Ethiopia, "Kenyan" → Kenya`;
+}
 
 // Parse query using LLM (called on cache miss)
-async function parseQueryWithLLM(query: string): Promise<{ parsed: ParsedQuery; usedFallback: boolean }> {
+async function parseQueryWithLLM(
+  query: string,
+  vocabulary: { notes: string[]; processes: string[] }
+): Promise<{ parsed: ParsedQuery; usedFallback: boolean }> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     console.warn("ANTHROPIC_API_KEY not set, using fallback parsing");
-    return { parsed: fallbackParse(query), usedFallback: true };
+    return { parsed: fallbackParse(query, vocabulary), usedFallback: true };
   }
+
+  // Find candidate notes/processes via fuzzy match against DB vocabulary
+  const candidateNotes = findCandidateNotes(query, vocabulary.notes);
+  const candidateProcesses = findCandidateProcesses(query, vocabulary.processes);
+  const systemPrompt = buildParsePrompt(candidateNotes, candidateProcesses);
 
   try {
     const response = await fetch("https://api.anthropic.com/v1/messages", {
@@ -159,8 +277,8 @@ async function parseQueryWithLLM(query: string): Promise<{ parsed: ParsedQuery; 
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 256,
-        system: PARSE_SYSTEM_PROMPT,
-        messages: [{ role: "user", content: `Parse this coffee search query: "${query}"` }],
+        system: systemPrompt,
+        messages: [{ role: "user", content: `Parse: "${query}"` }],
       }),
     });
 
@@ -195,12 +313,15 @@ async function parseQueryWithLLM(query: string): Promise<{ parsed: ParsedQuery; 
     };
   } catch (error) {
     console.error("LLM parsing failed:", error);
-    return { parsed: fallbackParse(query), usedFallback: true };
+    return { parsed: fallbackParse(query, vocabulary), usedFallback: true };
   }
 }
 
 // Fallback parsing when LLM is unavailable
-function fallbackParse(query: string): ParsedQuery {
+function fallbackParse(
+  query: string,
+  vocabulary: { notes: string[]; processes: string[] }
+): ParsedQuery {
   const lower = query.toLowerCase();
 
   // Extract price filters
@@ -221,15 +342,16 @@ function fallbackParse(query: string): ParsedQuery {
     }
   }
 
-  // Simple keyword mappings
-  const mappedNotes: string[] = [];
-  const mappedProcesses: string[] = [];
+  // Use fuzzy matching to find notes and processes from DB vocabulary
+  const mappedNotes: string[] = findCandidateNotes(query, vocabulary.notes);
+  const mappedProcesses: string[] = findCandidateProcesses(query, vocabulary.processes);
 
+  // Add jargon expansions
   if (lower.includes("funky")) {
     mappedNotes.push("fermented", "wild", "yeasty");
     mappedProcesses.push("natural", "anaerobic");
   }
-  if (lower.includes("berry") || lower.includes("fruit bomb")) {
+  if (lower.includes("fruit bomb")) {
     mappedNotes.push("berry", "blueberry", "strawberry", "raspberry");
     mappedProcesses.push("natural");
   }
@@ -237,20 +359,14 @@ function fallbackParse(query: string): ParsedQuery {
     mappedNotes.push("tea", "crisp", "bright");
     mappedProcesses.push("washed");
   }
-  if (lower.includes("floral")) {
-    mappedNotes.push("jasmine", "rose", "lavender", "violet", "floral");
-  }
-  if (lower.includes("chocolat")) {
-    mappedNotes.push("chocolate", "cocoa", "dark chocolate");
-  }
-  if (lower.includes("fruity")) {
+  if (lower.includes("fruity") && !mappedNotes.includes("tropical")) {
     mappedNotes.push("berry", "citrus", "tropical", "stone fruit");
   }
 
   return {
     filters: { maxPrice, minPrice, country },
-    mappedNotes,
-    mappedProcesses,
+    mappedNotes: [...new Set(mappedNotes)],
+    mappedProcesses: [...new Set(mappedProcesses)],
     semanticQuery: query,
   };
 }
@@ -350,6 +466,9 @@ export const search = action({
       return { results, debug: { source: "similarity", parsedQuery: null } };
     }
 
+    // Fetch vocabulary from DB (distinct notes/processes from all coffees)
+    const vocabulary = await ctx.runQuery(internal.search.getDistinctVocabulary, {});
+
     // Check vocabulary cache first
     const cachedEntry = await ctx.runQuery(internal.search.getVocabEntry, { term: normalizedQuery });
 
@@ -366,8 +485,8 @@ export const search = action({
         semanticQuery: cachedEntry.term,
       };
     } else {
-      // Cache miss - parse query with LLM (may fall back internally)
-      const { parsed, usedFallback } = await parseQueryWithLLM(query);
+      // Cache miss - parse query with LLM using DB vocabulary
+      const { parsed, usedFallback } = await parseQueryWithLLM(query, vocabulary);
       parsedQuery = parsed;
       source = usedFallback ? "fallback" : "llm";
       if (roasterId) {
@@ -478,3 +597,4 @@ export const autocompleteRoasters = query({
       }));
   },
 });
+

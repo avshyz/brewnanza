@@ -4,6 +4,9 @@
   "workspaces": {
     "": {
       "name": "brewnanza",
+      "dependencies": {
+        "fuse.js": "^7.1.0",
+      },
       "devDependencies": {
         "convex": "^1.17.4",
         "turbo": "^2.3.3",
