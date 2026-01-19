@@ -1,14 +1,38 @@
-import type { Doc } from "../../../convex/_generated/dataModel";
 import { cn } from "../lib/utils";
 import { getTastingNoteInfo } from "../lib/tasting-notes";
 import { Chip } from "./ui/chip";
 import { FilterIcon, EspressoIcon, DecafIcon, LightRoastIcon, MediumRoastIcon, DarkRoastIcon } from "./icons";
 
-type Coffee = Doc<"coffees">;
+// Flexible type to accept both Doc<"coffees"> and search results
+interface CoffeeData {
+  _id: string;
+  name: string;
+  roasterId: string;
+  url: string;
+  notes: string[];
+  process: string[];
+  country: string[];
+  region: string[];
+  variety: string[];
+  producer?: string[];
+  roastLevel?: string | null;
+  roastedFor?: string | null;
+  caffeine?: string | null;
+  prices: Array<{
+    price: number;
+    currency: string;
+    weightGrams: number;
+    priceUsd: number | null;
+    available: boolean;
+  }>;
+  available: boolean;
+  imageUrl: string | null;
+}
 
 interface CoffeeCardProps {
-  coffee: Coffee;
+  coffee: CoffeeData;
   showRoaster?: boolean;
+  matchedAttributes?: string[];
 }
 
 // Single process emoji for all processing methods
@@ -89,12 +113,14 @@ const ROASTED_FOR_ICON: Record<string, React.ReactNode> = {
   espresso: <EspressoIcon className="w-4 h-4 inline-block" />,
 };
 
-export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
-  const producer = coffee.producer[0];
-  const variety = coffee.variety[0];
-  const process = coffee.process[0];
-  const country = coffee.country[0];
+export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] }: CoffeeCardProps) {
+  const producer = coffee.producer?.join(", ");
+  const variety = coffee.variety.join(", ");
+  const process = coffee.process.join(", ");
+  const country = coffee.country.join(", ");
+  const countryFlags = coffee.country.map(getCountryFlag).join("");
   const notes = coffee.notes || [];
+  const matchedSet = new Set(matchedAttributes.map(a => a.toLowerCase()));
 
   const title = coffee.name;
 
@@ -182,7 +208,7 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
               "transition-all duration-200",
               "group-hover:[text-shadow:-1.5px_-1.5px_0_cyan,3px_3px_0_magenta]"
             )}>
-              <span className="text-[0.55rem]">{getCountryFlag(country)}</span>
+              <span className="text-[0.55rem]">{countryFlags}</span>
               <span className="truncate">{country}</span>
             </div>
           )}
@@ -206,20 +232,30 @@ export function CoffeeCard({ coffee, showRoaster = true }: CoffeeCardProps) {
         {/* Tasting notes */}
         {notes.length > 0 && (
           <div className="flex gap-1 flex-wrap">
-            {notes.slice(0, 3).map((note, i) => {
-              const { emoji, color } = getTastingNoteInfo(note);
-              return (
-                <Chip
-                  key={i}
-                  className={cn(
-                    color,
-                    "uppercase border-black transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] text-[0.6rem] px-1 py-0.5"
-                  )}
-                >
-                  {emoji} {note}
-                </Chip>
-              );
-            })}
+            {[...notes]
+              .sort((a, b) => {
+                const aMatched = matchedSet.has(a.toLowerCase());
+                const bMatched = matchedSet.has(b.toLowerCase());
+                if (aMatched && !bMatched) return -1;
+                if (!aMatched && bMatched) return 1;
+                return 0;
+              })
+              .slice(0, 3)
+              .map((note, i) => {
+                const { emoji, color } = getTastingNoteInfo(note);
+                const isMatched = matchedSet.has(note.toLowerCase());
+                return (
+                  <Chip
+                    key={i}
+                    className={cn(
+                      isMatched ? color.highlight : color.normal,
+                      "uppercase transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] text-[0.6rem] px-1 py-0.5"
+                    )}
+                  >
+                    {emoji} {note}
+                  </Chip>
+                );
+              })}
             {notes.length > 3 && (
               <Chip className="uppercase border-black transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] text-[0.6rem] px-1 py-0.5 bg-gray-100">
                 +{notes.length - 3}

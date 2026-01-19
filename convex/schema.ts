@@ -57,9 +57,17 @@ export default defineSchema({
     // Versioning (URL reuse support)
     isActive: v.boolean(),
     scrapedAt: v.number(),
+
+    // Semantic search embedding (e5-large-v2, 1024 dimensions)
+    embedding: v.optional(v.array(v.float64())),
   })
     .index("by_roaster", ["roasterId", "isActive"])
-    .index("by_url_active", ["url", "isActive"]),
+    .index("by_url_active", ["url", "isActive"])
+    .vectorIndex("by_embedding", {
+      vectorField: "embedding",
+      dimensions: 1024,
+      filterFields: ["isActive", "roasterId"],
+    }),
 
   // Roaster metadata
   roasters: defineTable({
@@ -70,4 +78,13 @@ export default defineSchema({
     lastScrapedAt: v.union(v.number(), v.null()),
     coffeeCount: v.number(),
   }).index("by_roasterId", ["roasterId"]),
+
+  // Vocabulary cache for semantic search (pre-computed common terms)
+  vocabularyCache: defineTable({
+    term: v.string(), // e.g., "funky", "berry bomb", "clean cup"
+    embedding: v.array(v.float64()), // pre-computed embedding (1024 dim)
+    mappedNotes: v.array(v.string()), // LLM-expanded notes
+    mappedProcesses: v.array(v.string()), // LLM-expanded processes
+    createdAt: v.number(),
+  }).index("by_term", ["term"]),
 });

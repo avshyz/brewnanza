@@ -1,24 +1,57 @@
 const COLORS = {
-  stone: "bg-amber-100 text-amber-800 border-amber-300",
-  citrus: "bg-yellow-100 text-yellow-800 border-yellow-300",
-  berry: "bg-fuchsia-100 text-fuchsia-800 border-fuchsia-300",
-  tropical: "bg-orange-100 text-orange-800 border-orange-300",
-  dried: "bg-violet-100 text-violet-800 border-violet-300",
-  orchard: "bg-lime-100 text-lime-800 border-lime-300",
-  floral: "bg-pink-100 text-pink-800 border-pink-300",
-  sweet: "bg-yellow-50 text-yellow-700 border-yellow-200",
-  chocolate: "bg-stone-200 text-stone-800 border-stone-400",
-  nutty: "bg-amber-50 text-amber-700 border-amber-200",
-  spice: "bg-red-100 text-red-800 border-red-300",
-  tea: "bg-emerald-100 text-emerald-800 border-emerald-300",
-  wine: "bg-rose-100 text-rose-800 border-rose-300",
-  herbal: "bg-green-100 text-green-800 border-green-300",
-  baked: "bg-orange-50 text-orange-700 border-orange-200",
-  creamy: "bg-slate-100 text-slate-700 border-slate-300",
-  other: "bg-gray-100 text-gray-700 border-gray-300",
+  stone: { normal: "bg-amber-100 text-amber-800 border-amber-300", highlight: "bg-amber-800 text-white border-amber-900" },
+  citrus: { normal: "bg-yellow-100 text-yellow-800 border-yellow-300", highlight: "bg-yellow-600 text-white border-yellow-700" },
+  berry: { normal: "bg-fuchsia-100 text-fuchsia-800 border-fuchsia-300", highlight: "bg-fuchsia-800 text-white border-fuchsia-900" },
+  tropical: { normal: "bg-orange-100 text-orange-800 border-orange-300", highlight: "bg-orange-600 text-white border-orange-700" },
+  dried: { normal: "bg-violet-100 text-violet-800 border-violet-300", highlight: "bg-violet-800 text-white border-violet-900" },
+  orchard: { normal: "bg-lime-100 text-lime-800 border-lime-300", highlight: "bg-lime-700 text-white border-lime-800" },
+  floral: { normal: "bg-pink-100 text-pink-800 border-pink-300", highlight: "bg-pink-700 text-white border-pink-800" },
+  sweet: { normal: "bg-yellow-50 text-yellow-700 border-yellow-200", highlight: "bg-yellow-600 text-white border-yellow-700" },
+  chocolate: { normal: "bg-amber-200 text-amber-900 border-amber-400", highlight: "bg-amber-800 text-white border-amber-900" },
+  nutty: { normal: "bg-amber-50 text-amber-700 border-amber-200", highlight: "bg-amber-700 text-white border-amber-800" },
+  spice: { normal: "bg-red-100 text-red-800 border-red-300", highlight: "bg-red-700 text-white border-red-800" },
+  tea: { normal: "bg-emerald-100 text-emerald-800 border-emerald-300", highlight: "bg-emerald-700 text-white border-emerald-800" },
+  wine: { normal: "bg-rose-100 text-rose-800 border-rose-300", highlight: "bg-rose-700 text-white border-rose-800" },
+  herbal: { normal: "bg-green-100 text-green-800 border-green-300", highlight: "bg-green-700 text-white border-green-800" },
+  baked: { normal: "bg-orange-50 text-orange-700 border-orange-200", highlight: "bg-orange-600 text-white border-orange-700" },
+  creamy: { normal: "bg-slate-100 text-slate-700 border-slate-300", highlight: "bg-slate-700 text-white border-slate-800" },
+  other: { normal: "bg-gray-100 text-gray-700 border-gray-300", highlight: "bg-gray-700 text-white border-gray-800" },
 } as const;
 
-const NOTES: Record<string, { emoji: string; color: string }> = {
+// Category to notes mapping for semantic search
+export const CATEGORY_TO_NOTES: Record<string, string[]> = {
+  stone: ["peach", "apricot", "nectarine", "plum", "cherry", "black cherry", "stone fruit", "prune", "persimmon"],
+  citrus: ["citrus", "orange", "blood orange", "tangerine", "mandarin", "lemon", "lime", "grapefruit", "bergamot", "yuzu"],
+  berry: ["berry", "berries", "red berries", "dark berries", "blueberry", "raspberry", "strawberry", "blackberry", "blackcurrant", "redcurrant", "cranberry", "gooseberry"],
+  tropical: ["tropical", "mango", "pineapple", "papaya", "passion fruit", "guava", "lychee", "coconut", "banana", "kiwi"],
+  dried: ["raisin", "date", "fig", "dried fruits", "fruitcake", "tamarind"],
+  orchard: ["apple", "green apple", "pear", "grape", "melon", "watermelon", "pomegranate"],
+  floral: ["floral", "jasmine", "rose", "lavender", "violet", "hibiscus", "honeysuckle", "geranium", "chamomile"],
+  sweet: ["honey", "caramel", "toffee", "fudge", "maple", "brown sugar", "molasses", "panela", "candy"],
+  chocolate: ["chocolate", "dark chocolate", "milk chocolate", "cocoa", "cacao"],
+  nutty: ["nutty", "almond", "hazelnut", "walnut", "pistachio", "macadamia", "pecan", "marzipan", "praline"],
+  spice: ["cinnamon", "cardamom", "ginger", "baking spice"],
+  tea: ["tea", "black tea", "green tea", "oolong", "darjeeling"],
+  wine: ["wine", "red wine", "brandy", "rum", "jammy"],
+  herbal: ["herbal", "lemongrass", "verbena", "eucalyptus", "tobacco"],
+  baked: ["brioche", "biscuit", "grains", "malt"],
+  creamy: ["cream", "custard", "vanilla", "butter"],
+  other: ["fresh", "crisp", "bright", "juicy", "complex", "fermented", "wild", "yeasty", "boozy", "winey"],
+};
+
+// Flat list of all notes for LLM prompts
+export const ALL_NOTES = Object.values(CATEGORY_TO_NOTES).flat();
+
+// Common coffee processes
+export const ALL_PROCESSES = [
+  "washed", "natural", "honey", "anaerobic", "carbonic maceration",
+  "double fermentation", "extended fermentation", "thermal shock",
+  "wet hulled", "semi-washed", "pulped natural",
+];
+
+type ColorConfig = typeof COLORS[keyof typeof COLORS];
+
+const NOTES: Record<string, { emoji: string; color: ColorConfig }> = {
   // Stone fruits
   peach: { emoji: "🍑", color: COLORS.stone },
   peaches: { emoji: "🍑", color: COLORS.stone },
@@ -353,6 +386,6 @@ const NOTES: Record<string, { emoji: string; color: string }> = {
 
 const DEFAULT_NOTE = { emoji: "✨", color: COLORS.other };
 
-export function getTastingNoteInfo(note: string): { emoji: string; color: string } {
+export function getTastingNoteInfo(note: string): { emoji: string; color: ColorConfig } {
   return NOTES[note.toLowerCase().trim()] ?? DEFAULT_NOTE;
 }

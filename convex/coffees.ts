@@ -45,7 +45,9 @@ export const getAll = query({
   handler: async (ctx) => {
     return await ctx.db
       .query("coffees")
-      .filter((q) => q.eq(q.field("isActive"), true))
+      .filter((q) =>
+        q.and(q.eq(q.field("isActive"), true), q.eq(q.field("skipped"), false))
+      )
       .collect();
   },
 });
@@ -355,6 +357,59 @@ export const setSkipped = mutation({
 
     await ctx.db.patch(existing._id, { skipped });
     return { url, skipped, name: existing.name };
+  },
+});
+
+/**
+ * Get active coffees missing embeddings (for backfill).
+ */
+export const getMissingEmbeddings = query({
+  args: { limit: v.optional(v.number()) },
+  handler: async (ctx, { limit = 100 }) => {
+    const coffees = await ctx.db
+      .query("coffees")
+      .filter((q) =>
+        q.and(
+          q.eq(q.field("isActive"), true),
+          q.eq(q.field("embedding"), undefined)
+        )
+      )
+      .take(limit);
+
+    return coffees.map((c) => ({
+      _id: c._id,
+      name: c.name,
+      notes: c.notes,
+      process: c.process,
+      protocol: c.protocol,
+      roastLevel: c.roastLevel,
+      roastedFor: c.roastedFor,
+      country: c.country,
+      region: c.region,
+      variety: c.variety,
+    }));
+  },
+});
+
+/**
+ * Batch update embeddings for coffees.
+ */
+export const updateEmbeddings = mutation({
+  args: {
+    updates: v.array(
+      v.object({
+        id: v.id("coffees"),
+        embedding: v.array(v.float64()),
+      })
+    ),
+  },
+  handler: async (ctx, { updates }) => {
+    let updated = 0;
+    for (const { id, embedding } of updates) {
+      await ctx.db.patch(id, { embedding });
+      updated++;
+    }
+    return { updated };
   },
 });
 

@@ -1,118 +1,106 @@
 "use client";
 
-import { useQuery } from "convex/react";
+import { useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useMemo, useRef, useEffect, useCallback, startTransition, useDeferredValue } from "react";
-import { flushSync } from "react-dom";
-import Fuse from "fuse.js";
+import { useState, useRef, useCallback, startTransition } from "react";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
 import { FilterChip } from "../components/ui/filter-chip";
 import { EspressoIcon, FilterIcon, DecafIcon } from "../components/icons";
+import { Id } from "../../../convex/_generated/dataModel";
+import { SearchInput, SearchInputHandle } from "../components/SearchInput";
 
-const TRANSITION_DEBOUNCE_MS = 400;
+
+interface SearchResult {
+  _id: Id<"coffees">;
+  name: string;
+  roasterId: string;
+  url: string;
+  notes: string[];
+  process: string[];
+  protocol: string[];
+  country: string[];
+  region: string[];
+  variety: string[];
+  roastLevel?: string | null;
+  roastedFor?: string | null;
+  prices: Array<{
+    price: number;
+    currency: string;
+    weightGrams: number;
+    priceUsd: number | null;
+    available: boolean;
+  }>;
+  available: boolean;
+  imageUrl: string | null;
+  matchedAttributes: string[];
+  score: number;
+}
 
 export default function Home() {
-  const coffees = useQuery(api.coffees.getAll);
-  const [search, setSearch] = useState("");
-  const deferredSearch = useDeferredValue(search);
+  const searchAction = useAction(api.search.search);
+
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
+
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(null);
   const [decafOnly, setDecafOnly] = useState(false);
-  const [hasTransitioned, setHasTransitioned] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Once transitioned, stay in results view
-  const showResults = hasTransitioned;
+  const searchInputRef = useRef<SearchInputHandle>(null);
 
-  // Trigger transition after user stops typing
-  useEffect(() => {
-    if (hasTransitioned) return;
-
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-
-    if (search.trim()) {
-      debounceRef.current = setTimeout(() => {
-        if (document.startViewTransition) {
-          document.startViewTransition(() => {
-            flushSync(() => setHasTransitioned(true));
-          });
-        } else {
-          setHasTransitioned(true);
-        }
-      }, TRANSITION_DEBOUNCE_MS);
+  // Search on submit (Enter key)
+  const handleSearch = useCallback(async (text: string, coffeeId?: string, roasterId?: string) => {
+    if (!text.trim() && !coffeeId && !roasterId) {
+      setResults([]);
+      setHasSearched(false);
+      return;
     }
 
-    return () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-  }, [search, hasTransitioned]);
-
-  // Refocus input after view transition
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      inputRef.current?.focus();
-    }, 50);
-    return () => clearTimeout(timer);
-  }, [hasTransitioned]);
-
-  // Pre-filter coffees (skip, roastedFor, decaf)
-  const preFilteredCoffees = useMemo(() => {
-    if (!coffees) return [];
-
-    return coffees.filter((coffee) => {
-      if (coffee.skipped) return false;
-      if (roastedForFilter === "espresso" && coffee.roastedFor !== "espresso" && coffee.roastedFor !== null) return false;
-      if (roastedForFilter === "filter" && coffee.roastedFor !== "filter" && coffee.roastedFor !== null) return false;
-      if (decafOnly && coffee.caffeine !== "decaf") return false;
-      return true;
-    });
-  }, [coffees, roastedForFilter, decafOnly]);
-
-  // Fuse instance for fuzzy search
-  const fuse = useMemo(() => {
-    return new Fuse(preFilteredCoffees, {
-      keys: [
-        { name: "name", weight: 2 },
-        { name: "country", weight: 1.5 },
-        { name: "region", weight: 1 },
-        { name: "producer", weight: 1 },
-        { name: "process", weight: 1.5 },
-        { name: "variety", weight: 1 },
-        { name: "notes", weight: 1.5 },
-        { name: "roasterId", weight: 0.5 },
-      ],
-      threshold: 0.4,
-      ignoreLocation: true,
-      useExtendedSearch: true,
-    });
-  }, [preFilteredCoffees]);
-
-  // Apply fuzzy search (uses deferred value for responsiveness)
-  const filteredCoffees = useMemo(() => {
-    const query = deferredSearch.trim();
-    if (!query) return preFilteredCoffees;
-
-    return fuse.search(query).map((result) => result.item);
-  }, [deferredSearch, preFilteredCoffees, fuse]);
-
-  // Group by roaster
-  const groupedByRoaster = useMemo(() => {
-    const groups = new Map<string, typeof filteredCoffees>();
-    for (const coffee of filteredCoffees) {
-      const existing = groups.get(coffee.roasterId) || [];
-      existing.push(coffee);
-      groups.set(coffee.roasterId, existing);
+    setIsSearching(true);
+    try {
+      const response = await searchAction({
+        query: text.trim(),
+        coffeeId: coffeeId as Id<"coffees"> | undefined,
+        roasterId,
+        limit: 50,
+      });
+      console.log("[Search Debug]", response.debug);
+      setResults(response.results ?? []);
+      setHasSearched(true);
+    } catch (error) {
+      console.error("Search failed:", error);
+      setResults([]);
+    } finally {
+      setIsSearching(false);
     }
-    return groups;
-  }, [filteredCoffees]);
+  }, [searchAction]);
 
-  const handleSearchChange = useCallback((value: string) => {
-    setSearch(value);
+  // Clear search
+  const handleClear = useCallback(() => {
+    searchInputRef.current?.clear();
+    setResults([]);
+    setHasSearched(false);
+    searchInputRef.current?.focus();
   }, []);
 
-  // Rule 5.7: Use startTransition for non-urgent filter updates
+  // Apply client-side filters to results
+  const filteredResults = (results ?? []).filter((coffee) => {
+    if (roastedForFilter === "espresso" && coffee.roastedFor !== "espresso" && coffee.roastedFor !== null) return false;
+    if (roastedForFilter === "filter" && coffee.roastedFor !== "filter" && coffee.roastedFor !== null) return false;
+    // Note: decaf filter would need caffeine field in search results
+    return true;
+  });
+
+  // Group by roaster
+  const groupedByRoaster = new Map<string, typeof filteredResults>();
+  for (const coffee of filteredResults) {
+    const existing = groupedByRoaster.get(coffee.roasterId) || [];
+    existing.push(coffee);
+    groupedByRoaster.set(coffee.roasterId, existing);
+  }
+
   const handleRoastedForFilter = useCallback((value: "espresso" | "filter" | null) => {
     startTransition(() => {
       setRoastedForFilter(value);
@@ -131,32 +119,8 @@ export default function Home() {
     });
   }, []);
 
-  // Loading state
-  if (!coffees) {
-    return (
-      <main className="min-h-screen flex flex-col items-center justify-center p-8">
-        <h1 className="text-7xl font-black mb-2 tracking-tighter uppercase">
-          Brewnanza
-        </h1>
-        <p className="text-xl text-text-muted mb-12 font-bold uppercase tracking-wide">
-          find your next godshot
-        </p>
-        <div className="w-full max-w-[600px]">
-          <input
-            type="text"
-            placeholder="loading coffees..."
-            disabled
-            value=""
-            readOnly
-            className="w-full px-8 py-6 text-xl border-3 border-border bg-surface outline-none font-medium"
-          />
-        </div>
-      </main>
-    );
-  }
-
-  // Landing view (no search active)
-  if (!showResults) {
+  // Landing view (no search yet)
+  if (!hasSearched) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center p-8">
         <h1 className="main-title text-7xl font-black mb-2 tracking-tighter uppercase">
@@ -166,15 +130,17 @@ export default function Home() {
           find your next godshot
         </p>
         <div className="w-full max-w-[600px]">
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="fruity natural ethiopia..."
-            value={search}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            className="search-bar w-full p-4 text-xl border-3 border-border bg-surface outline-none font-medium brutal-shadow transition-shadow duration-150 focus:shadow-[6px_6px_0_var(--color-primary)]"
+          <SearchInput
+            ref={searchInputRef}
+            placeholder="berry bomb, @coffee, #roaster..."
+            onSubmit={handleSearch}
             autoFocus
           />
+          {isSearching && (
+            <p className="mt-4 text-center text-text-muted font-bold uppercase tracking-wide">
+              Searching...
+            </p>
+          )}
         </div>
       </main>
     );
@@ -188,17 +154,14 @@ export default function Home() {
           <h1 className="main-title text-2xl font-black uppercase tracking-tight">
             Brewnanza
           </h1>
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Search..."
-            value={search}
-            onChange={(e) => handleSearchChange(e.target.value)}
-            className="search-bar flex-1 max-w-[400px] p-4 border-3 border-border bg-surface outline-none font-medium brutal-shadow-sm transition-shadow duration-150 focus:shadow-[4px_4px_0_var(--color-primary)]"
-          />
-          {search ? (
-            <Button onClick={() => handleSearchChange("")}>Clear</Button>
-          ) : null}
+          <div className="flex-1 max-w-[400px]">
+            <SearchInput
+              ref={searchInputRef}
+              placeholder="Search..."
+              onSubmit={handleSearch}
+            />
+          </div>
+          <Button onClick={handleClear}>Clear</Button>
           <Button
             variant={groupByRoaster ? "primary" : "default"}
             onClick={handleGroupToggle}
@@ -233,13 +196,15 @@ export default function Home() {
         </div>
 
         <p className="mt-2 text-sm text-text-muted font-bold uppercase tracking-wide">
-          {filteredCoffees.length} results
+          {isSearching ? "Searching..." : `${filteredResults.length} results`}
         </p>
       </header>
 
-      {filteredCoffees.length === 0 ? (
+      {filteredResults.length === 0 ? (
         <div className="bg-surface border-3 border-border text-center p-8 brutal-shadow">
-          <p className="font-bold uppercase">No coffees found. Try a different search.</p>
+          <p className="font-bold uppercase">
+            {isSearching ? "Searching..." : "No coffees found. Try a different search."}
+          </p>
         </div>
       ) : groupByRoaster ? (
         <div className="flex flex-col gap-8 pb-8">
@@ -250,7 +215,7 @@ export default function Home() {
               </h2>
               <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {roasterCoffees.map((coffee) => (
-                  <CoffeeCard key={coffee._id} coffee={coffee} showRoaster={false} />
+                  <CoffeeCard key={coffee._id} coffee={coffee} showRoaster={false} matchedAttributes={coffee.matchedAttributes} />
                 ))}
               </div>
             </section>
@@ -258,8 +223,8 @@ export default function Home() {
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 pb-8">
-          {filteredCoffees.map((coffee) => (
-            <CoffeeCard key={coffee._id} coffee={coffee} />
+          {filteredResults.map((coffee) => (
+            <CoffeeCard key={coffee._id} coffee={coffee} matchedAttributes={coffee.matchedAttributes} />
           ))}
         </div>
       )}
