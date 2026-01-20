@@ -4,7 +4,7 @@
  */
 
 import { v } from "convex/values";
-import { mutation, query, internalQuery } from "./_generated/server";
+import { mutation, query, internalQuery, action } from "./_generated/server";
 
 /**
  * Get all notes that need embeddings.
@@ -115,5 +115,50 @@ export const clearAll = mutation({
       await ctx.db.delete(entry._id);
     }
     return { deleted: all.length };
+  },
+});
+
+/**
+ * Debug: Test vector search for a query.
+ */
+export const testVectorSearch = action({
+  args: { query: v.string(), limit: v.optional(v.number()) },
+  handler: async (ctx, { query, limit = 15 }) => {
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      return { error: "OPENAI_API_KEY not set" };
+    }
+
+    // Embed query
+    const embedResponse = await fetch("https://api.openai.com/v1/embeddings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "text-embedding-3-small",
+        input: query,
+        dimensions: 1024,
+      }),
+    });
+
+    if (!embedResponse.ok) {
+      return { error: `OpenAI API error: ${embedResponse.status}` };
+    }
+
+    const embedData = await embedResponse.json();
+    const queryEmbedding = embedData.data[0].embedding;
+
+    // Vector search
+    const results = await ctx.vectorSearch("noteEmbeddings", "by_embedding", {
+      vector: queryEmbedding,
+      limit,
+    });
+
+    return {
+      query,
+      results: results.map((r) => ({ id: r._id, score: r._score })),
+    };
   },
 });

@@ -43,6 +43,7 @@ interface SearchResponse {
   debug: {
     source: "cache" | "llm" | "fallback" | "similarity";
     parsedQuery: ParsedQuery | null;
+    candidateNotes?: string[];
   };
 }
 
@@ -265,6 +266,10 @@ async function findCandidateNotesHybrid(
 
   let vectorResults: Array<{ note: string; score: number }> = [];
   try {
+    // Use fuse-corrected term for vector search (handles typos like "florar" → "floral")
+    // This ensures we embed a real word, not a typo
+    const vectorQuery = fuseResults.length > 0 ? fuseResults[0] : query;
+
     // Embed query using OpenAI API
     const embedResponse = await fetch("https://api.openai.com/v1/embeddings", {
       method: "POST",
@@ -274,7 +279,7 @@ async function findCandidateNotesHybrid(
       },
       body: JSON.stringify({
         model: "text-embedding-3-small",
-        input: query,
+        input: vectorQuery,
         dimensions: 1024,
       }),
     });
@@ -351,7 +356,11 @@ Return JSON only:
 }
 
 ${candidateNotes.length > 0 ? `Candidate notes found: [${candidateNotes.join(", ")}]
-Select which are relevant to the query intent. Add related notes if needed.` : ""}
+IMPORTANT: Select ALL candidates that are semantically related to the query.
+- For "floral": include lavender, jasmine, rose, orange blossom, geranium, hibiscus, etc.
+- For "fruity": include berry, citrus, tropical, stone fruit, apple, peach, etc.
+- For "chocolate": include cacao, cocoa, dark chocolate, milk chocolate, etc.
+Be inclusive - more matches means better search results.` : ""}
 
 ${candidateProcesses.length > 0 ? `Candidate processes found: [${candidateProcesses.join(", ")}]
 Select which are relevant.` : ""}
@@ -371,16 +380,17 @@ async function parseQueryWithLLM(
   ctx: HybridSearchCtx,
   query: string,
   vocabulary: { notes: string[]; processes: string[] }
-): Promise<{ parsed: ParsedQuery; usedFallback: boolean }> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    console.warn("ANTHROPIC_API_KEY not set, using fallback parsing");
-    return { parsed: await fallbackParseHybrid(ctx, query, vocabulary), usedFallback: true };
-  }
-
+): Promise<{ parsed: ParsedQuery; usedFallback: boolean; candidateNotes: string[] }> {
   // Find candidate notes/processes via hybrid search (fuse + vector)
   const candidateNotes = await findCandidateNotesHybrid(ctx, query, vocabulary.notes);
   const candidateProcesses = findCandidateProcesses(query, vocabulary.processes);
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    console.warn("ANTHROPIC_API_KEY not set, using fallback parsing");
+    const parsed = await fallbackParseHybrid(ctx, query, vocabulary);
+    return { parsed, usedFallback: true, candidateNotes };
+  }
   const systemPrompt = buildParsePrompt(candidateNotes, candidateProcesses);
 
   try {
@@ -427,10 +437,12 @@ async function parseQueryWithLLM(
         semanticQuery: parsed.semanticQuery || query,
       },
       usedFallback: false,
+      candidateNotes,
     };
   } catch (error) {
     console.error("LLM parsing failed:", error);
-    return { parsed: await fallbackParseHybrid(ctx, query, vocabulary), usedFallback: true };
+    const parsed = await fallbackParseHybrid(ctx, query, vocabulary);
+    return { parsed, usedFallback: true, candidateNotes };
   }
 }
 
@@ -592,6 +604,7 @@ export const search = action({
 
     let parsedQuery: ParsedQuery;
     let source: "cache" | "llm" | "fallback" = "llm";
+    let candidateNotes: string[] | undefined;
 
     if (cachedEntry) {
       // Cache hit - use pre-computed mappings
@@ -604,9 +617,10 @@ export const search = action({
       };
     } else {
       // Cache miss - parse query with LLM using DB vocabulary (hybrid search)
-      const { parsed, usedFallback } = await parseQueryWithLLM(ctx, query, vocabulary);
+      const { parsed, usedFallback, candidateNotes: candidates } = await parseQueryWithLLM(ctx, query, vocabulary);
       parsedQuery = parsed;
       source = usedFallback ? "fallback" : "llm";
+      candidateNotes = candidates;
       if (roasterId) {
         parsedQuery.filters.roasterId = roasterId;
       }
@@ -661,7 +675,7 @@ export const search = action({
 
     return {
       results: filtered.slice(0, limit),
-      debug: { source, parsedQuery },
+      debug: { source, parsedQuery, candidateNotes },
     };
   },
 });
