@@ -87,4 +87,16 @@ export default defineSchema({
     mappedProcesses: v.array(v.string()), // LLM-expanded processes
     createdAt: v.number(),
   }).index("by_term", ["term"]),
+
+  // Individual note embeddings for semantic note matching
+  noteEmbeddings: defineTable({
+    note: v.string(), // e.g., "pear", "chocolate", "bergamot"
+    embedding: v.array(v.float64()), // e5-large-v2 embedding (1024 dim)
+    category: v.optional(v.string()), // optional grouping: "fruit", "floral", etc.
+  })
+    .index("by_note", ["note"])
+    .vectorIndex("by_embedding", {
+      vectorField: "embedding",
+      dimensions: 1024,
+    }),
 });

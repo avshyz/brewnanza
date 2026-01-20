@@ -10,6 +10,7 @@
 
 import type * as coffees from "../coffees.js";
 import type * as http from "../http.js";
+import type * as noteEmbeddings from "../noteEmbeddings.js";
 import type * as roasters from "../roasters.js";
 import type * as search from "../search.js";
 import type * as vocabularyCache from "../vocabularyCache.js";
@@ -23,6 +24,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   coffees: typeof coffees;
   http: typeof http;
+  noteEmbeddings: typeof noteEmbeddings;
   roasters: typeof roasters;
   search: typeof search;
   vocabularyCache: typeof vocabularyCache;

@@ -108,6 +108,15 @@ export const getCoffeesWithEmbeddings = internalQuery({
   },
 });
 
+// Internal query to get note embeddings by IDs
+export const getNoteEmbeddingsByIds = internalQuery({
+  args: { ids: v.array(v.id("noteEmbeddings")) },
+  handler: async (ctx, { ids }) => {
+    const results = await Promise.all(ids.map((id) => ctx.db.get(id)));
+    return results.filter((r) => r !== null);
+  },
+});
+
 // Internal query to get distinct notes and processes from all active coffees
 export const getDistinctVocabulary = internalQuery({
   args: {},
@@ -222,6 +231,113 @@ function findCandidateProcesses(query: string, allProcesses: string[]): string[]
   return Array.from(candidates);
 }
 
+// Type for action ctx needed by hybrid search
+type HybridSearchCtx = {
+  vectorSearch: (
+    tableName: "noteEmbeddings",
+    indexName: "by_embedding",
+    options: { vector: number[]; limit: number }
+  ) => Promise<Array<{ _id: Id<"noteEmbeddings">; _score: number }>>;
+  runQuery: typeof internal.search.getNoteEmbeddingsByIds extends infer T
+    ? (fn: T, args: { ids: Id<"noteEmbeddings">[] }) => Promise<Doc<"noteEmbeddings">[]>
+    : never;
+};
+
+/**
+ * Hybrid note search: combines Fuse.js (typos) + Vector embeddings (semantic).
+ * Weights: fuse 0.4, vector 0.6
+ * Falls back to fuse-only if OpenAI API unavailable.
+ */
+async function findCandidateNotesHybrid(
+  ctx: HybridSearchCtx,
+  query: string,
+  allNotes: string[]
+): Promise<string[]> {
+  // 1. Run Fuse.js (fast, handles typos)
+  const fuseResults = findCandidateNotes(query, allNotes);
+
+  // 2. Try vector search
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    // Fallback: fuse-only
+    return fuseResults;
+  }
+
+  let vectorResults: Array<{ note: string; score: number }> = [];
+  try {
+    // Embed query using OpenAI API
+    const embedResponse = await fetch("https://api.openai.com/v1/embeddings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "text-embedding-3-small",
+        input: query,
+        dimensions: 1024,
+      }),
+    });
+
+    if (!embedResponse.ok) {
+      console.warn(`OpenAI API error: ${embedResponse.status}, falling back to fuse-only`);
+      return fuseResults;
+    }
+
+    const embedData = await embedResponse.json();
+    const queryEmbedding = embedData.data[0].embedding;
+
+    // Vector search noteEmbeddings table - returns _id and _score only
+    const searchResults = await ctx.vectorSearch("noteEmbeddings", "by_embedding", {
+      vector: queryEmbedding,
+      limit: 15,
+    });
+
+    // Fetch actual note data from IDs
+    const ids = searchResults.map((r) => r._id);
+    const noteEmbeddings = await ctx.runQuery(
+      internal.search.getNoteEmbeddingsByIds,
+      { ids }
+    );
+
+    // Map IDs to scores, then combine with note data
+    const scoreById = new Map(searchResults.map((r) => [r._id.toString(), r._score]));
+    vectorResults = noteEmbeddings.map((ne) => ({
+      note: ne.note,
+      score: scoreById.get(ne._id.toString()) ?? 0,
+    }));
+  } catch (error) {
+    console.warn("Vector search failed:", error);
+    return fuseResults;
+  }
+
+  // 3. Merge results with weighted scoring
+  // Fuse weight: 0.4, Vector weight: 0.6
+  const FUSE_WEIGHT = 0.4;
+  const VECTOR_WEIGHT = 0.6;
+
+  const scoreMap = new Map<string, number>();
+
+  // Add fuse scores (position-based: 1.0 for first, decreasing)
+  fuseResults.forEach((note, i) => {
+    const fuseScore = 1 - i / fuseResults.length;
+    scoreMap.set(note, (scoreMap.get(note) || 0) + fuseScore * FUSE_WEIGHT);
+  });
+
+  // Add vector scores (already normalized 0-1)
+  for (const { note, score } of vectorResults) {
+    scoreMap.set(note, (scoreMap.get(note) || 0) + score * VECTOR_WEIGHT);
+  }
+
+  // Sort by combined score, return top 15
+  const merged = Array.from(scoreMap.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 15)
+    .map(([note]) => note);
+
+  return merged;
+}
+
 // LLM system prompt - simpler, asks to validate candidates
 function buildParsePrompt(candidateNotes: string[], candidateProcesses: string[]): string {
   return `Parse this coffee search query. Extract filters and select relevant tasting notes/processes.
@@ -252,17 +368,18 @@ Country: "Ethiopian" → Ethiopia, "Kenyan" → Kenya`;
 
 // Parse query using LLM (called on cache miss)
 async function parseQueryWithLLM(
+  ctx: HybridSearchCtx,
   query: string,
   vocabulary: { notes: string[]; processes: string[] }
 ): Promise<{ parsed: ParsedQuery; usedFallback: boolean }> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     console.warn("ANTHROPIC_API_KEY not set, using fallback parsing");
-    return { parsed: fallbackParse(query, vocabulary), usedFallback: true };
+    return { parsed: await fallbackParseHybrid(ctx, query, vocabulary), usedFallback: true };
   }
 
-  // Find candidate notes/processes via fuzzy match against DB vocabulary
-  const candidateNotes = findCandidateNotes(query, vocabulary.notes);
+  // Find candidate notes/processes via hybrid search (fuse + vector)
+  const candidateNotes = await findCandidateNotesHybrid(ctx, query, vocabulary.notes);
   const candidateProcesses = findCandidateProcesses(query, vocabulary.processes);
   const systemPrompt = buildParsePrompt(candidateNotes, candidateProcesses);
 
@@ -313,15 +430,16 @@ async function parseQueryWithLLM(
     };
   } catch (error) {
     console.error("LLM parsing failed:", error);
-    return { parsed: fallbackParse(query, vocabulary), usedFallback: true };
+    return { parsed: await fallbackParseHybrid(ctx, query, vocabulary), usedFallback: true };
   }
 }
 
-// Fallback parsing when LLM is unavailable
-function fallbackParse(
+// Fallback parsing when LLM is unavailable (uses hybrid search)
+async function fallbackParseHybrid(
+  ctx: HybridSearchCtx,
   query: string,
   vocabulary: { notes: string[]; processes: string[] }
-): ParsedQuery {
+): Promise<ParsedQuery> {
   const lower = query.toLowerCase();
 
   // Extract price filters
@@ -342,8 +460,8 @@ function fallbackParse(
     }
   }
 
-  // Use fuzzy matching to find notes and processes from DB vocabulary
-  const mappedNotes: string[] = findCandidateNotes(query, vocabulary.notes);
+  // Use hybrid search to find notes (fuse + vector) and fuzzy for processes
+  const mappedNotes: string[] = await findCandidateNotesHybrid(ctx, query, vocabulary.notes);
   const mappedProcesses: string[] = findCandidateProcesses(query, vocabulary.processes);
 
   // Add jargon expansions
@@ -485,8 +603,8 @@ export const search = action({
         semanticQuery: cachedEntry.term,
       };
     } else {
-      // Cache miss - parse query with LLM using DB vocabulary
-      const { parsed, usedFallback } = await parseQueryWithLLM(query, vocabulary);
+      // Cache miss - parse query with LLM using DB vocabulary (hybrid search)
+      const { parsed, usedFallback } = await parseQueryWithLLM(ctx, query, vocabulary);
       parsedQuery = parsed;
       source = usedFallback ? "fallback" : "llm";
       if (roasterId) {
@@ -595,6 +713,183 @@ export const autocompleteRoasters = query({
         id: r.roasterId,
         name: r.name,
       }));
+  },
+});
+
+/**
+ * Find similar notes using vector embeddings.
+ * Embeds the query and finds semantically similar notes.
+ */
+export const findSimilarNotesVector = action({
+  args: { query: v.string(), limit: v.optional(v.number()) },
+  handler: async (ctx, { query, limit = 10 }): Promise<{
+    query: string;
+    results: Array<{ note: string; score: number }>;
+    embeddingTime: number;
+    searchTime: number;
+  }> => {
+    const startEmbed = Date.now();
+
+    // Call external embedding API (using sentence-transformers via HTTP)
+    // For now, we'll use a simpler approach: search Convex's vector index
+    // We need to embed the query first using the same model
+
+    const apiKey = process.env.OPENAI_API_KEY;
+
+    if (!apiKey) {
+      // Fallback: return empty if no embedding API available
+      console.warn("OPENAI_API_KEY not set, cannot do vector search");
+      return {
+        query,
+        results: [],
+        embeddingTime: 0,
+        searchTime: 0,
+      };
+    }
+
+    // Embed query using OpenAI API
+    const embedResponse = await fetch("https://api.openai.com/v1/embeddings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "text-embedding-3-small",
+        input: query,
+        dimensions: 1024,
+      }),
+    });
+
+    if (!embedResponse.ok) {
+      throw new Error(`OpenAI API error: ${embedResponse.status}`);
+    }
+
+    const embedData = await embedResponse.json();
+    const queryEmbedding = embedData.data[0].embedding;
+    const embeddingTime = Date.now() - startEmbed;
+
+    // Vector search for similar notes - returns _id and _score only
+    const startSearch = Date.now();
+    const searchResults = await ctx.vectorSearch("noteEmbeddings", "by_embedding", {
+      vector: queryEmbedding,
+      limit,
+    });
+
+    // Fetch actual note data from IDs
+    const ids = searchResults.map((r) => r._id);
+    const noteEmbeddings = await ctx.runQuery(internal.search.getNoteEmbeddingsByIds, { ids });
+    const searchTime = Date.now() - startSearch;
+
+    // Map IDs to scores, then combine with note data
+    const scoreById = new Map(searchResults.map((r) => [r._id.toString(), r._score]));
+
+    return {
+      query,
+      results: noteEmbeddings.map((ne) => ({
+        note: ne.note,
+        score: scoreById.get(ne._id.toString()) ?? 0,
+      })),
+      embeddingTime,
+      searchTime,
+    };
+  },
+});
+
+/**
+ * Compare fuse.js vs vector embedding search for notes.
+ * Returns results from both methods for the same query.
+ */
+export const compareNoteSearch = action({
+  args: { query: v.string(), limit: v.optional(v.number()) },
+  handler: async (ctx, { query, limit = 10 }): Promise<{
+    query: string;
+    fuse: {
+      results: string[];
+      time: number;
+    };
+    vector: {
+      results: Array<{ note: string; score: number }>;
+      embeddingTime: number;
+      searchTime: number;
+      totalTime: number;
+    };
+  }> => {
+    // Get vocabulary for fuse search
+    const vocabulary: { notes: string[]; processes: string[] } = await ctx.runQuery(
+      internal.search.getDistinctVocabulary,
+      {}
+    );
+
+    // Fuse.js search
+    const startFuse = Date.now();
+    const fuseResults = findCandidateNotes(query, vocabulary.notes);
+    const fuseTime = Date.now() - startFuse;
+
+    // Vector search
+    const vectorStart = Date.now();
+    let vectorResults: Array<{ note: string; score: number }> = [];
+    let embeddingTime = 0;
+    let searchTime = 0;
+
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (apiKey) {
+      try {
+        const embedStart = Date.now();
+        const embedResponse = await fetch("https://api.openai.com/v1/embeddings", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: "text-embedding-3-small",
+            input: query,
+            dimensions: 1024,
+          }),
+        });
+
+        if (embedResponse.ok) {
+          const embedData = await embedResponse.json();
+          const queryEmbedding = embedData.data[0].embedding;
+          embeddingTime = Date.now() - embedStart;
+
+          const searchStart = Date.now();
+          const searchResults = await ctx.vectorSearch("noteEmbeddings", "by_embedding", {
+            vector: queryEmbedding,
+            limit,
+          });
+
+          // Fetch actual note data from IDs
+          const ids = searchResults.map((r) => r._id);
+          const noteEmbeddings = await ctx.runQuery(internal.search.getNoteEmbeddingsByIds, { ids });
+          searchTime = Date.now() - searchStart;
+
+          // Map IDs to scores, then combine with note data
+          const scoreById = new Map(searchResults.map((r) => [r._id.toString(), r._score]));
+          vectorResults = noteEmbeddings.map((ne) => ({
+            note: ne.note,
+            score: scoreById.get(ne._id.toString()) ?? 0,
+          }));
+        }
+      } catch (e) {
+        console.error("Vector search failed:", e);
+      }
+    }
+
+    return {
+      query,
+      fuse: {
+        results: fuseResults,
+        time: fuseTime,
+      },
+      vector: {
+        results: vectorResults,
+        embeddingTime,
+        searchTime,
+        totalTime: Date.now() - vectorStart,
+      },
+    };
   },
 });
 
