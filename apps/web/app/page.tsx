@@ -48,7 +48,7 @@ export default function Home() {
 
   // Parse URL state
   const urlState = useMemo(() => parseSearchParams(searchParams), [searchParams]);
-  const hasUrlSearch = !!(urlState.query || urlState.coffee || urlState.roaster || urlState.showAll);
+  const hasUrlSearch = !!(urlState.query || urlState.coffees.length > 0 || urlState.roasters.length > 0 || urlState.showAll);
 
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -72,34 +72,35 @@ export default function Home() {
 
   const searchInputRef = useRef<SearchInputHandle>(null);
 
+  // Derive coffee/roaster IDs for dependency tracking
+  const coffeeIds = urlState.coffees.map(c => c.id).join(",");
+  const roasterIds = urlState.roasters.map(r => r.id).join(",");
+
   // Execute search when URL changes
   useEffect(() => {
-    console.log("[URL State]", { hasUrlSearch, urlState });
-
     if (!hasUrlSearch) {
       setResults([]);
       return;
     }
 
     const executeSearch = async () => {
-      const searchParams = {
-        query: urlState.query.trim(),
-        coffeeId: urlState.coffee?.id as Id<"coffees"> | undefined,
-        roasterId: urlState.roaster?.id,
-        limit: urlState.showAll ? 200 : 50,
-        roastedFor: urlState.filters.roastedFor ?? undefined,
-        newOnly: urlState.filters.newOnly || undefined,
-        excludeRoasters: urlState.filters.excludedRoasters.length > 0
-          ? urlState.filters.excludedRoasters
-          : undefined,
-      };
-      console.log("[Search Params]", searchParams);
-
       setIsSearching(true);
       try {
-        const response = await searchAction(searchParams);
-        console.log("[Search Debug]", response.debug);
-        console.log("[Search Results]", response.results?.length);
+        const response = await searchAction({
+          query: urlState.query.trim(),
+          coffeeIds: urlState.coffees.length > 0
+            ? urlState.coffees.map(c => c.id) as Id<"coffees">[]
+            : undefined,
+          roasterIds: urlState.roasters.length > 0
+            ? urlState.roasters.map(r => r.id)
+            : undefined,
+          limit: urlState.showAll ? 200 : 50,
+          roastedFor: urlState.filters.roastedFor ?? undefined,
+          newOnly: urlState.filters.newOnly || undefined,
+          excludeRoasters: urlState.filters.excludedRoasters.length > 0
+            ? urlState.filters.excludedRoasters
+            : undefined,
+        });
         setResults(response.results ?? []);
       } catch (error) {
         console.error("Search failed:", error);
@@ -110,19 +111,19 @@ export default function Home() {
     };
 
     executeSearch();
-  }, [searchAction, hasUrlSearch, urlState.query, urlState.coffee?.id, urlState.roaster?.id, urlState.showAll, urlState.filters.roastedFor, urlState.filters.newOnly, urlState.filters.excludedRoasters.join(",")]);
+  }, [searchAction, hasUrlSearch, urlState.query, coffeeIds, roasterIds, urlState.showAll, urlState.filters.roastedFor, urlState.filters.newOnly, urlState.filters.excludedRoasters.join(",")]);
 
   // Navigation helpers
   const navigateSearch = useCallback((
     query: string,
-    coffee: MentionRef | null,
-    roaster: MentionRef | null,
+    coffees: MentionRef[],
+    roasters: MentionRef[],
     method: "push" | "replace" = "push"
   ) => {
     const url = buildSearchUrl({
       query: query || undefined,
-      coffee: coffee ?? undefined,
-      roaster: roaster ?? undefined,
+      coffees,
+      roasters,
       filters: urlState.filters,
       showAll: false,
     });
@@ -133,8 +134,8 @@ export default function Home() {
     const newFilters = { ...urlState.filters, ...updates };
     const url = buildSearchUrl({
       query: urlState.query || undefined,
-      coffee: urlState.coffee ?? undefined,
-      roaster: urlState.roaster ?? undefined,
+      coffees: urlState.coffees,
+      roasters: urlState.roasters,
       filters: newFilters,
       showAll: urlState.showAll,
     });
@@ -142,19 +143,12 @@ export default function Home() {
   }, [router, urlState]);
 
   // Search on submit (Enter key)
-  const handleSearch = useCallback((text: string, coffeeId?: string, roasterId?: string) => {
-    // Get labels from search input ref if available
-    const coffeeLabel = searchInputRef.current?.getCoffeeLabel?.();
-    const roasterLabel = searchInputRef.current?.getRoasterLabel?.();
-
-    const coffee = coffeeId ? { id: coffeeId, label: coffeeLabel ?? coffeeId } : null;
-    const roaster = roasterId ? { id: roasterId, label: roasterLabel ?? roasterId } : null;
-
-    if (!text.trim() && !coffee && !roaster) {
+  const handleSearch = useCallback((text: string, coffees: MentionRef[], roasters: MentionRef[]) => {
+    if (!text.trim() && coffees.length === 0 && roasters.length === 0) {
       router.push("/");
       return;
     }
-    navigateSearch(text, coffee, roaster);
+    navigateSearch(text, coffees, roasters);
   }, [navigateSearch, router]);
 
   // Clear search
@@ -281,8 +275,8 @@ export default function Home() {
               placeholder="Search..."
               onSubmit={handleSearch}
               initialQuery={urlState.query}
-              initialCoffee={urlState.coffee ?? undefined}
-              initialRoaster={urlState.roaster ?? undefined}
+              initialCoffees={urlState.coffees}
+              initialRoasters={urlState.roasters}
             />
           </div>
           <Button onClick={handleClear}>Clear</Button>

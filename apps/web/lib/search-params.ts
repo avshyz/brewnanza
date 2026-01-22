@@ -13,8 +13,8 @@ export interface SearchFilters {
 
 export interface SearchState {
   query: string;
-  coffee: MentionRef | null;
-  roaster: MentionRef | null;
+  coffees: MentionRef[];
+  roasters: MentionRef[];
   filters: SearchFilters;
   showAll: boolean;
 }
@@ -34,17 +34,45 @@ function decodeMention(value: string): MentionRef | null {
   return { label, id };
 }
 
+// Parse indexed params: c, c1, c2, ... or r, r1, r2, ...
+function parseIndexedParams(params: ReadonlyURLSearchParams, prefix: string): MentionRef[] {
+  const results: MentionRef[] = [];
+
+  // First param has no index
+  const first = params.get(prefix);
+  if (first) {
+    const decoded = decodeMention(first);
+    if (decoded) results.push(decoded);
+  }
+
+  // Subsequent params have index: c1, c2, c3, ...
+  for (let i = 1; i <= 10; i++) {
+    const value = params.get(`${prefix}${i}`);
+    if (!value) break;
+    const decoded = decodeMention(value);
+    if (decoded) results.push(decoded);
+  }
+
+  return results;
+}
+
+// Serialize array to indexed params: c, c1, c2, ...
+function serializeIndexedParams(params: URLSearchParams, prefix: string, refs: MentionRef[]) {
+  refs.forEach((ref, i) => {
+    const key = i === 0 ? prefix : `${prefix}${i}`;
+    params.set(key, encodeMention(ref));
+  });
+}
+
 export function parseSearchParams(params: ReadonlyURLSearchParams): SearchState {
   const q = params.get("q") ?? "";
-  const cParam = params.get("c");
-  const rParam = params.get("r");
+  const coffees = parseIndexedParams(params, "c");
+  const roasters = parseIndexedParams(params, "r");
+
   const forParam = params.get("for");
   const newParam = params.get("new");
   const xParam = params.get("x");
   const allParam = params.get("all");
-
-  const coffee = cParam ? decodeMention(cParam) : null;
-  const roaster = rParam ? decodeMention(rParam) : null;
 
   const roastedFor =
     forParam === "espresso" || forParam === "filter" ? forParam : null;
@@ -54,8 +82,8 @@ export function parseSearchParams(params: ReadonlyURLSearchParams): SearchState 
 
   return {
     query: q,
-    coffee,
-    roaster,
+    coffees,
+    roasters,
     filters: { roastedFor, newOnly, excludedRoasters },
     showAll,
   };
@@ -67,11 +95,11 @@ export function serializeSearchParams(state: Partial<SearchState>): string {
   if (state.query) {
     params.set("q", state.query);
   }
-  if (state.coffee) {
-    params.set("c", encodeMention(state.coffee));
+  if (state.coffees?.length) {
+    serializeIndexedParams(params, "c", state.coffees);
   }
-  if (state.roaster) {
-    params.set("r", encodeMention(state.roaster));
+  if (state.roasters?.length) {
+    serializeIndexedParams(params, "r", state.roasters);
   }
   if (state.filters?.roastedFor) {
     params.set("for", state.filters.roastedFor);

@@ -53,7 +53,7 @@ interface ParsedQuery {
     maxPrice?: number;
     minPrice?: number;
     country?: string;
-    roasterId?: string;
+    roasterIds?: string[];
     available?: boolean;
   };
   mappedNotes: string[];
@@ -588,15 +588,15 @@ function applyFilters(
 export const search = action({
   args: {
     query: v.string(),
-    coffeeId: v.optional(v.id("coffees")),
-    roasterId: v.optional(v.string()),
+    coffeeIds: v.optional(v.array(v.id("coffees"))),
+    roasterIds: v.optional(v.array(v.string())),
     limit: v.optional(v.number()),
     // Filters
     roastedFor: v.optional(v.union(v.literal("espresso"), v.literal("filter"))),
     newOnly: v.optional(v.boolean()),
     excludeRoasters: v.optional(v.array(v.string())),
   },
-  handler: async (ctx, { query, coffeeId, roasterId, limit = 20, roastedFor, newOnly, excludeRoasters }): Promise<SearchResponse> => {
+  handler: async (ctx, { query, coffeeIds, roasterIds, limit = 20, roastedFor, newOnly, excludeRoasters }): Promise<SearchResponse> => {
     let normalizedQuery = query.toLowerCase().trim();
 
     // Parse "new" filter from query (e.g., "new funky" -> filter for new + search "funky")
@@ -608,29 +608,50 @@ export const search = action({
     // Merge parsed newOnly with explicit parameter (either triggers the filter)
     const effectiveNewOnly = newOnly || parsedNewOnly;
 
-    // Similarity search: find coffees similar to a given coffee
-    if (coffeeId) {
-      const sourceCoffee = await ctx.runQuery(internal.search.getCoffeeById, { id: coffeeId });
-      if (!sourceCoffee || !sourceCoffee.embedding) {
+    // Similarity search: find coffees similar to given coffee(s)
+    if (coffeeIds && coffeeIds.length > 0) {
+      // Fetch source coffees
+      const sourceCoffees = await Promise.all(
+        coffeeIds.map(id => ctx.runQuery(internal.search.getCoffeeById, { id }))
+      );
+      const validSources = sourceCoffees.filter((c): c is NonNullable<typeof c> => c !== null && c.embedding !== undefined);
+
+      if (validSources.length === 0) {
         return { results: [], debug: { source: "similarity", parsedQuery: null } };
       }
 
-      const coffees = await ctx.runQuery(internal.search.getCoffeesWithEmbeddings, {
-        excludeId: coffeeId,
+      // Get all coffees with embeddings, excluding source coffees
+      const allCoffees = await ctx.runQuery(internal.search.getCoffeesWithEmbeddings, {
+        excludeId: coffeeIds[0],
       });
+      const excludeIdSet = new Set(coffeeIds.map(id => id.toString()));
+      const coffees = allCoffees.filter((c: Doc<"coffees">) => !excludeIdSet.has(c._id.toString()));
 
-      // Score by note overlap (simplified similarity - production would use cosine similarity)
+      // Score by note overlap - OR logic, but rank by combined similarity
+      // Similar to more sources = higher score
       let results = coffees
         .map((c: Doc<"coffees">) => {
-          const noteOverlap = c.notes.filter((n: string) => sourceCoffee.notes.includes(n));
-          const score = noteOverlap.length / Math.max(sourceCoffee.notes.length, 1);
-          return coffeeToSearchResult(c, noteOverlap, score);
-        })
-        .sort((a: SearchResult, b: SearchResult) => b.score - a.score);
+          let totalScore = 0;
+          const allOverlaps = new Set<string>();
 
-      // Filter by roaster if specified
-      if (roasterId) {
-        results = results.filter((r) => r.roasterId === roasterId);
+          for (const source of validSources) {
+            const overlap = c.notes.filter((n: string) => source.notes.includes(n));
+            const score = overlap.length / Math.max(source.notes.length, 1);
+            totalScore += score;
+            overlap.forEach(n => allOverlaps.add(n));
+          }
+
+          // Average score across sources (similar to more = higher)
+          const avgScore = totalScore / validSources.length;
+          return coffeeToSearchResult(c, [...allOverlaps], avgScore);
+        })
+        .filter((r) => r.score > 0) // Must be similar to at least one
+        .sort((a, b) => b.score - a.score);
+
+      // Filter by roasters if specified (OR logic: any of the roasters)
+      if (roasterIds && roasterIds.length > 0) {
+        const roasterSet = new Set(roasterIds);
+        results = results.filter((r) => roasterSet.has(r.roasterId));
       }
 
       // Combine with text query if provided
@@ -686,7 +707,7 @@ export const search = action({
       const filteredProcesses = taxResult.processes.filter((p) => vocabProcessesSet.has(p.toLowerCase()));
 
       parsedQuery = {
-        filters: { roasterId },
+        filters: { roasterIds },
         mappedNotes: filteredNotes,
         mappedProcesses: filteredProcesses,
         semanticQuery: normalizedQuery,
@@ -702,8 +723,8 @@ export const search = action({
       parsedQuery = parsed;
       source = usedFallback ? "fallback" : "llm";
       candidateNotes = candidates;
-      if (roasterId) {
-        parsedQuery.filters.roasterId = roasterId;
+      if (roasterIds && roasterIds.length > 0) {
+        parsedQuery.filters.roasterIds = roasterIds;
       }
     }
 
@@ -711,8 +732,9 @@ export const search = action({
     let coffees = await ctx.runQuery(internal.search.getActiveCoffees, {});
 
     // Apply explicit filters
-    if (parsedQuery.filters.roasterId) {
-      coffees = coffees.filter((c: Doc<"coffees">) => c.roasterId === parsedQuery.filters.roasterId);
+    if (parsedQuery.filters.roasterIds && parsedQuery.filters.roasterIds.length > 0) {
+      const roasterSet = new Set(parsedQuery.filters.roasterIds);
+      coffees = coffees.filter((c: Doc<"coffees">) => roasterSet.has(c.roasterId));
     }
     if (parsedQuery.filters.country) {
       const country = parsedQuery.filters.country.toLowerCase();

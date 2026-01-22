@@ -22,14 +22,17 @@ const SingleLineDocument = Document.extend({
 const CoffeeMention = Mention.extend({ name: "coffeeMention" });
 const RoasterMention = Mention.extend({ name: "roasterMention" });
 
+interface MentionData {
+  id: string;
+  label: string;
+}
+
 export interface SearchInputHandle {
   focus: () => void;
   clear: () => void;
   getText: () => string;
-  getCoffeeId: () => string | undefined;
-  getRoasterId: () => string | undefined;
-  getCoffeeLabel: () => string | undefined;
-  getRoasterLabel: () => string | undefined;
+  getCoffees: () => MentionData[];
+  getRoasters: () => MentionData[];
 }
 
 interface MentionRef {
@@ -39,12 +42,12 @@ interface MentionRef {
 
 interface SearchInputProps {
   placeholder?: string;
-  onSubmit?: (text: string, coffeeId?: string, roasterId?: string) => void;
+  onSubmit?: (text: string, coffees: MentionData[], roasters: MentionData[]) => void;
   className?: string;
   autoFocus?: boolean;
   initialQuery?: string;
-  initialCoffee?: MentionRef;
-  initialRoaster?: MentionRef;
+  initialCoffees?: MentionRef[];
+  initialRoasters?: MentionRef[];
 }
 
 export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
@@ -54,13 +57,11 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
     className = "",
     autoFocus = false,
     initialQuery,
-    initialCoffee,
-    initialRoaster,
+    initialCoffees = [],
+    initialRoasters = [],
   }, ref) {
-    const [coffeeId, setCoffeeId] = useState<string | undefined>(initialCoffee?.id);
-    const [roasterId, setRoasterId] = useState<string | undefined>(initialRoaster?.id);
-    const [coffeeLabel, setCoffeeLabel] = useState<string | undefined>(initialCoffee?.label);
-    const [roasterLabel, setRoasterLabel] = useState<string | undefined>(initialRoaster?.label);
+    const [coffees, setCoffees] = useState<MentionData[]>(initialCoffees);
+    const [roasters, setRoasters] = useState<MentionData[]>(initialRoasters);
 
     // Preload all coffees and roasters for instant fuzzy search
     const allCoffees = useQuery(api.search.autocompleteCoffees, { query: "", limit: 1000 });
@@ -237,7 +238,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
       },
     }), [roasterFuse, allRoasters]);
 
-    // Build initial content from URL state
+    // Build initial content from URL state (supports multiple mentions)
     const initialContent = useMemo(() => {
       const content: any[] = [];
 
@@ -245,23 +246,23 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
         content.push({ type: "text", text: initialQuery });
       }
 
-      if (initialCoffee) {
+      for (const coffee of initialCoffees) {
         if (content.length > 0) {
           content.push({ type: "text", text: " " });
         }
         content.push({
           type: "coffeeMention",
-          attrs: { id: initialCoffee.id, label: initialCoffee.label },
+          attrs: { id: coffee.id, label: coffee.label },
         });
       }
 
-      if (initialRoaster) {
+      for (const roaster of initialRoasters) {
         if (content.length > 0) {
           content.push({ type: "text", text: " " });
         }
         content.push({
           type: "roasterMention",
-          attrs: { id: initialRoaster.id, label: initialRoaster.label },
+          attrs: { id: roaster.id, label: roaster.label },
         });
       }
 
@@ -273,7 +274,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
         type: "doc",
         content: [{ type: "paragraph", content }],
       };
-    }, [initialQuery, initialCoffee, initialRoaster]);
+    }, [initialQuery, initialCoffees, initialRoasters]);
 
     const editor = useEditor({
       extensions: [
@@ -296,20 +297,16 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
         },
       },
       onUpdate: ({ editor }) => {
-        // Extract mention data from editor JSON
+        // Extract all mentions from editor JSON
         const json = editor.getJSON();
-        let foundCoffeeId: string | undefined;
-        let foundRoasterId: string | undefined;
-        let foundCoffeeLabel: string | undefined;
-        let foundRoasterLabel: string | undefined;
+        const foundCoffees: MentionData[] = [];
+        const foundRoasters: MentionData[] = [];
 
         function walk(node: any) {
           if (node.type === "coffeeMention" && node.attrs?.id) {
-            foundCoffeeId = node.attrs.id;
-            foundCoffeeLabel = node.attrs.label;
+            foundCoffees.push({ id: node.attrs.id, label: node.attrs.label });
           } else if (node.type === "roasterMention" && node.attrs?.id) {
-            foundRoasterId = node.attrs.id;
-            foundRoasterLabel = node.attrs.label;
+            foundRoasters.push({ id: node.attrs.id, label: node.attrs.label });
           }
           if (node.content) {
             node.content.forEach(walk);
@@ -317,10 +314,8 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
         }
         walk(json);
 
-        setCoffeeId(foundCoffeeId);
-        setRoasterId(foundRoasterId);
-        setCoffeeLabel(foundCoffeeLabel);
-        setRoasterLabel(foundRoasterLabel);
+        setCoffees(foundCoffees);
+        setRoasters(foundRoasters);
       },
       autofocus: autoFocus,
     }, [coffeeSuggestion, roasterSuggestion]);
@@ -351,7 +346,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
           if (!hasMentionPopup) {
             event.preventDefault();
             const text = getPlainText();
-            onSubmit?.(text, coffeeId, roasterId);
+            onSubmit?.(text, coffees, roasters);
           }
         }
       };
@@ -359,22 +354,18 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
       const dom = editor.view.dom;
       dom.addEventListener("keydown", handleKeyDown);
       return () => dom.removeEventListener("keydown", handleKeyDown);
-    }, [editor, onSubmit, coffeeId, roasterId]);
+    }, [editor, onSubmit, coffees, roasters]);
 
     useImperativeHandle(ref, () => ({
       focus: () => editor?.commands.focus(),
       clear: () => {
         editor?.commands.clearContent();
-        setCoffeeId(undefined);
-        setRoasterId(undefined);
-        setCoffeeLabel(undefined);
-        setRoasterLabel(undefined);
+        setCoffees([]);
+        setRoasters([]);
       },
       getText: getPlainText,
-      getCoffeeId: () => coffeeId,
-      getRoasterId: () => roasterId,
-      getCoffeeLabel: () => coffeeLabel,
-      getRoasterLabel: () => roasterLabel,
+      getCoffees: () => coffees,
+      getRoasters: () => roasters,
     }));
 
     return (
