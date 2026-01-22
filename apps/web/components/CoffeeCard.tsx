@@ -18,6 +18,7 @@ interface CoffeeData {
   roastLevel?: string | null;
   roastedFor?: string | null;
   caffeine?: string | null;
+  _creationTime?: number;
   prices: Array<{
     price: number;
     currency: string;
@@ -27,6 +28,13 @@ interface CoffeeData {
   }>;
   available: boolean;
   imageUrl: string | null;
+}
+
+// Check if coffee was created in the last 4 days
+function isNewCoffee(createdAt?: number): boolean {
+  if (!createdAt) return false;
+  const fourDaysMs = 4 * 24 * 60 * 60 * 1000;
+  return Date.now() - createdAt < fourDaysMs;
 }
 
 interface CoffeeCardProps {
@@ -121,6 +129,7 @@ export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] 
   const countryFlags = coffee.country.map(getCountryFlag).join("");
   const notes = coffee.notes || [];
   const matchedSet = new Set(matchedAttributes.map(a => a.toLowerCase()));
+  const isNew = isNewCoffee(coffee._creationTime);
 
   const title = coffee.name;
 
@@ -140,7 +149,7 @@ export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] 
     >
       {/* Top left chip - roaster and roast info */}
       {showRoaster && (
-        <div className="absolute -top-1 -left-1 z-10">
+        <div className="absolute -top-1 -left-1 z-10 flex gap-1">
           <Chip
             variant="primary"
             className="transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] flex items-center gap-1.5"
@@ -150,6 +159,11 @@ export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] 
             {coffee.roastedFor && ROASTED_FOR_ICON[coffee.roastedFor]}
             {coffee.caffeine && <DecafIcon className="w-3.5 h-3.5 inline-block" />}
           </Chip>
+          {isNew && (
+            <Chip className="bg-green-500 text-white border-green-700 transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)]">
+              NEW
+            </Chip>
+          )}
         </div>
       )}
 

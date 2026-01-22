@@ -2,7 +2,7 @@
 
 import { useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useRef, useCallback, startTransition } from "react";
+import { useState, useRef, useCallback, startTransition, useEffect, useMemo } from "react";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
 import { FilterChip } from "../components/ui/filter-chip";
@@ -24,6 +24,7 @@ interface SearchResult {
   variety: string[];
   roastLevel?: string | null;
   roastedFor?: string | null;
+  _creationTime: number;
   prices: Array<{
     price: number;
     currency: string;
@@ -47,6 +48,39 @@ export default function Home() {
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(null);
   const [decafOnly, setDecafOnly] = useState(false);
+  const [newOnly, setNewOnly] = useState(false);
+  const [excludedRoasters, setExcludedRoasters] = useState<string[]>([]);
+  const [showRoasterToggle, setShowRoasterToggle] = useState(false);
+  const [knownRoasters, setKnownRoasters] = useState<string[]>([]);
+
+  // Load filters from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("brewnanza-filters");
+    if (saved) {
+      try {
+        const filters = JSON.parse(saved);
+        if (filters.roastedFor) setRoastedForFilter(filters.roastedFor);
+        if (filters.newOnly) setNewOnly(filters.newOnly);
+        if (filters.excludedRoasters) setExcludedRoasters(filters.excludedRoasters);
+        if (filters.knownRoasters) setKnownRoasters(filters.knownRoasters);
+      } catch (e) {
+        console.error("Failed to parse saved filters", e);
+      }
+    }
+  }, []);
+
+  // Save filters to localStorage when they change
+  useEffect(() => {
+    localStorage.setItem("brewnanza-filters", JSON.stringify({
+      roastedFor: roastedForFilter,
+      newOnly,
+      excludedRoasters,
+      knownRoasters,
+    }));
+  }, [roastedForFilter, newOnly, excludedRoasters, knownRoasters]);
+
+  // Track last search params to re-run search when filters change
+  const lastSearchRef = useRef<{ text: string; coffeeId?: string; roasterId?: string } | null>(null);
 
   const searchInputRef = useRef<SearchInputHandle>(null);
 
@@ -55,8 +89,12 @@ export default function Home() {
     if (!text.trim() && !coffeeId && !roasterId) {
       setResults([]);
       setHasSearched(false);
+      lastSearchRef.current = null;
       return;
     }
+
+    // Store search params for re-running when filters change
+    lastSearchRef.current = { text, coffeeId, roasterId };
 
     setIsSearching(true);
     try {
@@ -65,6 +103,9 @@ export default function Home() {
         coffeeId: coffeeId as Id<"coffees"> | undefined,
         roasterId,
         limit: 50,
+        roastedFor: roastedForFilter ?? undefined,
+        newOnly: newOnly || undefined,
+        excludeRoasters: excludedRoasters.length > 0 ? excludedRoasters : undefined,
       });
       console.log("[Search Debug]", response.debug);
       setResults(response.results ?? []);
@@ -75,7 +116,7 @@ export default function Home() {
     } finally {
       setIsSearching(false);
     }
-  }, [searchAction]);
+  }, [searchAction, roastedForFilter, newOnly, excludedRoasters]);
 
   // Clear search
   const handleClear = useCallback(() => {
@@ -85,13 +126,43 @@ export default function Home() {
     searchInputRef.current?.focus();
   }, []);
 
-  // Apply client-side filters to results
-  const filteredResults = (results ?? []).filter((coffee) => {
-    if (roastedForFilter === "espresso" && coffee.roastedFor !== "espresso" && coffee.roastedFor !== null) return false;
-    if (roastedForFilter === "filter" && coffee.roastedFor !== "filter" && coffee.roastedFor !== null) return false;
-    // Note: decaf filter would need caffeine field in search results
-    return true;
-  });
+  // Show all coffees
+  const handleShowAll = useCallback(async () => {
+    setIsSearching(true);
+    lastSearchRef.current = { text: "" };
+    try {
+      const response = await searchAction({
+        query: "",
+        limit: 200,
+        roastedFor: roastedForFilter ?? undefined,
+        newOnly: newOnly || undefined,
+        excludeRoasters: excludedRoasters.length > 0 ? excludedRoasters : undefined,
+      });
+      setResults(response.results ?? []);
+      setHasSearched(true);
+    } catch (error) {
+      console.error("Show all failed:", error);
+      setResults([]);
+    } finally {
+      setIsSearching(false);
+    }
+  }, [searchAction, roastedForFilter, newOnly, excludedRoasters]);
+
+  // Re-run search when filters change
+  useEffect(() => {
+    if (lastSearchRef.current) {
+      const { text, coffeeId, roasterId } = lastSearchRef.current;
+      // Handle "show all" case (empty text)
+      if (!text && !coffeeId && !roasterId) {
+        handleShowAll();
+      } else {
+        handleSearch(text, coffeeId, roasterId);
+      }
+    }
+  }, [roastedForFilter, newOnly, excludedRoasters, handleSearch, handleShowAll]);
+
+  // Results are already filtered on backend
+  const filteredResults = results ?? [];
 
   // Group by roaster
   const groupedByRoaster = new Map<string, typeof filteredResults>();
@@ -101,9 +172,32 @@ export default function Home() {
     groupedByRoaster.set(coffee.roasterId, existing);
   }
 
+  // Track roasters from current results
+  const currentRoasters = Array.from(groupedByRoaster.keys());
+
+  // Update known roasters when we see new ones
+  useEffect(() => {
+    const newRoasters = currentRoasters.filter(r => !knownRoasters.includes(r));
+    if (newRoasters.length > 0) {
+      setKnownRoasters(prev => [...prev, ...newRoasters].sort());
+    }
+  }, [currentRoasters.join(",")]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Available roasters: combine current results with known roasters (so excluded ones still appear)
+  const availableRoasters = useMemo(() => {
+    const all = new Set([...currentRoasters, ...knownRoasters]);
+    return Array.from(all).sort();
+  }, [currentRoasters, knownRoasters]);
+
   const handleRoastedForFilter = useCallback((value: "espresso" | "filter" | null) => {
     startTransition(() => {
       setRoastedForFilter(value);
+    });
+  }, []);
+
+  const handleNewToggle = useCallback(() => {
+    startTransition(() => {
+      setNewOnly((prev) => !prev);
     });
   }, []);
 
@@ -136,11 +230,11 @@ export default function Home() {
             onSubmit={handleSearch}
             autoFocus
           />
-          {isSearching && (
-            <p className="mt-4 text-center text-text-muted font-bold uppercase tracking-wide">
-              Searching...
-            </p>
-          )}
+          <div className="mt-4 flex justify-center">
+            <Button onClick={handleShowAll} disabled={isSearching}>
+              {isSearching ? "Loading..." : "Show all"}
+            </Button>
+          </div>
         </div>
       </main>
     );
@@ -171,28 +265,72 @@ export default function Home() {
         </div>
 
         {/* Filter chips */}
-        <div className="flex gap-1.5 flex-wrap items-center">
-          <FilterChip
-            active={roastedForFilter === "espresso"}
-            onClick={() => handleRoastedForFilter(roastedForFilter === "espresso" ? null : "espresso")}
-          >
-            <EspressoIcon className="w-3 h-3" />
-            Espresso
-          </FilterChip>
-          <FilterChip
-            active={roastedForFilter === "filter"}
-            onClick={() => handleRoastedForFilter(roastedForFilter === "filter" ? null : "filter")}
-          >
-            <FilterIcon className="w-3 h-3" />
-            Filter
-          </FilterChip>
-          <FilterChip
-            active={decafOnly}
-            onClick={handleDecafToggle}
-          >
-            <DecafIcon className="w-3 h-3" />
-            Decaf
-          </FilterChip>
+        <div className="flex justify-between items-start gap-4">
+          <div className="flex gap-1.5 flex-wrap items-center">
+            <FilterChip
+              active={roastedForFilter === "espresso"}
+              onClick={() => handleRoastedForFilter(roastedForFilter === "espresso" ? null : "espresso")}
+            >
+              <EspressoIcon className="w-3 h-3" />
+              Espresso
+            </FilterChip>
+            <FilterChip
+              active={roastedForFilter === "filter"}
+              onClick={() => handleRoastedForFilter(roastedForFilter === "filter" ? null : "filter")}
+            >
+              <FilterIcon className="w-3 h-3" />
+              Filter
+            </FilterChip>
+            <FilterChip
+              active={decafOnly}
+              onClick={handleDecafToggle}
+            >
+              <DecafIcon className="w-3 h-3" />
+              Decaf
+            </FilterChip>
+            <FilterChip
+              active={newOnly}
+              onClick={handleNewToggle}
+            >
+              🆕 New
+            </FilterChip>
+          </div>
+
+          {/* Roaster toggle button */}
+          <div className="relative">
+            <Button
+              variant={excludedRoasters.length > 0 ? "primary" : "default"}
+              onClick={() => setShowRoasterToggle(!showRoasterToggle)}
+            >
+              🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
+            </Button>
+
+            {/* Roaster toggle dropdown */}
+            {showRoasterToggle && (
+              <div className="absolute right-0 top-full mt-2 bg-surface border-3 border-border brutal-shadow-sm p-2 z-50 max-h-64 overflow-y-auto min-w-48">
+                {availableRoasters.map((roasterId) => (
+                  <label
+                    key={roasterId}
+                    className="flex items-center gap-2 px-2 py-1 hover:bg-surface-hover cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={!excludedRoasters.includes(roasterId)}
+                      onChange={() => {
+                        setExcludedRoasters((prev) =>
+                          prev.includes(roasterId)
+                            ? prev.filter((r) => r !== roasterId)
+                            : [...prev, roasterId]
+                        );
+                      }}
+                      className="w-4 h-4"
+                    />
+                    <span className="text-sm font-bold uppercase">{roasterId}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         <p className="mt-2 text-sm text-text-muted font-bold uppercase tracking-wide">

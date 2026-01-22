@@ -30,6 +30,7 @@ interface SearchResult {
   variety: string[];
   roastLevel?: string | null;
   roastedFor?: string | null;
+  _creationTime: number;
   prices: Doc<"coffees">["prices"];
   available: boolean;
   imageUrl: string | null;
@@ -539,12 +540,51 @@ function coffeeToSearchResult(
     variety: coffee.variety,
     roastLevel: coffee.roastLevel,
     roastedFor: coffee.roastedFor,
+    _creationTime: coffee._creationTime,
     prices: coffee.prices,
     available: coffee.available,
     imageUrl: coffee.imageUrl,
     matchedAttributes,
     score,
   };
+}
+
+// Filter results based on user preferences
+function applyFilters(
+  results: SearchResult[],
+  filters: {
+    roastedFor?: "espresso" | "filter";
+    newOnly?: boolean;
+    excludeRoasters?: string[];
+  }
+): SearchResult[] {
+  const fourDaysMs = 4 * 24 * 60 * 60 * 1000;
+  const now = Date.now();
+
+  return results.filter((coffee) => {
+    // Roasted for filter
+    if (filters.roastedFor) {
+      if (coffee.roastedFor !== filters.roastedFor && coffee.roastedFor !== null) {
+        return false;
+      }
+    }
+
+    // New only filter (created in last 4 days)
+    if (filters.newOnly) {
+      if (now - coffee._creationTime >= fourDaysMs) {
+        return false;
+      }
+    }
+
+    // Exclude roasters filter
+    if (filters.excludeRoasters && filters.excludeRoasters.length > 0) {
+      if (filters.excludeRoasters.includes(coffee.roasterId)) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 }
 
 /**
@@ -556,8 +596,12 @@ export const search = action({
     coffeeId: v.optional(v.id("coffees")),
     roasterId: v.optional(v.string()),
     limit: v.optional(v.number()),
+    // Filters
+    roastedFor: v.optional(v.union(v.literal("espresso"), v.literal("filter"))),
+    newOnly: v.optional(v.boolean()),
+    excludeRoasters: v.optional(v.array(v.string())),
   },
-  handler: async (ctx, { query, coffeeId, roasterId, limit = 20 }): Promise<SearchResponse> => {
+  handler: async (ctx, { query, coffeeId, roasterId, limit = 20, roastedFor, newOnly, excludeRoasters }): Promise<SearchResponse> => {
     const normalizedQuery = query.toLowerCase().trim();
 
     // If coffeeId is provided, use that coffee's embedding for "similar to" search
@@ -579,10 +623,12 @@ export const search = action({
           const noteOverlap = c.notes.filter((n: string) => coffee.notes.includes(n));
           return coffeeToSearchResult(c, noteOverlap, noteOverlap.length / Math.max(coffee.notes.length, 1));
         })
-        .sort((a: SearchResult, b: SearchResult) => b.score - a.score)
-        .slice(0, limit);
+        .sort((a: SearchResult, b: SearchResult) => b.score - a.score);
 
-      return { results, debug: { source: "similarity", parsedQuery: null } };
+      // Apply user preference filters
+      const filteredResults = applyFilters(results, { roastedFor, newOnly, excludeRoasters });
+
+      return { results: filteredResults.slice(0, limit), debug: { source: "similarity", parsedQuery: null } };
     }
 
     // Fetch vocabulary from DB (distinct notes/processes from all coffees)
@@ -694,8 +740,11 @@ export const search = action({
       return a.name.localeCompare(b.name);
     });
 
+    // Apply user preference filters (roastedFor, newOnly, excludeRoasters)
+    const finalResults = applyFilters(filtered, { roastedFor, newOnly, excludeRoasters });
+
     return {
-      results: filtered.slice(0, limit),
+      results: finalResults.slice(0, limit),
       debug: { source, parsedQuery, candidateNotes, taxonomyMatch },
     };
   },
