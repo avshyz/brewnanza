@@ -238,25 +238,31 @@ export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] 
       )}
     >
       {/* Top left chips - roaster info and price */}
-      {showRoaster && (
-        <div ref={roasterChipRef} className="absolute -top-1 -left-1 z-10 flex gap-1">
-          <Chip
-            variant="primary"
-            className="transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] flex items-center gap-1.5 leading-none"
-          >
-            {coffee.roasterId}
-            {coffee.roastLevel && ROAST_LEVEL_ICON[coffee.roastLevel]}
-            {coffee.roastedFor && ROASTED_FOR_ICON[coffee.roastedFor]}
-            {coffee.caffeine && <DecafIcon className="w-3.5 h-3.5 shrink-0" />}
-            {isNew && <span className="text-white font-bold">NEW!</span>}
-          </Chip>
-          {bestPrice && (
-            <Chip className="bg-amber-100 text-amber-900 border-amber-400 transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] font-mono text-[0.65rem]">
-              {formatPrice(bestPrice)}
-            </Chip>
-          )}
-        </div>
-      )}
+      {(() => {
+        const hasIcons = coffee.roastLevel || coffee.roastedFor || coffee.caffeine || isNew;
+        const showBadge = showRoaster || hasIcons;
+        return (
+          <div ref={roasterChipRef} className="absolute -top-1 -left-1 z-10 flex gap-1">
+            {showBadge && (
+              <Chip
+                variant="primary"
+                className="transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] flex items-center gap-1.5 leading-none"
+              >
+                {showRoaster && coffee.roasterId}
+                {coffee.roastLevel && ROAST_LEVEL_ICON[coffee.roastLevel]}
+                {coffee.roastedFor && ROASTED_FOR_ICON[coffee.roastedFor]}
+                {coffee.caffeine && <DecafIcon className="w-3.5 h-3.5 shrink-0" />}
+                {isNew && <span className="text-white font-bold">NEW!</span>}
+              </Chip>
+            )}
+            {bestPrice && (
+              <Chip className="bg-amber-100 text-amber-900 border-amber-400 transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] font-mono text-[0.65rem]">
+                {formatPrice(bestPrice)}
+              </Chip>
+            )}
+          </div>
+        );
+      })()}
 
       {/* Thumbnail - flexible width, square aspect ratio */}
       {coffee.imageUrl && (

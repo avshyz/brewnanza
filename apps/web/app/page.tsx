@@ -57,6 +57,13 @@ export default function Home() {
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [showRoasterToggle, setShowRoasterToggle] = useState(false);
   const [decafOnly, setDecafOnly] = useState(false);
+  const [excludedRoasters, setExcludedRoasters] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const saved = localStorage.getItem("brewnanza-ui");
+      return saved ? JSON.parse(saved).excludedRoasters ?? [] : [];
+    } catch { return []; }
+  });
   const [knownRoasters, setKnownRoasters] = useState<string[]>(() => {
     if (typeof window === "undefined") return [];
     try {
@@ -67,8 +74,8 @@ export default function Home() {
 
   // Persist UI state to localStorage
   useEffect(() => {
-    localStorage.setItem("brewnanza-ui", JSON.stringify({ knownRoasters }));
-  }, [knownRoasters]);
+    localStorage.setItem("brewnanza-ui", JSON.stringify({ knownRoasters, excludedRoasters }));
+  }, [knownRoasters, excludedRoasters]);
 
   const searchInputRef = useRef<SearchInputHandle>(null);
 
@@ -97,9 +104,7 @@ export default function Home() {
           limit: urlState.showAll ? 200 : 50,
           roastedFor: urlState.filters.roastedFor ?? undefined,
           newOnly: urlState.filters.newOnly || undefined,
-          excludeRoasters: urlState.filters.excludedRoasters.length > 0
-            ? urlState.filters.excludedRoasters
-            : undefined,
+          excludeRoasters: excludedRoasters.length > 0 ? excludedRoasters : undefined,
         });
         setResults(response.results ?? []);
       } catch (error) {
@@ -111,7 +116,7 @@ export default function Home() {
     };
 
     executeSearch();
-  }, [searchAction, hasUrlSearch, urlState.query, coffeeIds, roasterIds, urlState.showAll, urlState.filters.roastedFor, urlState.filters.newOnly, urlState.filters.excludedRoasters.join(",")]);
+  }, [searchAction, hasUrlSearch, urlState.query, coffeeIds, roasterIds, urlState.showAll, urlState.filters.roastedFor, urlState.filters.newOnly, excludedRoasters]);
 
   // Navigation helpers
   const navigateSearch = useCallback((
@@ -193,12 +198,12 @@ export default function Home() {
   }, []);
 
   const handleExcludeRoaster = useCallback((roasterId: string) => {
-    const current = urlState.filters.excludedRoasters;
-    const newExcluded = current.includes(roasterId)
-      ? current.filter(r => r !== roasterId)
-      : [...current, roasterId];
-    updateFilters({ excludedRoasters: newExcluded });
-  }, [updateFilters, urlState.filters.excludedRoasters]);
+    setExcludedRoasters(prev =>
+      prev.includes(roasterId)
+        ? prev.filter(r => r !== roasterId)
+        : [...prev, roasterId]
+    );
+  }, []);
 
   // Group results by roaster
   const groupedByRoaster = useMemo(() => {
@@ -323,10 +328,10 @@ export default function Home() {
           {/* Roaster toggle button */}
           <div className="relative">
             <Button
-              variant={urlState.filters.excludedRoasters.length > 0 ? "primary" : "default"}
+              variant={excludedRoasters.length > 0 ? "primary" : "default"}
               onClick={() => setShowRoasterToggle(!showRoasterToggle)}
             >
-              🏪 Roasters {urlState.filters.excludedRoasters.length > 0 && `(${urlState.filters.excludedRoasters.length} hidden)`}
+              🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
             </Button>
 
             {/* Roaster toggle dropdown */}
@@ -339,7 +344,7 @@ export default function Home() {
                   >
                     <input
                       type="checkbox"
-                      checked={!urlState.filters.excludedRoasters.includes(roasterId)}
+                      checked={!excludedRoasters.includes(roasterId)}
                       onChange={() => handleExcludeRoaster(roasterId)}
                       className="w-4 h-4"
                     />

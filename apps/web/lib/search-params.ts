@@ -8,7 +8,6 @@ export interface MentionRef {
 export interface SearchFilters {
   roastedFor: "espresso" | "filter" | null;
   newOnly: boolean;
-  excludedRoasters: string[];
 }
 
 export interface SearchState {
@@ -71,20 +70,18 @@ export function parseSearchParams(params: ReadonlyURLSearchParams): SearchState 
 
   const forParam = params.get("for");
   const newParam = params.get("new");
-  const xParam = params.get("x");
   const allParam = params.get("all");
 
   const roastedFor =
     forParam === "espresso" || forParam === "filter" ? forParam : null;
   const newOnly = newParam === "1";
-  const excludedRoasters = xParam ? xParam.split(",").filter(Boolean) : [];
   const showAll = allParam === "1";
 
   return {
     query: q,
     coffees,
     roasters,
-    filters: { roastedFor, newOnly, excludedRoasters },
+    filters: { roastedFor, newOnly },
     showAll,
   };
 }
@@ -106,9 +103,6 @@ export function serializeSearchParams(state: Partial<SearchState>): string {
   }
   if (state.filters?.newOnly) {
     params.set("new", "1");
-  }
-  if (state.filters?.excludedRoasters?.length) {
-    params.set("x", state.filters.excludedRoasters.join(","));
   }
   if (state.showAll) {
     params.set("all", "1");
