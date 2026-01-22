@@ -1,3 +1,6 @@
+// Import canonical taxonomy from convex (single source of truth)
+import { FLAVOR_TAXONOMY, getAllNotes } from "../../../convex/taxonomy";
+
 const COLORS = {
   stone: { normal: "bg-amber-100 text-amber-800 border-amber-300", highlight: "bg-amber-800 text-white border-amber-900" },
   citrus: { normal: "bg-yellow-100 text-yellow-800 border-yellow-300", highlight: "bg-yellow-600 text-white border-yellow-700" },
@@ -15,32 +18,15 @@ const COLORS = {
   herbal: { normal: "bg-green-100 text-green-800 border-green-300", highlight: "bg-green-700 text-white border-green-800" },
   baked: { normal: "bg-orange-50 text-orange-700 border-orange-200", highlight: "bg-orange-600 text-white border-orange-700" },
   creamy: { normal: "bg-slate-100 text-slate-700 border-slate-300", highlight: "bg-slate-700 text-white border-slate-800" },
+  fermented: { normal: "bg-purple-100 text-purple-800 border-purple-300", highlight: "bg-purple-700 text-white border-purple-800" },
   other: { normal: "bg-gray-100 text-gray-700 border-gray-300", highlight: "bg-gray-700 text-white border-gray-800" },
 } as const;
 
-// Category to notes mapping for semantic search
-export const CATEGORY_TO_NOTES: Record<string, string[]> = {
-  stone: ["peach", "apricot", "nectarine", "plum", "cherry", "black cherry", "stone fruit", "prune", "persimmon"],
-  citrus: ["citrus", "orange", "blood orange", "tangerine", "mandarin", "lemon", "lime", "grapefruit", "bergamot", "yuzu"],
-  berry: ["berry", "berries", "red berries", "dark berries", "blueberry", "raspberry", "strawberry", "blackberry", "blackcurrant", "redcurrant", "cranberry", "gooseberry"],
-  tropical: ["tropical", "mango", "pineapple", "papaya", "passion fruit", "guava", "lychee", "coconut", "banana", "kiwi"],
-  dried: ["raisin", "date", "fig", "dried fruits", "fruitcake", "tamarind"],
-  orchard: ["apple", "green apple", "pear", "grape", "melon", "watermelon", "pomegranate"],
-  floral: ["floral", "jasmine", "rose", "lavender", "violet", "hibiscus", "honeysuckle", "geranium", "chamomile"],
-  sweet: ["honey", "caramel", "toffee", "fudge", "maple", "brown sugar", "molasses", "panela", "candy"],
-  chocolate: ["chocolate", "dark chocolate", "milk chocolate", "cocoa", "cacao"],
-  nutty: ["nutty", "almond", "hazelnut", "walnut", "pistachio", "macadamia", "pecan", "marzipan", "praline"],
-  spice: ["cinnamon", "cardamom", "ginger", "baking spice"],
-  tea: ["tea", "black tea", "green tea", "oolong", "darjeeling"],
-  wine: ["wine", "red wine", "brandy", "rum", "jammy"],
-  herbal: ["herbal", "lemongrass", "verbena", "eucalyptus", "tobacco"],
-  baked: ["brioche", "biscuit", "grains", "malt"],
-  creamy: ["cream", "custard", "vanilla", "butter"],
-  other: ["fresh", "crisp", "bright", "juicy", "complex", "fermented", "wild", "yeasty", "boozy", "winey"],
-};
+// Category to notes mapping - imported from canonical taxonomy
+export const CATEGORY_TO_NOTES: Record<string, string[]> = FLAVOR_TAXONOMY;
 
 // Flat list of all notes for LLM prompts
-export const ALL_NOTES = Object.values(CATEGORY_TO_NOTES).flat();
+export const ALL_NOTES = getAllNotes();
 
 // Common coffee processes
 export const ALL_PROCESSES = [

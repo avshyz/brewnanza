@@ -75,7 +75,7 @@ export const MentionList = forwardRef<MentionListHandle, MentionListProps>(
       return (
         <div className="mention-list bg-surface border-3 border-border p-2 brutal-shadow-sm">
           <div className="text-text-muted text-sm px-2 py-1">
-            Loading...
+            Searching...
           </div>
         </div>
       );
@@ -85,7 +85,7 @@ export const MentionList = forwardRef<MentionListHandle, MentionListProps>(
       return (
         <div className="mention-list bg-surface border-3 border-border p-2 brutal-shadow-sm">
           <div className="text-text-muted text-sm px-2 py-1">
-            No {type === "coffee" ? "coffees" : "roasters"} found
+            No matches found
           </div>
         </div>
       );

@@ -13,7 +13,7 @@ import type * as http from "../http.js";
 import type * as noteEmbeddings from "../noteEmbeddings.js";
 import type * as roasters from "../roasters.js";
 import type * as search from "../search.js";
-import type * as vocabularyCache from "../vocabularyCache.js";
+import type * as taxonomy from "../taxonomy.js";
 
 import type {
   ApiFromModules,
@@ -27,7 +27,7 @@ declare const fullApi: ApiFromModules<{
   noteEmbeddings: typeof noteEmbeddings;
   roasters: typeof roasters;
   search: typeof search;
-  vocabularyCache: typeof vocabularyCache;
+  taxonomy: typeof taxonomy;
 }>;
 
 /**

@@ -92,38 +92,14 @@ body::before {
   box-shadow: 2px 2px 0 var(--color-border);
 }
 
-/* SearchInput (TipTap) styles */
-.search-input-wrapper {
-  position: relative;
-}
-
+/* SearchInput styles */
 .search-input-editor {
-  width: 100%;
   border: 3px solid var(--color-border);
-  background: var(--color-surface);
-  font-weight: 500;
-  box-shadow: 4px 4px 0 var(--color-border);
-  transition: box-shadow 150ms;
-}
-
-.search-input-editor:focus-within {
-  box-shadow: 6px 6px 0 var(--color-primary);
+  min-height: 3.5rem;
 }
 
 .search-input-editor .ProseMirror {
-  outline: none;
-  white-space: nowrap;
-  overflow-x: auto;
-}
-
-.search-input-editor .ProseMirror p {
-  margin: 0;
-  display: inline;
-}
-
-.search-input-placeholder {
-  color: var(--color-text-muted);
-  font-weight: 500;
+  padding: 1rem;
 }
 
 /* Mention styles */

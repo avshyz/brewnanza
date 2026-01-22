@@ -2,13 +2,11 @@
  * Semantic search for coffees.
  *
  * Flow:
- * 1. Check vocabulary cache for query term
- * 2. Cache hit: use cached embedding + mappings
- * 3. Cache miss: call LLM to parse query, extract filters/mappings
- * 4. If coffeeId provided: use that coffee's embedding
- * 5. Vector search + apply filters
- * 6. Compute matchedAttributes
- * 7. Return ranked results
+ * 1. Try taxonomy lookup (fast path, <50ms)
+ * 2. Taxonomy miss: call LLM to parse query
+ * 3. If coffeeId provided: use that coffee's embedding for similarity
+ * 4. Apply filters + compute matchedAttributes
+ * 5. Return ranked results
  */
 
 import { v } from "convex/values";
@@ -16,6 +14,7 @@ import { action, internalQuery, query } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { Id, Doc } from "./_generated/dataModel";
 import Fuse from "fuse.js";
+import { taxonomySearch, getCategoryForNote } from "./taxonomy";
 
 // Types
 interface SearchResult {
@@ -41,9 +40,10 @@ interface SearchResult {
 interface SearchResponse {
   results: SearchResult[];
   debug: {
-    source: "cache" | "llm" | "fallback" | "similarity";
+    source: "llm" | "fallback" | "similarity" | "taxonomy";
     parsedQuery: ParsedQuery | null;
     candidateNotes?: string[];
+    taxonomyMatch?: string[];
   };
 }
 
@@ -59,17 +59,6 @@ interface ParsedQuery {
   mappedProcesses: string[];
   semanticQuery: string;
 }
-
-// Internal query to get vocabulary cache entry
-export const getVocabEntry = internalQuery({
-  args: { term: v.string() },
-  handler: async (ctx, { term }) => {
-    return await ctx.db
-      .query("vocabularyCache")
-      .withIndex("by_term", (q) => q.eq("term", term.toLowerCase().trim()))
-      .first();
-  },
-});
 
 // Internal query to get a coffee by ID
 export const getCoffeeById = internalQuery({
@@ -454,11 +443,11 @@ async function fallbackParseHybrid(
 ): Promise<ParsedQuery> {
   const lower = query.toLowerCase();
 
-  // Extract price filters
+  // Extract price filters (handles $30, 30$, or just 30)
   let maxPrice: number | undefined;
   let minPrice: number | undefined;
-  const underMatch = lower.match(/under\s*\$?(\d+)/);
-  const aboveMatch = lower.match(/(?:above|over)\s*\$?(\d+)/);
+  const underMatch = lower.match(/under\s*\$?(\d+)\$?/);
+  const aboveMatch = lower.match(/(?:above|over)\s*\$?(\d+)\$?/);
   if (underMatch) maxPrice = parseInt(underMatch[1]);
   if (aboveMatch) minPrice = parseInt(aboveMatch[1]);
 
@@ -599,24 +588,40 @@ export const search = action({
     // Fetch vocabulary from DB (distinct notes/processes from all coffees)
     const vocabulary = await ctx.runQuery(internal.search.getDistinctVocabulary, {});
 
-    // Check vocabulary cache first
-    const cachedEntry = await ctx.runQuery(internal.search.getVocabEntry, { term: normalizedQuery });
-
     let parsedQuery: ParsedQuery;
-    let source: "cache" | "llm" | "fallback" = "llm";
+    let source: "llm" | "fallback" | "taxonomy" = "llm";
     let candidateNotes: string[] | undefined;
+    let taxonomyMatch: string[] | undefined;
 
-    if (cachedEntry) {
-      // Cache hit - use pre-computed mappings
-      source = "cache";
+    // FAST PATH: Try taxonomy lookup first (no API calls, <50ms)
+    const taxResult = taxonomySearch(normalizedQuery);
+
+    if (taxResult.confidence !== "none") {
+      // Taxonomy hit - use pre-defined mappings
+      source = "taxonomy";
+      taxonomyMatch = taxResult.matchedTerms;
+
+      // Filter notes to only those that exist in our vocabulary
+      const vocabNotesSet = new Set(vocabulary.notes.map((n) => n.toLowerCase()));
+      const filteredNotes = taxResult.notes.filter((n) => vocabNotesSet.has(n.toLowerCase()));
+
+      // Filter processes to only those that exist in our vocabulary
+      const vocabProcessesSet = new Set(vocabulary.processes.map((p) => p.toLowerCase()));
+      const filteredProcesses = taxResult.processes.filter((p) => vocabProcessesSet.has(p.toLowerCase()));
+
       parsedQuery = {
         filters: { roasterId },
-        mappedNotes: cachedEntry.mappedNotes,
-        mappedProcesses: cachedEntry.mappedProcesses,
-        semanticQuery: cachedEntry.term,
+        mappedNotes: filteredNotes,
+        mappedProcesses: filteredProcesses,
+        semanticQuery: normalizedQuery,
       };
+
+      // Store excludeCategories for negative matching (e.g., "clean cup" excludes fermented)
+      if (taxResult.excludeCategories.length > 0) {
+        (parsedQuery as ParsedQuery & { excludeCategories?: string[] }).excludeCategories = taxResult.excludeCategories;
+      }
     } else {
-      // Cache miss - parse query with LLM using DB vocabulary (hybrid search)
+      // Taxonomy miss - parse query with LLM using DB vocabulary (hybrid search)
       const { parsed, usedFallback, candidateNotes: candidates } = await parseQueryWithLLM(ctx, query, vocabulary);
       parsedQuery = parsed;
       source = usedFallback ? "fallback" : "llm";
@@ -653,6 +658,9 @@ export const search = action({
     // Score coffees by matched attributes (semantic relevance)
     const hasSemanticTerms = parsedQuery.mappedNotes.length > 0 || parsedQuery.mappedProcesses.length > 0;
 
+    // Get excluded categories for negative matching (e.g., "clean cup" excludes fermented)
+    const excludeCategories = (parsedQuery as ParsedQuery & { excludeCategories?: string[] }).excludeCategories ?? [];
+
     const scored = coffees.map((c: Doc<"coffees">) => {
       const matchedAttributes = computeMatchedAttributes(c, parsedQuery.mappedNotes, parsedQuery.mappedProcesses);
 
@@ -663,9 +671,22 @@ export const search = action({
     });
 
     // If semantic terms were provided, filter to only coffees with at least one match
-    const filtered = hasSemanticTerms
+    let filtered = hasSemanticTerms
       ? scored.filter((r: SearchResult) => r.matchedAttributes.length > 0)
       : scored;
+
+    // Apply negative matching: exclude coffees with notes from excluded categories
+    if (excludeCategories.length > 0) {
+      filtered = filtered.filter((r: SearchResult) => {
+        for (const note of r.notes) {
+          const category = getCategoryForNote(note);
+          if (category && excludeCategories.includes(category)) {
+            return false; // Exclude this coffee
+          }
+        }
+        return true;
+      });
+    }
 
     // Sort by score descending, then by name
     filtered.sort((a: SearchResult, b: SearchResult) => {
@@ -675,7 +696,7 @@ export const search = action({
 
     return {
       results: filtered.slice(0, limit),
-      debug: { source, parsedQuery, candidateNotes },
+      debug: { source, parsedQuery, candidateNotes, taxonomyMatch },
     };
   },
 });

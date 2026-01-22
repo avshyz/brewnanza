@@ -5,12 +5,13 @@ import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Mention from "@tiptap/extension-mention";
-import { forwardRef, useImperativeHandle, useEffect, useState, useMemo } from "react";
-import { useConvex } from "convex/react";
+import { forwardRef, useImperativeHandle, useEffect, useState, useMemo, useRef } from "react";
+import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { MentionList, MentionListHandle } from "./MentionList";
 import tippy, { Instance as TippyInstance } from "tippy.js";
 import "tippy.js/dist/tippy.css";
+import Fuse from "fuse.js";
 
 // Single-line document that only allows one paragraph
 const SingleLineDocument = Document.extend({
@@ -38,28 +39,71 @@ interface SearchInputProps {
 
 export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
   function SearchInput({ placeholder = "Search...", onSubmit, className = "", autoFocus = false }, ref) {
-    const convex = useConvex();
     const [coffeeId, setCoffeeId] = useState<string | undefined>();
     const [roasterId, setRoasterId] = useState<string | undefined>();
+
+    // Preload all coffees and roasters for instant fuzzy search
+    const allCoffees = useQuery(api.search.autocompleteCoffees, { query: "", limit: 1000 });
+    const allRoasters = useQuery(api.search.autocompleteRoasters, { query: "", limit: 1000 });
+
+    // Create Fuse instances for fuzzy search
+    const coffeeFuse = useMemo(() => {
+      if (!allCoffees) return null;
+      return new Fuse(allCoffees, {
+        keys: ["name", "roasterName"],
+        threshold: 0.4,
+        includeScore: true,
+      });
+    }, [allCoffees]);
+
+    const roasterFuse = useMemo(() => {
+      if (!allRoasters) return null;
+      return new Fuse(allRoasters, {
+        keys: ["name"],
+        threshold: 0.4,
+        includeScore: true,
+      });
+    }, [allRoasters]);
+
+    // Refs to track loading state for immediate popup display
+    const coffeesLoadingRef = useRef(true);
+    const roastersLoadingRef = useRef(true);
+
+    useEffect(() => {
+      coffeesLoadingRef.current = allCoffees === undefined;
+    }, [allCoffees]);
+
+    useEffect(() => {
+      roastersLoadingRef.current = allRoasters === undefined;
+    }, [allRoasters]);
 
     // Create suggestion for coffee mentions (@)
     const coffeeSuggestion = useMemo(() => ({
       char: "@",
       allowSpaces: true,
-      items: async ({ query }: { query: string }) => {
+      items: ({ query }: { query: string }) => {
+        // Return null to indicate loading state
+        if (!coffeeFuse || coffeesLoadingRef.current) return null;
+
         const searchQuery = query || "";
-        try {
-          const results = await convex.query(api.search.autocompleteCoffees, { query: searchQuery, limit: 8 });
-          return results.map((r) => ({
+        if (!searchQuery) {
+          // Return first 8 items when no query
+          return allCoffees!.slice(0, 8).map((r) => ({
             id: r.id,
             label: r.name,
             subtitle: r.roasterName,
             type: "coffee",
           }));
-        } catch (e) {
-          console.error("Coffee autocomplete error:", e);
-          return [];
         }
+
+        // Use Fuse for fuzzy search
+        const results = coffeeFuse.search(searchQuery, { limit: 8 });
+        return results.map((r) => ({
+          id: r.item.id,
+          label: r.item.name,
+          subtitle: r.item.roasterName,
+          type: "coffee",
+        }));
       },
       render: () => {
         let component: ReactRenderer<MentionListHandle> | null = null;
@@ -101,25 +145,33 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
           },
         };
       },
-    }), [convex]);
+    }), [coffeeFuse, allCoffees]);
 
     // Create suggestion for roaster mentions (#)
     const roasterSuggestion = useMemo(() => ({
       char: "#",
       allowSpaces: true,
-      items: async ({ query }: { query: string }) => {
+      items: ({ query }: { query: string }) => {
+        // Return null to indicate loading state
+        if (!roasterFuse || roastersLoadingRef.current) return null;
+
         const searchQuery = query || "";
-        try {
-          const results = await convex.query(api.search.autocompleteRoasters, { query: searchQuery, limit: 8 });
-          return results.map((r) => ({
+        if (!searchQuery) {
+          // Return first 8 items when no query
+          return allRoasters!.slice(0, 8).map((r) => ({
             id: r.id,
             label: r.name,
             type: "roaster",
           }));
-        } catch (e) {
-          console.error("Roaster autocomplete error:", e);
-          return [];
         }
+
+        // Use Fuse for fuzzy search
+        const results = roasterFuse.search(searchQuery, { limit: 8 });
+        return results.map((r) => ({
+          id: r.item.id,
+          label: r.item.name,
+          type: "roaster",
+        }));
       },
       render: () => {
         let component: ReactRenderer<MentionListHandle> | null = null;
@@ -161,7 +213,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
           },
         };
       },
-    }), [convex]);
+    }), [roasterFuse, allRoasters]);
 
     const editor = useEditor({
       extensions: [

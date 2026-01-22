@@ -5,6 +5,7 @@
 
 import { v } from "convex/values";
 import { mutation, query, internalQuery, action } from "./_generated/server";
+import { getCategoryForNote } from "./taxonomy";
 
 /**
  * Get all notes that need embeddings.
@@ -160,5 +161,30 @@ export const testVectorSearch = action({
       query,
       results: results.map((r) => ({ id: r._id, score: r._score })),
     };
+  },
+});
+
+/**
+ * Populate category field for all note embeddings based on taxonomy.
+ * Run this after creating the taxonomy to backfill existing records.
+ */
+export const populateCategories = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("noteEmbeddings").collect();
+    let updated = 0;
+    let skipped = 0;
+
+    for (const entry of all) {
+      const category = getCategoryForNote(entry.note);
+      if (category && category !== entry.category) {
+        await ctx.db.patch(entry._id, { category });
+        updated++;
+      } else {
+        skipped++;
+      }
+    }
+
+    return { updated, skipped, total: all.length };
   },
 });

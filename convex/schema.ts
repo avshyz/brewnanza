@@ -79,15 +79,6 @@ export default defineSchema({
     coffeeCount: v.number(),
   }).index("by_roasterId", ["roasterId"]),
 
-  // Vocabulary cache for semantic search (pre-computed common terms)
-  vocabularyCache: defineTable({
-    term: v.string(), // e.g., "funky", "berry bomb", "clean cup"
-    embedding: v.array(v.float64()), // pre-computed embedding (1024 dim)
-    mappedNotes: v.array(v.string()), // LLM-expanded notes
-    mappedProcesses: v.array(v.string()), // LLM-expanded processes
-    createdAt: v.number(),
-  }).index("by_term", ["term"]),
-
   // Individual note embeddings for semantic note matching
   noteEmbeddings: defineTable({
     note: v.string(), // e.g., "pear", "chocolate", "bergamot"
