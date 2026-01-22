@@ -193,7 +193,7 @@ function buildTooltipContent(
     parts.push(`Appeared on ${formatNewDate(coffee._creationTime)}.`);
   }
 
-  return parts.join(" ");
+  return parts.join("<br>");
 }
 
 export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] }: CoffeeCardProps) {
@@ -218,6 +218,7 @@ export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] 
       placement: "bottom-start",
       delay: [300, 0],
       theme: "brutal",
+      allowHTML: true,
     });
     return () => instance.destroy();
   }, [tooltipContent]);

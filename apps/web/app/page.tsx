@@ -2,13 +2,16 @@
 
 import { useAction } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useRef, useCallback, startTransition, useEffect, useMemo } from "react";
+import { useState, useCallback, startTransition, useEffect, useMemo } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
 import { FilterChip } from "../components/ui/filter-chip";
 import { EspressoIcon, FilterIcon, DecafIcon } from "../components/icons";
 import { Id } from "../../../convex/_generated/dataModel";
 import { SearchInput, SearchInputHandle } from "../components/SearchInput";
+import { parseSearchParams, buildSearchUrl, SearchState, MentionRef } from "../lib/search-params";
+import { useRef } from "react";
 
 
 interface SearchResult {
@@ -39,136 +42,169 @@ interface SearchResult {
 }
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const searchAction = useAction(api.search.search);
+
+  // Parse URL state
+  const urlState = useMemo(() => parseSearchParams(searchParams), [searchParams]);
+  const hasUrlSearch = !!(urlState.query || urlState.coffee || urlState.roaster || urlState.showAll);
 
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
 
+  // UI-only state (localStorage)
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [showRoasterToggle, setShowRoasterToggle] = useState(false);
-
-  // Lazy init from localStorage (rule 5.6) - runs only once
-  const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(() => {
-    if (typeof window === "undefined") return null;
-    try {
-      const saved = localStorage.getItem("brewnanza-filters");
-      return saved ? JSON.parse(saved).roastedFor ?? null : null;
-    } catch { return null; }
-  });
   const [decafOnly, setDecafOnly] = useState(false);
-  const [newOnly, setNewOnly] = useState<boolean>(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      const saved = localStorage.getItem("brewnanza-filters");
-      return saved ? JSON.parse(saved).newOnly ?? false : false;
-    } catch { return false; }
-  });
-  const [excludedRoasters, setExcludedRoasters] = useState<string[]>(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const saved = localStorage.getItem("brewnanza-filters");
-      return saved ? JSON.parse(saved).excludedRoasters ?? [] : [];
-    } catch { return []; }
-  });
   const [knownRoasters, setKnownRoasters] = useState<string[]>(() => {
     if (typeof window === "undefined") return [];
     try {
-      const saved = localStorage.getItem("brewnanza-filters");
+      const saved = localStorage.getItem("brewnanza-ui");
       return saved ? JSON.parse(saved).knownRoasters ?? [] : [];
     } catch { return []; }
   });
 
+  // Persist UI state to localStorage
   useEffect(() => {
-    localStorage.setItem("brewnanza-filters", JSON.stringify({
-      roastedFor: roastedForFilter,
-      newOnly,
-      excludedRoasters,
-      knownRoasters,
-    }));
-  }, [roastedForFilter, newOnly, excludedRoasters, knownRoasters]);
-
-  // Track last search params to re-run search when filters change
-  const lastSearchRef = useRef<{ text: string; coffeeId?: string; roasterId?: string } | null>(null);
+    localStorage.setItem("brewnanza-ui", JSON.stringify({ knownRoasters }));
+  }, [knownRoasters]);
 
   const searchInputRef = useRef<SearchInputHandle>(null);
 
-  // Search on submit (Enter key)
-  const handleSearch = useCallback(async (text: string, coffeeId?: string, roasterId?: string) => {
-    if (!text.trim() && !coffeeId && !roasterId) {
+  // Execute search when URL changes
+  useEffect(() => {
+    console.log("[URL State]", { hasUrlSearch, urlState });
+
+    if (!hasUrlSearch) {
       setResults([]);
-      setHasSearched(false);
-      lastSearchRef.current = null;
       return;
     }
 
-    // Store search params for re-running when filters change
-    lastSearchRef.current = { text, coffeeId, roasterId };
+    const executeSearch = async () => {
+      const searchParams = {
+        query: urlState.query.trim(),
+        coffeeId: urlState.coffee?.id as Id<"coffees"> | undefined,
+        roasterId: urlState.roaster?.id,
+        limit: urlState.showAll ? 200 : 50,
+        roastedFor: urlState.filters.roastedFor ?? undefined,
+        newOnly: urlState.filters.newOnly || undefined,
+        excludeRoasters: urlState.filters.excludedRoasters.length > 0
+          ? urlState.filters.excludedRoasters
+          : undefined,
+      };
+      console.log("[Search Params]", searchParams);
 
-    setIsSearching(true);
-    try {
-      const response = await searchAction({
-        query: text.trim(),
-        coffeeId: coffeeId as Id<"coffees"> | undefined,
-        roasterId,
-        limit: 50,
-        roastedFor: roastedForFilter ?? undefined,
-        newOnly: newOnly || undefined,
-        excludeRoasters: excludedRoasters.length > 0 ? excludedRoasters : undefined,
-      });
-      console.log("[Search Debug]", response.debug);
-      setResults(response.results ?? []);
-      setHasSearched(true);
-    } catch (error) {
-      console.error("Search failed:", error);
-      setResults([]);
-    } finally {
-      setIsSearching(false);
+      setIsSearching(true);
+      try {
+        const response = await searchAction(searchParams);
+        console.log("[Search Debug]", response.debug);
+        console.log("[Search Results]", response.results?.length);
+        setResults(response.results ?? []);
+      } catch (error) {
+        console.error("Search failed:", error);
+        setResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    executeSearch();
+  }, [searchAction, hasUrlSearch, urlState.query, urlState.coffee?.id, urlState.roaster?.id, urlState.showAll, urlState.filters.roastedFor, urlState.filters.newOnly, urlState.filters.excludedRoasters.join(",")]);
+
+  // Navigation helpers
+  const navigateSearch = useCallback((
+    query: string,
+    coffee: MentionRef | null,
+    roaster: MentionRef | null,
+    method: "push" | "replace" = "push"
+  ) => {
+    const url = buildSearchUrl({
+      query: query || undefined,
+      coffee: coffee ?? undefined,
+      roaster: roaster ?? undefined,
+      filters: urlState.filters,
+      showAll: false,
+    });
+    router[method](url);
+  }, [router, urlState.filters]);
+
+  const updateFilters = useCallback((updates: Partial<SearchState["filters"]>) => {
+    const newFilters = { ...urlState.filters, ...updates };
+    const url = buildSearchUrl({
+      query: urlState.query || undefined,
+      coffee: urlState.coffee ?? undefined,
+      roaster: urlState.roaster ?? undefined,
+      filters: newFilters,
+      showAll: urlState.showAll,
+    });
+    router.replace(url);
+  }, [router, urlState]);
+
+  // Search on submit (Enter key)
+  const handleSearch = useCallback((text: string, coffeeId?: string, roasterId?: string) => {
+    // Get labels from search input ref if available
+    const coffeeLabel = searchInputRef.current?.getCoffeeLabel?.();
+    const roasterLabel = searchInputRef.current?.getRoasterLabel?.();
+
+    const coffee = coffeeId ? { id: coffeeId, label: coffeeLabel ?? coffeeId } : null;
+    const roaster = roasterId ? { id: roasterId, label: roasterLabel ?? roasterId } : null;
+
+    if (!text.trim() && !coffee && !roaster) {
+      router.push("/");
+      return;
     }
-  }, [searchAction, roastedForFilter, newOnly, excludedRoasters]);
+    navigateSearch(text, coffee, roaster);
+  }, [navigateSearch, router]);
 
   // Clear search
   const handleClear = useCallback(() => {
     searchInputRef.current?.clear();
-    setResults([]);
-    setHasSearched(false);
+    router.push("/");
     searchInputRef.current?.focus();
-  }, []);
+  }, [router]);
 
   // Show all coffees
-  const handleShowAll = useCallback(async () => {
-    setIsSearching(true);
-    lastSearchRef.current = { text: "" };
-    try {
-      const response = await searchAction({
-        query: "",
-        limit: 200,
-        roastedFor: roastedForFilter ?? undefined,
-        newOnly: newOnly || undefined,
-        excludeRoasters: excludedRoasters.length > 0 ? excludedRoasters : undefined,
-      });
-      setResults(response.results ?? []);
-      setHasSearched(true);
-    } catch (error) {
-      console.error("Show all failed:", error);
-      setResults([]);
-    } finally {
-      setIsSearching(false);
-    }
-  }, [searchAction, roastedForFilter, newOnly, excludedRoasters]);
+  const handleShowAll = useCallback(() => {
+    const url = buildSearchUrl({
+      filters: urlState.filters,
+      showAll: true,
+    });
+    router.push(url);
+  }, [router, urlState.filters]);
 
-  // Re-run search when filters change
-  useEffect(() => {
-    if (lastSearchRef.current) {
-      const { text, coffeeId, roasterId } = lastSearchRef.current;
-      // Handle "show all" case (empty text)
-      if (!text && !coffeeId && !roasterId) {
-        handleShowAll();
-      } else {
-        handleSearch(text, coffeeId, roasterId);
-      }
-    }
-  }, [roastedForFilter, newOnly, excludedRoasters, handleSearch, handleShowAll]);
+  // Filter handlers
+  const handleRoastedForFilter = useCallback((value: "espresso" | "filter" | null) => {
+    startTransition(() => {
+      updateFilters({ roastedFor: value });
+    });
+  }, [updateFilters]);
+
+  const handleNewToggle = useCallback(() => {
+    startTransition(() => {
+      updateFilters({ newOnly: !urlState.filters.newOnly });
+    });
+  }, [updateFilters, urlState.filters.newOnly]);
+
+  const handleDecafToggle = useCallback(() => {
+    startTransition(() => {
+      setDecafOnly(prev => !prev);
+    });
+  }, []);
+
+  const handleGroupToggle = useCallback(() => {
+    startTransition(() => {
+      setGroupByRoaster(prev => !prev);
+    });
+  }, []);
+
+  const handleExcludeRoaster = useCallback((roasterId: string) => {
+    const current = urlState.filters.excludedRoasters;
+    const newExcluded = current.includes(roasterId)
+      ? current.filter(r => r !== roasterId)
+      : [...current, roasterId];
+    updateFilters({ excludedRoasters: newExcluded });
+  }, [updateFilters, urlState.filters.excludedRoasters]);
 
   // Group results by roaster
   const groupedByRoaster = useMemo(() => {
@@ -187,8 +223,7 @@ export default function Home() {
     [groupedByRoaster]
   );
 
-  // Track roasters we've seen across searches (for filter dropdown)
-  // Use Set for O(1) lookup (rule 7.11)
+  // Track roasters we've seen across searches
   const knownRoastersSet = useMemo(() => new Set(knownRoasters), [knownRoasters]);
   const currentRoastersKey = currentRoasters.join(",");
   useEffect(() => {
@@ -204,32 +239,8 @@ export default function Home() {
     return Array.from(all).sort();
   }, [currentRoasters, knownRoasters]);
 
-  const handleRoastedForFilter = useCallback((value: "espresso" | "filter" | null) => {
-    startTransition(() => {
-      setRoastedForFilter(value);
-    });
-  }, []);
-
-  const handleNewToggle = useCallback(() => {
-    startTransition(() => {
-      setNewOnly((prev) => !prev);
-    });
-  }, []);
-
-  const handleDecafToggle = useCallback(() => {
-    startTransition(() => {
-      setDecafOnly(prev => !prev);
-    });
-  }, []);
-
-  const handleGroupToggle = useCallback(() => {
-    startTransition(() => {
-      setGroupByRoaster(prev => !prev);
-    });
-  }, []);
-
   // Landing view (no search yet)
-  if (!hasSearched) {
+  if (!hasUrlSearch) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center p-8">
         <h1 className="main-title text-7xl font-black mb-2 tracking-tighter uppercase">
@@ -265,9 +276,13 @@ export default function Home() {
           </h1>
           <div className="flex-1 max-w-[400px]">
             <SearchInput
+              key={searchParams.toString()}
               ref={searchInputRef}
               placeholder="Search..."
               onSubmit={handleSearch}
+              initialQuery={urlState.query}
+              initialCoffee={urlState.coffee ?? undefined}
+              initialRoaster={urlState.roaster ?? undefined}
             />
           </div>
           <Button onClick={handleClear}>Clear</Button>
@@ -283,15 +298,15 @@ export default function Home() {
         <div className="flex justify-between items-start gap-4">
           <div className="flex gap-1.5 flex-wrap items-center">
             <FilterChip
-              active={roastedForFilter === "espresso"}
-              onClick={() => handleRoastedForFilter(roastedForFilter === "espresso" ? null : "espresso")}
+              active={urlState.filters.roastedFor === "espresso"}
+              onClick={() => handleRoastedForFilter(urlState.filters.roastedFor === "espresso" ? null : "espresso")}
             >
               <EspressoIcon className="w-3 h-3" />
               Espresso
             </FilterChip>
             <FilterChip
-              active={roastedForFilter === "filter"}
-              onClick={() => handleRoastedForFilter(roastedForFilter === "filter" ? null : "filter")}
+              active={urlState.filters.roastedFor === "filter"}
+              onClick={() => handleRoastedForFilter(urlState.filters.roastedFor === "filter" ? null : "filter")}
             >
               <FilterIcon className="w-3 h-3" />
               Filter
@@ -304,7 +319,7 @@ export default function Home() {
               Decaf
             </FilterChip>
             <FilterChip
-              active={newOnly}
+              active={urlState.filters.newOnly}
               onClick={handleNewToggle}
             >
               🆕 New
@@ -314,10 +329,10 @@ export default function Home() {
           {/* Roaster toggle button */}
           <div className="relative">
             <Button
-              variant={excludedRoasters.length > 0 ? "primary" : "default"}
+              variant={urlState.filters.excludedRoasters.length > 0 ? "primary" : "default"}
               onClick={() => setShowRoasterToggle(!showRoasterToggle)}
             >
-              🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
+              🏪 Roasters {urlState.filters.excludedRoasters.length > 0 && `(${urlState.filters.excludedRoasters.length} hidden)`}
             </Button>
 
             {/* Roaster toggle dropdown */}
@@ -330,14 +345,8 @@ export default function Home() {
                   >
                     <input
                       type="checkbox"
-                      checked={!excludedRoasters.includes(roasterId)}
-                      onChange={() => {
-                        setExcludedRoasters((prev) =>
-                          prev.includes(roasterId)
-                            ? prev.filter((r) => r !== roasterId)
-                            : [...prev, roasterId]
-                        );
-                      }}
+                      checked={!urlState.filters.excludedRoasters.includes(roasterId)}
+                      onChange={() => handleExcludeRoaster(roasterId)}
                       className="w-4 h-4"
                     />
                     <span className="text-sm font-bold uppercase">{roasterId}</span>

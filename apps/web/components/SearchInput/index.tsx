@@ -28,6 +28,13 @@ export interface SearchInputHandle {
   getText: () => string;
   getCoffeeId: () => string | undefined;
   getRoasterId: () => string | undefined;
+  getCoffeeLabel: () => string | undefined;
+  getRoasterLabel: () => string | undefined;
+}
+
+interface MentionRef {
+  id: string;
+  label: string;
 }
 
 interface SearchInputProps {
@@ -35,12 +42,25 @@ interface SearchInputProps {
   onSubmit?: (text: string, coffeeId?: string, roasterId?: string) => void;
   className?: string;
   autoFocus?: boolean;
+  initialQuery?: string;
+  initialCoffee?: MentionRef;
+  initialRoaster?: MentionRef;
 }
 
 export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
-  function SearchInput({ placeholder = "Search...", onSubmit, className = "", autoFocus = false }, ref) {
-    const [coffeeId, setCoffeeId] = useState<string | undefined>();
-    const [roasterId, setRoasterId] = useState<string | undefined>();
+  function SearchInput({
+    placeholder = "Search...",
+    onSubmit,
+    className = "",
+    autoFocus = false,
+    initialQuery,
+    initialCoffee,
+    initialRoaster,
+  }, ref) {
+    const [coffeeId, setCoffeeId] = useState<string | undefined>(initialCoffee?.id);
+    const [roasterId, setRoasterId] = useState<string | undefined>(initialRoaster?.id);
+    const [coffeeLabel, setCoffeeLabel] = useState<string | undefined>(initialCoffee?.label);
+    const [roasterLabel, setRoasterLabel] = useState<string | undefined>(initialRoaster?.label);
 
     // Preload all coffees and roasters for instant fuzzy search
     const allCoffees = useQuery(api.search.autocompleteCoffees, { query: "", limit: 1000 });
@@ -217,6 +237,44 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
       },
     }), [roasterFuse, allRoasters]);
 
+    // Build initial content from URL state
+    const initialContent = useMemo(() => {
+      const content: any[] = [];
+
+      if (initialQuery) {
+        content.push({ type: "text", text: initialQuery });
+      }
+
+      if (initialCoffee) {
+        if (content.length > 0) {
+          content.push({ type: "text", text: " " });
+        }
+        content.push({
+          type: "coffeeMention",
+          attrs: { id: initialCoffee.id, label: initialCoffee.label },
+        });
+      }
+
+      if (initialRoaster) {
+        if (content.length > 0) {
+          content.push({ type: "text", text: " " });
+        }
+        content.push({
+          type: "roasterMention",
+          attrs: { id: initialRoaster.id, label: initialRoaster.label },
+        });
+      }
+
+      if (content.length === 0) {
+        return "";
+      }
+
+      return {
+        type: "doc",
+        content: [{ type: "paragraph", content }],
+      };
+    }, [initialQuery, initialCoffee, initialRoaster]);
+
     const editor = useEditor({
       extensions: [
         SingleLineDocument,
@@ -231,7 +289,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
           suggestion: roasterSuggestion,
         }),
       ],
-      content: "",
+      content: initialContent,
       editorProps: {
         attributes: {
           class: "outline-none",
@@ -242,12 +300,16 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
         const json = editor.getJSON();
         let foundCoffeeId: string | undefined;
         let foundRoasterId: string | undefined;
+        let foundCoffeeLabel: string | undefined;
+        let foundRoasterLabel: string | undefined;
 
         function walk(node: any) {
           if (node.type === "coffeeMention" && node.attrs?.id) {
             foundCoffeeId = node.attrs.id;
+            foundCoffeeLabel = node.attrs.label;
           } else if (node.type === "roasterMention" && node.attrs?.id) {
             foundRoasterId = node.attrs.id;
+            foundRoasterLabel = node.attrs.label;
           }
           if (node.content) {
             node.content.forEach(walk);
@@ -257,9 +319,27 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
 
         setCoffeeId(foundCoffeeId);
         setRoasterId(foundRoasterId);
+        setCoffeeLabel(foundCoffeeLabel);
+        setRoasterLabel(foundRoasterLabel);
       },
       autofocus: autoFocus,
     }, [coffeeSuggestion, roasterSuggestion]);
+
+    // Extract plain text only (excludes mention labels)
+    const getPlainText = () => {
+      if (!editor) return "";
+      const json = editor.getJSON();
+      let text = "";
+      function walk(node: any) {
+        if (node.type === "text") {
+          text += node.text || "";
+        } else if (node.type !== "coffeeMention" && node.type !== "roasterMention" && node.content) {
+          node.content.forEach(walk);
+        }
+      }
+      walk(json);
+      return text.trim();
+    };
 
     // Handle Enter key for submit
     useEffect(() => {
@@ -270,7 +350,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
           const hasMentionPopup = document.querySelector(".tippy-box");
           if (!hasMentionPopup) {
             event.preventDefault();
-            const text = editor.getText().trim();
+            const text = getPlainText();
             onSubmit?.(text, coffeeId, roasterId);
           }
         }
@@ -287,10 +367,14 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
         editor?.commands.clearContent();
         setCoffeeId(undefined);
         setRoasterId(undefined);
+        setCoffeeLabel(undefined);
+        setRoasterLabel(undefined);
       },
-      getText: () => editor?.getText() ?? "",
+      getText: getPlainText,
       getCoffeeId: () => coffeeId,
       getRoasterId: () => roasterId,
+      getCoffeeLabel: () => coffeeLabel,
+      getRoasterLabel: () => roasterLabel,
     }));
 
     return (

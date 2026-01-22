@@ -628,6 +628,11 @@ export const search = action({
         })
         .sort((a: SearchResult, b: SearchResult) => b.score - a.score);
 
+      // Filter by roaster if specified
+      if (roasterId) {
+        results = results.filter((r) => r.roasterId === roasterId);
+      }
+
       // Combine with text query if provided
       if (normalizedQuery) {
         const taxResult = taxonomySearch(normalizedQuery);
