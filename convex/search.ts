@@ -549,6 +549,8 @@ function coffeeToSearchResult(
   };
 }
 
+const NEW_COFFEE_THRESHOLD_MS = 4 * 24 * 60 * 60 * 1000; // 4 days
+
 // Filter results based on user preferences
 function applyFilters(
   results: SearchResult[],
@@ -558,29 +560,22 @@ function applyFilters(
     excludeRoasters?: string[];
   }
 ): SearchResult[] {
-  const fourDaysMs = 4 * 24 * 60 * 60 * 1000;
   const now = Date.now();
 
   return results.filter((coffee) => {
-    // Roasted for filter
-    if (filters.roastedFor) {
-      if (coffee.roastedFor !== filters.roastedFor && coffee.roastedFor !== null) {
-        return false;
-      }
+    // Roasted for filter: include if matches or if coffee has no roastedFor set
+    if (filters.roastedFor && coffee.roastedFor !== null && coffee.roastedFor !== filters.roastedFor) {
+      return false;
     }
 
-    // New only filter (created in last 4 days)
-    if (filters.newOnly) {
-      if (now - coffee._creationTime >= fourDaysMs) {
-        return false;
-      }
+    // New only: created within threshold
+    if (filters.newOnly && now - coffee._creationTime >= NEW_COFFEE_THRESHOLD_MS) {
+      return false;
     }
 
-    // Exclude roasters filter
-    if (filters.excludeRoasters && filters.excludeRoasters.length > 0) {
-      if (filters.excludeRoasters.includes(coffee.roasterId)) {
-        return false;
-      }
+    // Exclude specific roasters
+    if (filters.excludeRoasters?.includes(coffee.roasterId)) {
+      return false;
     }
 
     return true;
@@ -602,33 +597,63 @@ export const search = action({
     excludeRoasters: v.optional(v.array(v.string())),
   },
   handler: async (ctx, { query, coffeeId, roasterId, limit = 20, roastedFor, newOnly, excludeRoasters }): Promise<SearchResponse> => {
-    const normalizedQuery = query.toLowerCase().trim();
+    let normalizedQuery = query.toLowerCase().trim();
 
-    // If coffeeId is provided, use that coffee's embedding for "similar to" search
+    // Parse "new" filter from query (e.g., "new funky" -> filter for new + search "funky")
+    const newMatch = normalizedQuery.match(/\bnew\b/);
+    const parsedNewOnly = !!newMatch;
+    if (newMatch) {
+      normalizedQuery = normalizedQuery.replace(/\bnew\b/, "").trim().replace(/\s+/g, " ");
+    }
+    // Merge parsed newOnly with explicit parameter (either triggers the filter)
+    const effectiveNewOnly = newOnly || parsedNewOnly;
+
+    // Similarity search: find coffees similar to a given coffee
     if (coffeeId) {
-      const coffee = await ctx.runQuery(internal.search.getCoffeeById, { id: coffeeId });
-      if (!coffee || !coffee.embedding) {
+      const sourceCoffee = await ctx.runQuery(internal.search.getCoffeeById, { id: coffeeId });
+      if (!sourceCoffee || !sourceCoffee.embedding) {
         return { results: [], debug: { source: "similarity", parsedQuery: null } };
       }
 
-      // Get coffees with embeddings for similarity search
       const coffees = await ctx.runQuery(internal.search.getCoffeesWithEmbeddings, {
         excludeId: coffeeId,
       });
 
-      // For now, return coffees sorted by note overlap (simplified similarity)
-      // In production with real vector search, this would use cosine similarity
-      const results = coffees
+      // Score by note overlap (simplified similarity - production would use cosine similarity)
+      let results = coffees
         .map((c: Doc<"coffees">) => {
-          const noteOverlap = c.notes.filter((n: string) => coffee.notes.includes(n));
-          return coffeeToSearchResult(c, noteOverlap, noteOverlap.length / Math.max(coffee.notes.length, 1));
+          const noteOverlap = c.notes.filter((n: string) => sourceCoffee.notes.includes(n));
+          const score = noteOverlap.length / Math.max(sourceCoffee.notes.length, 1);
+          return coffeeToSearchResult(c, noteOverlap, score);
         })
         .sort((a: SearchResult, b: SearchResult) => b.score - a.score);
 
-      // Apply user preference filters
-      const filteredResults = applyFilters(results, { roastedFor, newOnly, excludeRoasters });
+      // Combine with text query if provided
+      if (normalizedQuery) {
+        const taxResult = taxonomySearch(normalizedQuery);
+        if (taxResult.confidence !== "none") {
+          const vocabulary = await ctx.runQuery(internal.search.getDistinctVocabulary, {});
+          const vocabNotesSet = new Set(vocabulary.notes.map((n) => n.toLowerCase()));
+          const matchedNotesLower = taxResult.notes
+            .filter((n) => vocabNotesSet.has(n.toLowerCase()))
+            .map((n) => n.toLowerCase());
 
-      return { results: filteredResults.slice(0, limit), debug: { source: "similarity", parsedQuery: null } };
+          if (matchedNotesLower.length > 0) {
+            results = results
+              .filter((r) => r.notes.some((n) => matchedNotesLower.includes(n.toLowerCase())))
+              .map((r) => ({
+                ...r,
+                matchedAttributes: [
+                  ...r.matchedAttributes,
+                  ...r.notes.filter((n) => matchedNotesLower.includes(n.toLowerCase())),
+                ],
+              }));
+          }
+        }
+      }
+
+      const filtered = applyFilters(results, { roastedFor, newOnly: effectiveNewOnly, excludeRoasters });
+      return { results: filtered.slice(0, limit), debug: { source: "similarity", parsedQuery: null } };
     }
 
     // Fetch vocabulary from DB (distinct notes/processes from all coffees)
@@ -741,7 +766,7 @@ export const search = action({
     });
 
     // Apply user preference filters (roastedFor, newOnly, excludeRoasters)
-    const finalResults = applyFilters(filtered, { roastedFor, newOnly, excludeRoasters });
+    const finalResults = applyFilters(filtered, { roastedFor, newOnly: effectiveNewOnly, excludeRoasters });
 
     return {
       results: finalResults.slice(0, limit),

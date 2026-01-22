@@ -46,30 +46,39 @@ export default function Home() {
   const [hasSearched, setHasSearched] = useState(false);
 
   const [groupByRoaster, setGroupByRoaster] = useState(false);
-  const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(null);
-  const [decafOnly, setDecafOnly] = useState(false);
-  const [newOnly, setNewOnly] = useState(false);
-  const [excludedRoasters, setExcludedRoasters] = useState<string[]>([]);
   const [showRoasterToggle, setShowRoasterToggle] = useState(false);
-  const [knownRoasters, setKnownRoasters] = useState<string[]>([]);
 
-  // Load filters from localStorage on mount
-  useEffect(() => {
-    const saved = localStorage.getItem("brewnanza-filters");
-    if (saved) {
-      try {
-        const filters = JSON.parse(saved);
-        if (filters.roastedFor) setRoastedForFilter(filters.roastedFor);
-        if (filters.newOnly) setNewOnly(filters.newOnly);
-        if (filters.excludedRoasters) setExcludedRoasters(filters.excludedRoasters);
-        if (filters.knownRoasters) setKnownRoasters(filters.knownRoasters);
-      } catch (e) {
-        console.error("Failed to parse saved filters", e);
-      }
-    }
-  }, []);
+  // Lazy init from localStorage (rule 5.6) - runs only once
+  const [roastedForFilter, setRoastedForFilter] = useState<"espresso" | "filter" | null>(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const saved = localStorage.getItem("brewnanza-filters");
+      return saved ? JSON.parse(saved).roastedFor ?? null : null;
+    } catch { return null; }
+  });
+  const [decafOnly, setDecafOnly] = useState(false);
+  const [newOnly, setNewOnly] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const saved = localStorage.getItem("brewnanza-filters");
+      return saved ? JSON.parse(saved).newOnly ?? false : false;
+    } catch { return false; }
+  });
+  const [excludedRoasters, setExcludedRoasters] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const saved = localStorage.getItem("brewnanza-filters");
+      return saved ? JSON.parse(saved).excludedRoasters ?? [] : [];
+    } catch { return []; }
+  });
+  const [knownRoasters, setKnownRoasters] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const saved = localStorage.getItem("brewnanza-filters");
+      return saved ? JSON.parse(saved).knownRoasters ?? [] : [];
+    } catch { return []; }
+  });
 
-  // Save filters to localStorage when they change
   useEffect(() => {
     localStorage.setItem("brewnanza-filters", JSON.stringify({
       roastedFor: roastedForFilter,
@@ -161,29 +170,35 @@ export default function Home() {
     }
   }, [roastedForFilter, newOnly, excludedRoasters, handleSearch, handleShowAll]);
 
-  // Results are already filtered on backend
-  const filteredResults = results ?? [];
+  // Group results by roaster
+  const groupedByRoaster = useMemo(() => {
+    const grouped = new Map<string, SearchResult[]>();
+    for (const coffee of results) {
+      const existing = grouped.get(coffee.roasterId) || [];
+      existing.push(coffee);
+      grouped.set(coffee.roasterId, existing);
+    }
+    return grouped;
+  }, [results]);
 
-  // Group by roaster
-  const groupedByRoaster = new Map<string, typeof filteredResults>();
-  for (const coffee of filteredResults) {
-    const existing = groupedByRoaster.get(coffee.roasterId) || [];
-    existing.push(coffee);
-    groupedByRoaster.set(coffee.roasterId, existing);
-  }
+  // Roasters present in current results
+  const currentRoasters = useMemo(
+    () => Array.from(groupedByRoaster.keys()),
+    [groupedByRoaster]
+  );
 
-  // Track roasters from current results
-  const currentRoasters = Array.from(groupedByRoaster.keys());
-
-  // Update known roasters when we see new ones
+  // Track roasters we've seen across searches (for filter dropdown)
+  // Use Set for O(1) lookup (rule 7.11)
+  const knownRoastersSet = useMemo(() => new Set(knownRoasters), [knownRoasters]);
+  const currentRoastersKey = currentRoasters.join(",");
   useEffect(() => {
-    const newRoasters = currentRoasters.filter(r => !knownRoasters.includes(r));
+    const newRoasters = currentRoasters.filter(r => !knownRoastersSet.has(r));
     if (newRoasters.length > 0) {
       setKnownRoasters(prev => [...prev, ...newRoasters].sort());
     }
-  }, [currentRoasters.join(",")]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [currentRoastersKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Available roasters: combine current results with known roasters (so excluded ones still appear)
+  // Combine current + known roasters for filter dropdown
   const availableRoasters = useMemo(() => {
     const all = new Set([...currentRoasters, ...knownRoasters]);
     return Array.from(all).sort();
@@ -334,11 +349,11 @@ export default function Home() {
         </div>
 
         <p className="mt-2 text-sm text-text-muted font-bold uppercase tracking-wide">
-          {isSearching ? "Searching..." : `${filteredResults.length} results`}
+          {isSearching ? "Searching..." : `${results.length} results`}
         </p>
       </header>
 
-      {filteredResults.length === 0 ? (
+      {results.length === 0 ? (
         <div className="bg-surface border-3 border-border text-center p-8 brutal-shadow">
           <p className="font-bold uppercase">
             {isSearching ? "Searching..." : "No coffees found. Try a different search."}
@@ -361,7 +376,7 @@ export default function Home() {
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 pb-8">
-          {filteredResults.map((coffee) => (
+          {results.map((coffee) => (
             <CoffeeCard key={coffee._id} coffee={coffee} matchedAttributes={coffee.matchedAttributes} />
           ))}
         </div>

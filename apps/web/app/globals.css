@@ -130,15 +130,35 @@ body::before {
   z-index: 50;
 }
 
-/* Tippy.js overrides */
-.tippy-box {
+/* Tippy.js overrides for mention dropdown */
+.tippy-box[data-theme="dropdown"] {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-.tippy-content {
+.tippy-box[data-theme="dropdown"] .tippy-content {
   padding: 0 !important;
+}
+
+/* Tippy.js brutalist theme for card tooltips */
+.tippy-box[data-theme="brutal"] {
+  background: var(--color-surface) !important;
+  border: 2px solid var(--color-border) !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+
+.tippy-box[data-theme="brutal"] .tippy-content {
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+}
+
+.tippy-box[data-theme="brutal"] .tippy-arrow {
+  color: var(--color-border) !important;
 }
 
 /* Surface hover state */

@@ -82,8 +82,8 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
       char: "@",
       allowSpaces: true,
       items: ({ query }: { query: string }) => {
-        // Return null to indicate loading state
-        if (!coffeeFuse || coffeesLoadingRef.current) return null;
+        // Return empty array while loading
+        if (!coffeeFuse || coffeesLoadingRef.current) return [];
 
         const searchQuery = query || "";
         if (!searchQuery) {
@@ -124,6 +124,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
               interactive: true,
               trigger: "manual",
               placement: "bottom-start",
+              theme: "dropdown",
             });
           },
           onUpdate: (props: any) => {
@@ -152,8 +153,8 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
       char: "#",
       allowSpaces: true,
       items: ({ query }: { query: string }) => {
-        // Return null to indicate loading state
-        if (!roasterFuse || roastersLoadingRef.current) return null;
+        // Return empty array while loading
+        if (!roasterFuse || roastersLoadingRef.current) return [];
 
         const searchQuery = query || "";
         if (!searchQuery) {
@@ -192,6 +193,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
               interactive: true,
               trigger: "manual",
               placement: "bottom-start",
+              theme: "dropdown",
             });
           },
           onUpdate: (props: any) => {
