@@ -35,7 +35,7 @@ function parseProductName(fullName: string): { name: string; country: string | n
 /**
  * Scraper for DAK Coffee Roasters (SPA using Snipcart).
  * Catalog-only: extracts product list from shop page.
- * AI extraction for new items happens in CLI using fetchRenderedHtml().
+ * AI extraction for new items happens in CLI using fetchSpaHtml().
  */
 export class DakScraper extends BaseScraper {
   /**
@@ -70,7 +70,7 @@ export class DakScraper extends BaseScraper {
    * Fetch rendered HTML from multiple product pages (for AI extraction).
    * Uses a single browser instance for efficiency.
    */
-  async fetchRenderedHtmlBatch(urls: string[]): Promise<Map<string, string>> {
+  async fetchSpaHtmlBatch(urls: string[]): Promise<Map<string, string>> {
     const { page, browser } = await this.launchBrowser();
     const results = new Map<string, string>();
 
@@ -95,8 +95,8 @@ export class DakScraper extends BaseScraper {
    * Fetch rendered HTML from a product page (for AI extraction).
    * Called by CLI for new items only.
    */
-  async fetchRenderedHtml(url: string): Promise<string> {
-    const results = await this.fetchRenderedHtmlBatch([url]);
+  async fetchSpaHtml(url: string): Promise<string> {
+    const results = await this.fetchSpaHtmlBatch([url]);
     return results.get(url) || "";
   }
 

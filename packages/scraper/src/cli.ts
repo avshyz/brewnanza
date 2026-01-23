@@ -16,27 +16,9 @@
  */
 
 // Load .env.local from monorepo root
+import { config } from "dotenv";
 import { resolve } from "path";
-const envPath = resolve(import.meta.dir, "../../../.env.local");
-const envFile = Bun.file(envPath);
-if (await envFile.exists()) {
-  const text = await envFile.text();
-  for (const line of text.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-    const eqIdx = trimmed.indexOf("=");
-    if (eqIdx === -1) continue;
-    const key = trimmed.slice(0, eqIdx).trim();
-    let value = trimmed.slice(eqIdx + 1).trim();
-    // Remove surrounding quotes
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    }
-    if (!process.env[key]) {
-      process.env[key] = value;
-    }
-  }
-}
+config({ path: resolve(import.meta.dir, "../../../.env.local") });
 
 import pLimit from "p-limit";
 import { getAllRoasters, getRoaster, type RoasterConfig } from "./config.js";
@@ -47,6 +29,11 @@ import {
   applyExtractedDetails,
 } from "./ai-extractor.js";
 import type { BaseScraper } from "./scrapers/base.js";
+import {
+  searchProxySources,
+  hasProxySources,
+  clearProxyCache,
+} from "./proxy-sources.js";
 
 // Import index to register roasters
 import "./index.js";
@@ -397,31 +384,71 @@ async function syncRoaster(
     }
   }
 
-  // Batch fetch HTML if scraper supports it (SPA scrapers)
-  const scraperWithBatch = scraper as BaseScraper & { fetchRenderedHtmlBatch?: (urls: string[]) => Promise<Map<string, string>> };
-  let htmlMap: Map<string, string> | null = null;
+  // Fetch HTML for AI extraction
+  // Priority: 1) Proxy sources (fast), 2) SPA rendering (slow), 3) Simple fetch
+  const scraperWithBatch = scraper as BaseScraper & { fetchSpaHtmlBatch?: (urls: string[]) => Promise<Map<string, string>> };
+  let htmlMap: Map<string, string> = new Map();
 
-  if (scraperWithBatch.fetchRenderedHtmlBatch && toExtract.length > 0) {
-    if (isVerbose) console.log(`  Fetching ${toExtract.length} product pages (batch)...`);
-    htmlMap = await scraperWithBatch.fetchRenderedHtmlBatch(toExtract.map((c) => c.url));
-  } else if (toExtract.length > 0) {
-    // Parallel HTML fetching for non-SPA scrapers
-    if (isVerbose) console.log(`  Fetching ${toExtract.length} product pages...`);
-    const htmlLimit = pLimit(10);
-    const htmlEntries = await Promise.all(
-      toExtract.map((c) =>
-        htmlLimit(async () => {
-          try {
-            const html = await fetchProductHtml(c.url);
-            return [c.url, html] as const;
-          } catch (err) {
-            errors.push(`Fetch failed: ${c.url}`);
-            return [c.url, ""] as const;
-          }
-        })
-      )
-    );
-    htmlMap = new Map(htmlEntries);
+  if (toExtract.length > 0) {
+    // Step 1: Try proxy sources first (for SPA roasters like DAK)
+    const needsSpaFetch: Coffee[] = [];
+    const needsSimpleFetch: Coffee[] = [];
+
+    if (hasProxySources(config.id)) {
+      if (isVerbose) console.log(`  Checking proxy sources for ${toExtract.length} items...`);
+
+      for (const coffee of toExtract) {
+        const proxyMatch = await searchProxySources(coffee.name, config.id, isVerbose);
+        if (proxyMatch) {
+          htmlMap.set(coffee.url, proxyMatch.html);
+          if (isVerbose) console.log(`    ✓ Proxy: ${coffee.name} → ${proxyMatch.source}`);
+        } else {
+          // No proxy match - need SPA fetch
+          needsSpaFetch.push(coffee);
+        }
+      }
+
+      if (isVerbose && needsSpaFetch.length > 0) {
+        console.log(`  ${needsSpaFetch.length} items need SPA rendering`);
+      }
+    } else if (scraperWithBatch.fetchSpaHtmlBatch) {
+      // SPA scraper without proxy sources - all items need SPA fetch
+      needsSpaFetch.push(...toExtract);
+    } else {
+      // Non-SPA scraper - all items need simple fetch
+      needsSimpleFetch.push(...toExtract);
+    }
+
+    // Step 2: SPA rendering for items not found in proxy
+    if (scraperWithBatch.fetchSpaHtmlBatch && needsSpaFetch.length > 0) {
+      if (isVerbose) console.log(`  Fetching ${needsSpaFetch.length} product pages via SPA...`);
+      const spaHtmlMap = await scraperWithBatch.fetchSpaHtmlBatch(needsSpaFetch.map((c) => c.url));
+      for (const [url, html] of spaHtmlMap) {
+        htmlMap.set(url, html);
+      }
+    }
+
+    // Step 3: Simple fetch for non-SPA scrapers
+    if (needsSimpleFetch.length > 0) {
+      if (isVerbose) console.log(`  Fetching ${needsSimpleFetch.length} product pages...`);
+      const htmlLimit = pLimit(10);
+      const htmlEntries = await Promise.all(
+        needsSimpleFetch.map((c) =>
+          htmlLimit(async () => {
+            try {
+              const html = await fetchProductHtml(c.url);
+              return [c.url, html] as const;
+            } catch (err) {
+              errors.push(`Fetch failed: ${c.url}`);
+              return [c.url, ""] as const;
+            }
+          })
+        )
+      );
+      for (const [url, html] of htmlEntries) {
+        htmlMap.set(url, html);
+      }
+    }
   }
 
   // Fetch DB coffees for comparison (only in force-ai + verbose mode)
@@ -540,6 +567,9 @@ async function clearAllData(): Promise<void> {
 }
 
 async function main() {
+  // Clear proxy cache at start of run
+  clearProxyCache();
+
   const allRoasters = getAllRoasters();
 
   if (clearDb) {
