@@ -661,19 +661,6 @@ async function main() {
     console.log(`Mismatched: ${totalMismatched}`);
   }
 
-  // Embed any new notes (if items were inserted and not dry run)
-  if (totalInserted > 0 && !dryRun) {
-    console.log(`\n=== Embedding new notes ===`);
-    const embedResult = Bun.spawnSync({
-      cmd: ["uv", "run", "python", "notes.py", "--openai"],
-      cwd: "../embedder",
-      stdout: "inherit",
-      stderr: "inherit",
-    });
-    if (embedResult.exitCode !== 0) {
-      console.error("Warning: Failed to embed notes");
-    }
-  }
 }
 
 main().catch((error) => {

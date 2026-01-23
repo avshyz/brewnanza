@@ -51,17 +51,18 @@ bun run dev              # Start Next.js only
 
 ## Scraper Commands
 
-Run from `packages/scraper/`:
+Run from project root:
 
 ```bash
-bun run scrape                    # Scrape all roasters (diff + AI + push)
-bun run scrape <id> [id2...]      # Scrape specific roasters
-bun run scrape --dry-run          # Preview changes without pushing
-bun run scrape -v                 # Verbose output
+bun run scrape                    # Scrape + embed (full flow)
+bun run scrape:no-embed           # Scrape only (no embedding)
+bun run scrape:no-embed <id>      # Scrape specific roasters
+bun run scrape:only-embed         # Embed only (no scraping)
 bun run scrape:test <id>          # Test extraction, output to JSON
 bun run scrape:list               # List available roaster IDs
-bun run cache:clear               # Clear AI extraction cache
 ```
+
+**Flags:** `--dry-run` (preview), `-v` (verbose), `--force-ai` (re-extract all)
 
 ### Flow
 
@@ -71,13 +72,14 @@ bun run cache:clear               # Clear AI extraction cache
 4. Deactivate removed items
 5. AI extract new items (qualify + enrich)
 6. Push new items to Convex
+7. Embed new tasting notes
 
 ### Examples
 
 ```bash
-bun run scrape:test lacabra       # Test La Cabra extraction
-bun run scrape lacabra tanat -v   # Scrape multiple, verbose
-bun run scrape --dry-run          # Preview all changes (no push)
+bun run scrape:test lacabra            # Test La Cabra extraction
+bun run scrape:no-embed lacabra -v     # Scrape one roaster, verbose
+bun run scrape:no-embed --dry-run      # Preview all changes (no push)
 ```
 
 ### Available Roasters
@@ -118,9 +120,9 @@ Current proxy sources:
 
 ## Embedder Commands
 
-```bash
-bun run embed-coffees      # Embed coffee tasting notes (run after scraping new items)
-bun run embed-vocab        # Build vocabulary cache for search terms
-```
+Run from project root:
 
-**embed-vocab:** Only run when adding new terms to `packages/embedder/vocabulary.py`. Not part of regular scraping.
+```bash
+bun run scrape:only-embed  # Embed coffee tasting notes
+bun run embed:vocab        # Build vocabulary cache (only when adding new search terms)
+```
