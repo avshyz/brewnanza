@@ -45,7 +45,9 @@ bun run dev              # Start Next.js only
 
 ## Convex
 
-Before changing schema or functions, ensure `bunx convex dev` is running (start in background if needed).
+`bun run dev` starts Convex alongside Next.js automatically. If running separately:
+- `bunx convex dev` - watch mode (syncs on file changes)
+- `bunx convex dev --once` - sync once and exit
 
 ## Scraper Commands
 
@@ -82,3 +84,21 @@ bun run scrape --dry-run          # Preview all changes (no push)
 
 Run `bun run scrape:list` to see all IDs. Current roasters:
 lacabra, tanat, jera, kbcoffee, friedhats, devocion, april, standout, etc.
+
+## Shipping Commands
+
+Check shipping availability and prices for roasters.
+
+```bash
+bun run shipping:check <COUNTRY>   # Check shipping to country (e.g., IL, US, GB)
+bun run shipping:check IL --dry-run # Preview without pushing to Convex
+bun run shipping:check US -v        # Verbose output
+```
+
+Supported country codes: IL, US, GB, DE, NL, DK, SE, FR, ES, IT, CA, AU, JP
+
+### Platform Support
+
+- **Shopify**: friedhats, lacabra, kbcoffee, devocion, april, standout, coffeeorg, hydrangea, datura, scenery
+- **WooCommerce**: tanat, manhattan, amoc, jera
+- **Custom** (not yet supported): dak, youneedcoffee

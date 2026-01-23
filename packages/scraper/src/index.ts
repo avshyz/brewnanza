@@ -22,6 +22,7 @@ import { registerRoaster, type RoasterConfig } from "./config.js";
 import { ShopifyJsonScraper } from "./scrapers/shopify-json.js";
 import { WooCommerceScraper } from "./scrapers/woocommerce.js";
 import { DakScraper } from "./scrapers/dak.js";
+import { YouNeedCoffeeScraper } from "./scrapers/youneedcoffee.js";
 
 // Register all roasters
 const roasters: RoasterConfig[] = [
@@ -151,6 +152,14 @@ const roasters: RoasterConfig[] = [
     collectionUrl: "https://www.dakcoffeeroasters.com/shop",
     scraper: DakScraper,
     currency: "EUR",
+  },
+  {
+    id: "youneedcoffee",
+    name: "You Need Coffee",
+    baseUrl: "https://www.youneedcoffee.co.il",
+    collectionUrl: "https://www.youneedcoffee.co.il/store-english",
+    scraper: YouNeedCoffeeScraper,
+    currency: "ILS",
   },
 ];
 

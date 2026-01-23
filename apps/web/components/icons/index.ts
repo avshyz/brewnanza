@@ -4,3 +4,4 @@ export { DecafIcon } from "./DecafIcon";
 export { LightRoastIcon, MediumRoastIcon, DarkRoastIcon } from "./RoastIcons";
 export { BeanIcon } from "./BeanIcon";
 export { ProducerIcon } from "./ProducerIcon";
+export { ShippingIcon } from "./ShippingIcon";

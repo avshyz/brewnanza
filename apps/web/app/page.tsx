@@ -7,7 +7,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { Button } from "../components/ui/button";
 import { FilterChip } from "../components/ui/filter-chip";
-import { EspressoIcon, FilterIcon, DecafIcon } from "../components/icons";
+import { EspressoIcon, FilterIcon, DecafIcon, ShippingIcon } from "../components/icons";
+import { useShipping } from "../lib/useShipping";
 import { Id } from "../../../convex/_generated/dataModel";
 import { SearchInput, SearchInputHandle } from "../components/SearchInput";
 import { parseSearchParams, buildSearchUrl, SearchState, MentionRef } from "../lib/search-params";
@@ -56,6 +57,7 @@ export default function Home() {
   // UI-only state (localStorage)
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [showRoasterToggle, setShowRoasterToggle] = useState(false);
+  const [showCountrySelector, setShowCountrySelector] = useState(false);
   const [decafOnly, setDecafOnly] = useState(false);
   const [excludedRoasters, setExcludedRoasters] = useState<string[]>(() => {
     if (typeof window === "undefined") return [];
@@ -78,6 +80,18 @@ export default function Home() {
   }, [knownRoasters, excludedRoasters]);
 
   const searchInputRef = useRef<SearchInputHandle>(null);
+
+  // Shipping filter state
+  const {
+    selectedCountry,
+    selectedCountryName,
+    shippingEnabled,
+    supportedCountries,
+    changeCountry,
+    toggleShippingFilter,
+    getShippingForRoaster,
+    canShipToCountry,
+  } = useShipping();
 
   // Derive coffee/roaster IDs for dependency tracking
   const coffeeIds = urlState.coffees.map(c => c.id).join(",");
@@ -238,6 +252,12 @@ export default function Home() {
     return Array.from(all).sort();
   }, [currentRoasters, knownRoasters]);
 
+  // Filter results by shipping availability
+  const filteredResults = useMemo(() => {
+    if (!shippingEnabled || !selectedCountry) return results;
+    return results.filter((coffee) => canShipToCountry(coffee.roasterId));
+  }, [results, shippingEnabled, selectedCountry, canShipToCountry]);
+
   // Landing view (no search yet)
   if (!hasUrlSearch) {
     return (
@@ -323,69 +343,129 @@ export default function Home() {
             >
               🆕 New
             </FilterChip>
+            {/* Shipping filter */}
+            {selectedCountry && (
+              <FilterChip
+                active={shippingEnabled}
+                onClick={toggleShippingFilter}
+              >
+                <ShippingIcon className="w-3 h-3" />
+                Ships to {selectedCountryName}
+              </FilterChip>
+            )}
           </div>
 
-          {/* Roaster toggle button */}
-          <div className="relative">
-            <Button
-              variant={excludedRoasters.length > 0 ? "primary" : "default"}
-              onClick={() => setShowRoasterToggle(!showRoasterToggle)}
-            >
-              🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
-            </Button>
+          <div className="flex gap-2">
+            {/* Country selector */}
+            <div className="relative">
+              <Button
+                variant={selectedCountry ? "default" : "default"}
+                onClick={() => setShowCountrySelector(!showCountrySelector)}
+              >
+                🌍 {selectedCountryName || "Select country"}
+              </Button>
 
-            {/* Roaster toggle dropdown */}
-            {showRoasterToggle && (
-              <div className="absolute right-0 top-full mt-2 bg-surface border-3 border-border brutal-shadow-sm p-2 z-50 max-h-64 overflow-y-auto min-w-48">
-                {availableRoasters.map((roasterId) => (
-                  <label
-                    key={roasterId}
-                    className="flex items-center gap-2 px-2 py-1 hover:bg-surface-hover cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={!excludedRoasters.includes(roasterId)}
-                      onChange={() => handleExcludeRoaster(roasterId)}
-                      className="w-4 h-4"
-                    />
-                    <span className="text-sm font-bold uppercase">{roasterId}</span>
-                  </label>
-                ))}
-              </div>
-            )}
+              {showCountrySelector && (
+                <div className="absolute right-0 top-full mt-2 bg-surface border-3 border-border brutal-shadow-sm p-2 z-50 max-h-64 overflow-y-auto min-w-48">
+                  {supportedCountries.map((country) => (
+                    <button
+                      key={country.code}
+                      className="w-full text-left px-2 py-1 hover:bg-surface-hover cursor-pointer text-sm font-bold uppercase"
+                      onClick={() => {
+                        changeCountry(country.code);
+                        setShowCountrySelector(false);
+                      }}
+                    >
+                      {selectedCountry === country.code ? "✓ " : ""}{country.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Roaster toggle button */}
+            <div className="relative">
+              <Button
+                variant={excludedRoasters.length > 0 ? "primary" : "default"}
+                onClick={() => setShowRoasterToggle(!showRoasterToggle)}
+              >
+                🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
+              </Button>
+
+              {/* Roaster toggle dropdown */}
+              {showRoasterToggle && (
+                <div className="absolute right-0 top-full mt-2 bg-surface border-3 border-border brutal-shadow-sm p-2 z-50 max-h-64 overflow-y-auto min-w-48">
+                  {availableRoasters.map((roasterId) => (
+                    <label
+                      key={roasterId}
+                      className="flex items-center gap-2 px-2 py-1 hover:bg-surface-hover cursor-pointer"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={!excludedRoasters.includes(roasterId)}
+                        onChange={() => handleExcludeRoaster(roasterId)}
+                        className="w-4 h-4"
+                      />
+                      <span className="text-sm font-bold uppercase">{roasterId}</span>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         <p className="mt-2 text-sm text-text-muted font-bold uppercase tracking-wide">
-          {isSearching ? "Searching..." : `${results.length} results`}
+          {isSearching ? "Searching..." : `${filteredResults.length} results`}
+          {shippingEnabled && filteredResults.length < results.length && (
+            <span className="ml-2">({results.length - filteredResults.length} hidden by shipping)</span>
+          )}
         </p>
       </header>
 
-      {results.length === 0 ? (
+      {filteredResults.length === 0 ? (
         <div className="bg-surface border-3 border-border text-center p-8 brutal-shadow">
           <p className="font-bold uppercase">
-            {isSearching ? "Searching..." : "No coffees found. Try a different search."}
+            {isSearching ? "Searching..." : shippingEnabled ? "No coffees ship to your location. Try disabling the shipping filter." : "No coffees found. Try a different search."}
           </p>
         </div>
       ) : groupByRoaster ? (
         <div className="flex flex-col gap-8 pb-8">
-          {Array.from(groupedByRoaster.entries()).map(([roasterId, roasterCoffees]) => (
-            <section key={roasterId}>
-              <h2 className="text-xl font-black mb-4 uppercase border-b-3 border-border pb-2">
-                {roasterId} <span className="text-text-muted font-bold">({roasterCoffees.length})</span>
-              </h2>
-              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {roasterCoffees.map((coffee) => (
-                  <CoffeeCard key={coffee._id} coffee={coffee} showRoaster={false} matchedAttributes={coffee.matchedAttributes} />
-                ))}
-              </div>
-            </section>
-          ))}
+          {Array.from(new Map(filteredResults.map(c => [c.roasterId, c])).keys()).map((roasterId) => {
+            const roasterCoffees = filteredResults.filter(c => c.roasterId === roasterId);
+            const shippingInfo = selectedCountry ? getShippingForRoaster(roasterId) : null;
+            return (
+              <section key={roasterId}>
+                <h2 className="text-xl font-black mb-4 uppercase border-b-3 border-border pb-2">
+                  {roasterId} <span className="text-text-muted font-bold">({roasterCoffees.length})</span>
+                  {shippingInfo && shippingInfo.available && shippingInfo.priceUsd && (
+                    <span className="ml-2 text-sm text-green-700">📦 ${shippingInfo.priceUsd.toFixed(0)} shipping</span>
+                  )}
+                </h2>
+                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {roasterCoffees.map((coffee) => (
+                    <CoffeeCard
+                      key={coffee._id}
+                      coffee={coffee}
+                      showRoaster={false}
+                      matchedAttributes={coffee.matchedAttributes}
+                      shippingInfo={shippingInfo}
+                    />
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 pb-8">
-          {results.map((coffee) => (
-            <CoffeeCard key={coffee._id} coffee={coffee} matchedAttributes={coffee.matchedAttributes} />
+          {filteredResults.map((coffee) => (
+            <CoffeeCard
+              key={coffee._id}
+              coffee={coffee}
+              matchedAttributes={coffee.matchedAttributes}
+              shippingInfo={selectedCountry ? getShippingForRoaster(coffee.roasterId) : null}
+            />
           ))}
         </div>
       )}

@@ -11,6 +11,7 @@
     "scrape": "bun run src/cli.ts",
     "scrape:test": "bun run src/compare-extraction.ts",
     "scrape:list": "bun run src/cli.ts --list",
+    "shipping:check": "bun run src/shipping-cli.ts",
     "db:clear": "cd ../.. && bunx convex run coffees:clearAll"
   },
   "dependencies": {

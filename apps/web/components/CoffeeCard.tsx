@@ -71,10 +71,16 @@ function formatPriceUsd(price: CoffeeData["prices"][0]): string | null {
   return `$${price.priceUsd.toFixed(0)}/${price.weightGrams}g`;
 }
 
+interface ShippingInfo {
+  available: boolean;
+  priceUsd?: number;
+}
+
 interface CoffeeCardProps {
   coffee: CoffeeData;
   showRoaster?: boolean;
   matchedAttributes?: string[];
+  shippingInfo?: ShippingInfo | null;
 }
 
 // Single process emoji for all processing methods
@@ -196,7 +202,7 @@ function buildTooltipContent(
   return parts.join("<br>");
 }
 
-export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] }: CoffeeCardProps) {
+export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [], shippingInfo }: CoffeeCardProps) {
   const roasterChipRef = useRef<HTMLDivElement>(null);
   const producer = coffee.producer?.join(", ");
   const variety = coffee.variety.join(", ");
@@ -258,6 +264,20 @@ export function CoffeeCard({ coffee, showRoaster = true, matchedAttributes = [] 
             {bestPrice && (
               <Chip className="bg-amber-100 text-amber-900 border-amber-400 transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] font-mono text-[0.65rem]">
                 {formatPrice(bestPrice)}
+              </Chip>
+            )}
+            {shippingInfo && (
+              <Chip className={cn(
+                "transition-shadow duration-200 group-hover:shadow-[3px_3px_0_var(--color-border)] font-mono text-[0.65rem]",
+                shippingInfo.available
+                  ? "bg-green-100 text-green-900 border-green-400"
+                  : "bg-red-100 text-red-900 border-red-400"
+              )}>
+                {shippingInfo.available
+                  ? shippingInfo.priceUsd
+                    ? `📦 $${shippingInfo.priceUsd.toFixed(0)}`
+                    : "📦 Ships"
+                  : "🚫 No ship"}
               </Chip>
             )}
           </div>

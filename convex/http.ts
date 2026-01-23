@@ -157,4 +157,41 @@ http.route({
   }),
 });
 
+/**
+ * POST /update-shipping - Update shipping rates for a roaster
+ * Body: { roasterId, rates: [{ countryCode, available, price?, priceUsd?, currency, checkedAt }] }
+ */
+http.route({
+  path: "/update-shipping",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    const { roasterId, rates } = body;
+
+    if (!roasterId || !Array.isArray(rates)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid request body" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    try {
+      const result = await ctx.runMutation(api.roasters.updateShippingRates, {
+        roasterId,
+        rates,
+      });
+
+      return new Response(JSON.stringify({ success: true, ...result }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: String(error) }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }),
+});
+
 export default http;

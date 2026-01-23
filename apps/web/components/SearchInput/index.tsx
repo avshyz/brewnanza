@@ -277,6 +277,7 @@ export const SearchInput = forwardRef<SearchInputHandle, SearchInputProps>(
     }, [initialQuery, initialCoffees, initialRoasters]);
 
     const editor = useEditor({
+      immediatelyRender: false, // Disable SSR to avoid hydration mismatches
       extensions: [
         SingleLineDocument,
         Paragraph,

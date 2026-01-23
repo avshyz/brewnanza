@@ -77,6 +77,15 @@ export default defineSchema({
     currency: v.string(),
     lastScrapedAt: v.union(v.number(), v.null()),
     coffeeCount: v.number(),
+    // Per-destination shipping rates (populated by shipping checker)
+    shippingRates: v.optional(v.array(v.object({
+      countryCode: v.string(),       // "IL", "US", etc.
+      available: v.boolean(),        // Can ship there?
+      price: v.optional(v.number()), // Original price in roaster's currency
+      priceUsd: v.optional(v.number()), // Converted to USD
+      currency: v.string(),          // Original currency "EUR", "DKK"
+      checkedAt: v.number(),         // Timestamp
+    }))),
   }).index("by_roasterId", ["roasterId"]),
 
   // Individual note embeddings for semantic note matching
