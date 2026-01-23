@@ -8,8 +8,8 @@
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "scrape": "bun run --filter @brewnanza/scraper scrape",
-    "embed": "bun run --filter @brewnanza/embedder embed",
-    "vocab": "bun run --filter @brewnanza/embedder vocab"
+    "embed-coffees": "bun run --filter @brewnanza/embedder embed-coffees",
+    "embed-vocab": "bun run --filter @brewnanza/embedder embed-vocab"
   },
   "devDependencies": {
     "convex": "^1.17.4",

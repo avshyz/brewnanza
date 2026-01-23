@@ -101,4 +101,26 @@ Supported country codes: IL, US, GB, DE, NL, DK, SE, FR, ES, IT, CA, AU, JP
 
 - **Shopify**: friedhats, lacabra, kbcoffee, devocion, april, standout, coffeeorg, hydrangea, datura, scenery
 - **WooCommerce**: tanat, manhattan, amoc, jera
-- **Custom** (not yet supported): dak, youneedcoffee
+- **SPA (Playwright)**: dak, youneedcoffee
+
+### Adding a New SPA Roaster
+
+SPA roasters require Playwright for rendering, which is slow. Before adding one:
+
+1. **Search for resellers** that carry the roaster's coffees
+2. **Check if resellers have APIs** (Shopify `/products.json`, WooCommerce REST API)
+3. **Add as proxy source** in `packages/scraper/src/proxy-sources.ts` if available
+4. The scraper will try proxy sources first (fast), fall back to Playwright (slow)
+
+Current proxy sources:
+- **Sigma Coffee UK** (sigmacoffee.co.uk) - carries DAK, Hydrangea, Tanat
+- **Dayglow** (dayglow.coffee) - carries DAK, Morgon, Luna, Quo, Fritz
+
+## Embedder Commands
+
+```bash
+bun run embed-coffees      # Embed coffee tasting notes (run after scraping new items)
+bun run embed-vocab        # Build vocabulary cache for search terms
+```
+
+**embed-vocab:** Only run when adding new terms to `packages/embedder/vocabulary.py`. Not part of regular scraping.

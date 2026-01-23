@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "embed": "uv run embed.py",
-    "vocab": "uv run vocabulary.py"
+    "embed-coffees": "uv run embed.py",
+    "embed-vocab": "uv run vocabulary.py"
   }
 }
