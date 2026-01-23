@@ -13,6 +13,8 @@ import { Id } from "../../../convex/_generated/dataModel";
 import { SearchInput, SearchInputHandle } from "../components/SearchInput";
 import { parseSearchParams, buildSearchUrl, SearchState, MentionRef } from "../lib/search-params";
 import { useRef } from "react";
+import { CountryAutocomplete } from "../components/CountryAutocomplete";
+import { Popover, PopoverTrigger, PopoverContent } from "../components/ui/popover";
 
 
 interface SearchResult {
@@ -57,7 +59,6 @@ export default function Home() {
   // UI-only state (localStorage)
   const [groupByRoaster, setGroupByRoaster] = useState(false);
   const [showRoasterToggle, setShowRoasterToggle] = useState(false);
-  const [showCountrySelector, setShowCountrySelector] = useState(false);
   const [decafOnly, setDecafOnly] = useState(false);
   const [excludedRoasters, setExcludedRoasters] = useState<string[]>(() => {
     if (typeof window === "undefined") return [];
@@ -359,62 +360,37 @@ export default function Home() {
           </div>
 
           <div className="flex gap-2">
-            {/* Country selector */}
-            <div className="relative">
-              <Button
-                variant={selectedCountry ? "default" : "default"}
-                onClick={() => setShowCountrySelector(!showCountrySelector)}
-              >
-                🌍 {selectedCountryName || "Select country"}
-              </Button>
+            {/* Country autocomplete */}
+            <CountryAutocomplete
+              countries={supportedCountries}
+              value={selectedCountry}
+              onChange={changeCountry}
+            />
 
-              {showCountrySelector && (
-                <div className="absolute right-0 top-full mt-2 bg-surface border-3 border-border brutal-shadow-sm p-2 z-50 max-h-64 overflow-y-auto min-w-48">
-                  {supportedCountries.map((country) => (
-                    <button
-                      key={country.code}
-                      className="w-full text-left px-2 py-1 hover:bg-surface-hover cursor-pointer text-sm font-bold uppercase"
-                      onClick={() => {
-                        changeCountry(country.code);
-                        setShowCountrySelector(false);
-                      }}
-                    >
-                      {selectedCountry === country.code ? "✓ " : ""}{country.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Roaster toggle button */}
-            <div className="relative">
-              <Button
-                variant={excludedRoasters.length > 0 ? "primary" : "default"}
-                onClick={() => setShowRoasterToggle(!showRoasterToggle)}
-              >
-                🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
-              </Button>
-
-              {/* Roaster toggle dropdown */}
-              {showRoasterToggle && (
-                <div className="absolute right-0 top-full mt-2 bg-surface border-3 border-border brutal-shadow-sm p-2 z-50 max-h-64 overflow-y-auto min-w-48">
-                  {availableRoasters.map((roasterId) => (
-                    <label
-                      key={roasterId}
-                      className="flex items-center gap-2 px-2 py-1 hover:bg-surface-hover cursor-pointer"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={!excludedRoasters.includes(roasterId)}
-                        onChange={() => handleExcludeRoaster(roasterId)}
-                        className="w-4 h-4"
-                      />
-                      <span className="text-sm font-bold uppercase">{roasterId}</span>
-                    </label>
-                  ))}
-                </div>
-              )}
-            </div>
+            {/* Roaster toggle */}
+            <Popover open={showRoasterToggle} onOpenChange={setShowRoasterToggle}>
+              <PopoverTrigger asChild>
+                <Button variant={excludedRoasters.length > 0 ? "primary" : "default"}>
+                  🏪 Roasters {excludedRoasters.length > 0 && `(${excludedRoasters.length} hidden)`}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                {availableRoasters.map((roasterId) => (
+                  <label
+                    key={roasterId}
+                    className="flex items-center gap-2 px-2 py-1 hover:bg-surface-hover cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={!excludedRoasters.includes(roasterId)}
+                      onChange={() => handleExcludeRoaster(roasterId)}
+                      className="w-4 h-4"
+                    />
+                    <span className="text-sm font-bold uppercase">{roasterId}</span>
+                  </label>
+                ))}
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
 
