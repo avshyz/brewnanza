@@ -8,6 +8,11 @@
  *   bun run src/shipping-cli.ts DE -v        # Verbose output
  */
 
+// Load .env.local from monorepo root
+import { config } from "dotenv";
+import { resolve } from "path";
+config({ path: resolve(import.meta.dir, "../../../.env.local") });
+
 import { getAllRoasters } from "./config.js";
 import { checkAllShipping } from "./shipping/index.js";
 

@@ -9,9 +9,11 @@
     "typecheck": "turbo typecheck",
     "scrape": "bun run scrape:no-embed && bun run scrape:only-embed",
     "scrape:no-embed": "bun run --filter @brewnanza/scraper scrape",
-    "scrape:only-embed": "cd packages/embedder && uv run python notes.py --openai",
+    "scrape:only-embed": "bun run embed:coffees && bun run embed:notes",
     "scrape:test": "bun run --filter @brewnanza/scraper scrape:test",
     "scrape:list": "bun run --filter @brewnanza/scraper scrape:list",
+    "embed:coffees": "cd packages/embedder && uv run python embed.py",
+    "embed:notes": "cd packages/embedder && uv run python notes.py --openai",
     "embed:vocab": "cd packages/embedder && uv run python vocabulary.py",
     "shipping:check": "bun run --filter @brewnanza/scraper shipping:check"
   },

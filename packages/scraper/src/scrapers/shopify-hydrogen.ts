@@ -1,6 +1,7 @@
 /**
  * Shopify Hydrogen (headless) scraper.
- * Parses JSON-LD from server-rendered HTML.
+ * Parses JSON-LD from server-rendered HTML and extracts coffee attributes
+ * from individual product pages (Remix state).
  * Used for Shopify stores using Hydrogen/Oxygen that don't expose /products.json
  */
 
@@ -9,6 +10,7 @@ import type { Coffee } from "../models.js";
 import { createPriceVariant } from "../models.js";
 import { SKIP_PRODUCT_TYPES, SKIP_TAGS } from "../config.js";
 import { logScrapeError } from "../utils.js";
+import pLimit from "p-limit";
 
 interface JsonLdProduct {
   "@type": string;
@@ -56,6 +58,70 @@ function extractJsonLd(html: string): JsonLdCollectionPage | null {
 }
 
 /**
+ * Attribute field mapping from Friedhats to Coffee model.
+ * Some attributes have a "value" key prefix (like Variety), others don't.
+ */
+interface AttrConfig {
+  field: keyof Coffee;
+  hasValueKey: boolean;
+}
+
+const ATTRIBUTE_MAP: Record<string, AttrConfig> = {
+  Country: { field: "country", hasValueKey: false },
+  Region: { field: "region", hasValueKey: false },
+  Processing: { field: "process", hasValueKey: false },
+  Variety: { field: "variety", hasValueKey: true },
+  "Flavour Notes": { field: "notes", hasValueKey: false },
+  Exporter: { field: "producer", hasValueKey: false },
+};
+
+/**
+ * Extract product attributes from Remix state embedded in HTML.
+ * Friedhats embeds data in two formats:
+ * - Direct: Country\",\"Colombia\"
+ * - With value key: Variety\",\"value\",\"Castillo, Colombia\"
+ */
+function extractProductAttributes(
+  html: string
+): Partial<Record<keyof Coffee, string[]>> {
+  const result: Partial<Record<keyof Coffee, string[]>> = {};
+
+  for (const [attrName, config] of Object.entries(ATTRIBUTE_MAP)) {
+    // Build regex based on whether attribute has "value" key
+    const escapedName = attrName.replace(/\s+/g, "\\s*");
+    let regex: RegExp;
+
+    if (config.hasValueKey) {
+      // Pattern: AttrName\",\"value\",\"ActualValue\"
+      regex = new RegExp(
+        `${escapedName}\\\\",\\\\"value\\\\",\\\\"([^"]+)\\\\"`,
+        "i"
+      );
+    } else {
+      // Pattern: AttrName\",\"ActualValue\" (value must be >2 chars to skip locale codes)
+      regex = new RegExp(`${escapedName}\\\\",\\\\"([^"]{3,})\\\\"`, "i");
+    }
+
+    const match = html.match(regex);
+
+    if (match?.[1]) {
+      const value = match[1];
+      // Split comma-separated values and trim
+      const values = value
+        .split(/,\s*/)
+        .map((v) => v.trim())
+        .filter((v) => v.length > 0);
+
+      if (values.length > 0) {
+        result[config.field] = values;
+      }
+    }
+  }
+
+  return result;
+}
+
+/**
  * Scraper for Shopify Hydrogen stores.
  * Parses JSON-LD schema from server-rendered HTML.
  */
@@ -88,10 +154,9 @@ export class ShopifyHydrogenScraper extends BaseScraper {
   }
 
   /**
-   * Parse a JSON-LD product into our Coffee model.
-   * Origin fields are empty - AI extraction will populate them.
+   * Parse a JSON-LD product into basic Coffee model (without attributes).
    */
-  private parseProduct(item: JsonLdListItem): Coffee | null {
+  private parseBasicProduct(item: JsonLdListItem): Coffee | null {
     const product = item.item;
     if (!product || product["@type"] !== "Product") return null;
 
@@ -116,7 +181,7 @@ export class ShopifyHydrogenScraper extends BaseScraper {
       url,
       roasterId: this.config.id,
       prices,
-      // Origin fields - empty arrays, AI will populate
+      // Origin fields - populated from product page
       country: [],
       region: [],
       producer: [],
@@ -135,7 +200,30 @@ export class ShopifyHydrogenScraper extends BaseScraper {
   }
 
   /**
-   * Scrape all coffees from Hydrogen store's JSON-LD.
+   * Fetch product page and extract attributes.
+   */
+  private async enrichWithProductPage(coffee: Coffee): Promise<Coffee> {
+    try {
+      const html = await this.fetchHtml(coffee.url);
+      const attrs = extractProductAttributes(html);
+
+      // Apply extracted attributes
+      if (attrs.country?.length) coffee.country = attrs.country;
+      if (attrs.region?.length) coffee.region = attrs.region;
+      if (attrs.producer?.length) coffee.producer = attrs.producer;
+      if (attrs.process?.length) coffee.process = attrs.process;
+      if (attrs.variety?.length) coffee.variety = attrs.variety;
+      if (attrs.notes?.length) coffee.notes = attrs.notes;
+    } catch (error) {
+      logScrapeError(`enriching ${coffee.name}`, error);
+    }
+
+    return coffee;
+  }
+
+  /**
+   * Scrape all coffees from Hydrogen store's JSON-LD,
+   * then enrich with attributes from individual product pages.
    */
   async scrape(): Promise<Coffee[]> {
     const html = await this.fetchHtml(this.config.collectionUrl);
@@ -147,19 +235,25 @@ export class ShopifyHydrogenScraper extends BaseScraper {
     }
 
     const items = jsonLd.mainEntity.itemListElement;
-    const coffees: Coffee[] = [];
+    const basicCoffees: Coffee[] = [];
 
     for (const item of items) {
       try {
-        const coffee = this.parseProduct(item);
+        const coffee = this.parseBasicProduct(item);
         if (coffee) {
-          coffees.push(coffee);
+          basicCoffees.push(coffee);
         }
       } catch (error) {
         logScrapeError(`product ${item.item?.name}`, error);
       }
     }
 
-    return coffees;
+    // Fetch product pages in parallel (limit concurrency to avoid rate limiting)
+    const limit = pLimit(5);
+    const enriched = await Promise.all(
+      basicCoffees.map((coffee) => limit(() => this.enrichWithProductPage(coffee)))
+    );
+
+    return enriched;
   }
 }
