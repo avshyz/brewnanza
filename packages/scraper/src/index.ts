@@ -20,6 +20,7 @@ export * from "./currency.js";
 // Roaster registration
 import { registerRoaster, type RoasterConfig } from "./config.js";
 import { ShopifyJsonScraper } from "./scrapers/shopify-json.js";
+import { ShopifyHydrogenScraper } from "./scrapers/shopify-hydrogen.js";
 import { WooCommerceScraper } from "./scrapers/woocommerce.js";
 import { DakScraper } from "./scrapers/dak.js";
 import { YouNeedCoffeeScraper } from "./scrapers/youneedcoffee.js";
@@ -31,7 +32,7 @@ const roasters: RoasterConfig[] = [
     name: "Friedhats",
     baseUrl: "https://friedhats.com",
     collectionUrl: "https://friedhats.com/collections/coffees",
-    scraper: ShopifyJsonScraper,
+    scraper: ShopifyHydrogenScraper,
     currency: "EUR",
   },
   {

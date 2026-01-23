@@ -229,7 +229,7 @@ function getClient(): Anthropic {
     if (!apiKey) {
       throw new Error("ANTHROPIC_API_KEY environment variable required");
     }
-    client = new Anthropic({ apiKey });
+    client = new Anthropic({ apiKey, maxRetries: 5 });
   }
   return client;
 }
