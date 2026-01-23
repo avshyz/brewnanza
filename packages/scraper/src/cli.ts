@@ -15,6 +15,30 @@
  *   bun run src/cli.ts -v                 # Verbose output
  */
 
+// Load .env.local from monorepo root
+import { resolve } from "path";
+const envPath = resolve(import.meta.dir, "../../../.env.local");
+const envFile = Bun.file(envPath);
+if (await envFile.exists()) {
+  const text = await envFile.text();
+  for (const line of text.split("\n")) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    let value = trimmed.slice(eqIdx + 1).trim();
+    // Remove surrounding quotes
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    if (!process.env[key]) {
+      process.env[key] = value;
+    }
+  }
+}
+
+import pLimit from "p-limit";
 import { getAllRoasters, getRoaster, type RoasterConfig } from "./config.js";
 import type { Coffee, ScrapeResult } from "./models.js";
 import {
@@ -34,6 +58,7 @@ const verbose = args.includes("-v") || args.includes("--verbose");
 const listOnly = args.includes("--list");
 const dryRun = args.includes("--dry-run");
 const clearDb = args.includes("--clear-db");
+const forceAi = args.includes("--force-ai");
 
 // Sample limit: --sample N limits new items to N (saves API costs during testing)
 const sampleIdx = args.findIndex((a) => a === "--sample");
@@ -99,6 +124,33 @@ async function fetchActiveUrls(roasterId: string): Promise<Set<string>> {
   return new Set(data.map((d) => d.url));
 }
 
+interface DbCoffee {
+  url: string;
+  name: string;
+  country: string[];
+  region: string[];
+  producer: string[];
+  process: string[];
+  protocol: string[];
+  variety: string[];
+  notes: string[];
+  caffeine: "decaf" | "lowcaf" | null;
+  roastLevel: "light" | "medium" | "dark" | null;
+  roastedFor: "filter" | "espresso" | null;
+}
+
+async function fetchDbCoffees(roasterId: string): Promise<Map<string, DbCoffee>> {
+  const url = `${CONVEX_SITE_URL}/coffees?roasterId=${encodeURIComponent(roasterId)}`;
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch coffees: ${response.status}`);
+  }
+
+  const data: DbCoffee[] = await response.json();
+  return new Map(data.map((c) => [c.url, c]));
+}
+
 async function updateAvailability(
   roasterId: string,
   updates: Array<{ url: string; prices: Coffee["prices"]; available: boolean }>
@@ -145,17 +197,55 @@ async function fetchProductHtml(productUrl: string): Promise<string> {
   return response.text();
 }
 
+/** Print all extracted fields for a coffee */
+function printCoffeeDetails(coffee: Coffee, dbCoffee?: DbCoffee): void {
+  console.log(`\n  [${coffee.name}]`);
+  console.log(`    url: ${coffee.url}`);
+  console.log(`    country: ${JSON.stringify(coffee.country)}`);
+  console.log(`    region: ${JSON.stringify(coffee.region)}`);
+  console.log(`    producer: ${JSON.stringify(coffee.producer)}`);
+  console.log(`    process: ${JSON.stringify(coffee.process)}`);
+  console.log(`    variety: ${JSON.stringify(coffee.variety)}`);
+  console.log(`    notes: ${JSON.stringify(coffee.notes)}`);
+  console.log(`    caffeine: ${coffee.caffeine}`);
+  console.log(`    roastLevel: ${coffee.roastLevel}`);
+  console.log(`    roastedFor: ${coffee.roastedFor}`);
+
+  if (dbCoffee) {
+    const fields = ["country", "region", "producer", "process", "variety", "notes", "caffeine", "roastLevel", "roastedFor"] as const;
+    const mismatches: string[] = [];
+
+    for (const field of fields) {
+      const extracted = coffee[field];
+      const db = dbCoffee[field];
+      const match = JSON.stringify(extracted) === JSON.stringify(db);
+      if (!match) {
+        mismatches.push(`${field} (DB: ${JSON.stringify(db)})`);
+      }
+    }
+
+    if (mismatches.length === 0) {
+      console.log(`    DB match: all fields ✓`);
+    } else {
+      console.log(`    DB mismatch: ${mismatches.join(", ")}`);
+    }
+  }
+}
+
 async function syncRoaster(
   config: RoasterConfig,
   isDryRun: boolean,
   isVerbose: boolean,
-  maxNewItems: number = Infinity
+  maxNewItems: number = Infinity,
+  isForceAi: boolean = false
 ): Promise<{
   updated: number;
   deactivated: number;
   inserted: number;
   skipped: number;
   errors: string[];
+  timing?: { total: number; aiExtraction: number; itemCount: number };
+  comparison?: { matched: number; mismatched: number };
 }> {
   const errors: string[] = [];
 
@@ -218,59 +308,93 @@ async function syncRoaster(
     console.log(`  New items: ${toInsert.length}`);
   }
 
-  if (isDryRun) {
+  // For --force-ai: treat ALL available catalog items as needing extraction
+  const forceAiItems: Coffee[] = isForceAi
+    ? Array.from(catalogMap.values()).filter((c) => c.available)
+    : [];
+
+  if (isForceAi && isVerbose) {
+    console.log(`  [FORCE-AI] Processing ${forceAiItems.length} items for AI extraction`);
+  }
+
+  if (isDryRun && !isForceAi) {
     console.log(`  [DRY RUN] Would update ${toUpdate.length}, deactivate ${toDeactivate.length}, insert ${toInsert.length}`);
     return { updated: 0, deactivated: 0, inserted: 0, skipped: 0, errors };
   }
 
-  // 4. Execute updates
+  const startTime = Date.now();
+  let aiExtractionTime = 0;
+
+  // 4. Execute updates (skip in dry-run)
   let updated = 0;
-  if (toUpdate.length > 0) {
+  if (!isDryRun && toUpdate.length > 0) {
     if (isVerbose) console.log(`  Updating availability...`);
     const res = await updateAvailability(config.id, toUpdate);
     updated = res.updated;
   }
 
-  // 5. Execute deactivations
+  // 5. Execute deactivations (skip in dry-run)
   let deactivated = 0;
-  if (toDeactivate.length > 0) {
+  if (!isDryRun && toDeactivate.length > 0) {
     if (isVerbose) console.log(`  Deactivating removed items...`);
     const res = await deactivateUrls(config.id, toDeactivate);
     deactivated = res.deactivated;
   }
 
-  // 6. AI extract new items (limited by maxNewItems)
+  // 6. AI extract items
+  // In force-ai mode: extract ALL available items
+  // Otherwise: only extract new items
   let inserted = 0;
   let skipped = 0;
   const coffeesToInsert: Coffee[] = [];
-  const itemsToProcess = toInsert.slice(0, maxNewItems);
+  const itemsToProcess = isForceAi
+    ? forceAiItems.slice(0, maxNewItems)
+    : toInsert.slice(0, maxNewItems);
 
-  if (itemsToProcess.length < toInsert.length && isVerbose) {
-    console.log(`  Limiting to ${maxNewItems} new items (--sample)`);
+  if (itemsToProcess.length < (isForceAi ? forceAiItems.length : toInsert.length) && isVerbose) {
+    console.log(`  Limiting to ${maxNewItems} items (--sample)`);
   }
 
-  // Pre-qualify items and collect URLs for batch fetching
+  // Pre-qualify items in parallel
   const toExtract: Coffee[] = [];
-  if (isVerbose) console.log(`  Qualifying ${itemsToProcess.length} items...`);
+  const needsQualification: Coffee[] = [];
+
   for (const coffee of itemsToProcess) {
-    // Skip AI extraction if scraper already enriched
-    const alreadyEnriched = coffee.notes.length > 0 || coffee.process.length > 0 || coffee.variety.length > 0;
-    if (alreadyEnriched) {
-      if (isVerbose) console.log(`    Pre-enriched: ${coffee.name}`);
-      coffeesToInsert.push(coffee);
-      continue;
+    // In force-ai mode, always extract (ignore already-enriched check)
+    if (isForceAi) {
+      needsQualification.push(coffee);
+    } else {
+      // Skip AI extraction if scraper already enriched
+      const alreadyEnriched = coffee.notes.length > 0 || coffee.process.length > 0 || coffee.variety.length > 0;
+      if (alreadyEnriched) {
+        if (isVerbose) console.log(`    Pre-enriched: ${coffee.name}`);
+        coffeesToInsert.push(coffee);
+      } else {
+        needsQualification.push(coffee);
+      }
     }
+  }
 
-    // Qualify
-    if (isVerbose) console.log(`    Qualifying: ${coffee.name}`);
-    const isCoffee = await qualifyProduct(coffee.name);
-    if (!isCoffee) {
-      if (isVerbose) console.log(`    Skip (not coffee): ${coffee.name}`);
-      skipped++;
-      continue;
+  if (needsQualification.length > 0) {
+    if (isVerbose) console.log(`  Qualifying ${needsQualification.length} items...`);
+    const qualifyLimit = pLimit(10);
+    const qualifyResults = await Promise.all(
+      needsQualification.map((coffee) =>
+        qualifyLimit(async () => {
+          const isCoffee = await qualifyProduct(coffee.name);
+          return { coffee, isCoffee };
+        })
+      )
+    );
+
+    for (const { coffee, isCoffee } of qualifyResults) {
+      if (!isCoffee) {
+        if (isVerbose) console.log(`    Skip (not coffee): ${coffee.name}`);
+        skipped++;
+      } else {
+        toExtract.push(coffee);
+      }
     }
-
-    toExtract.push(coffee);
   }
 
   // Batch fetch HTML if scraper supports it (SPA scrapers)
@@ -278,44 +402,106 @@ async function syncRoaster(
   let htmlMap: Map<string, string> | null = null;
 
   if (scraperWithBatch.fetchRenderedHtmlBatch && toExtract.length > 0) {
-    if (isVerbose) console.log(`  Fetching ${toExtract.length} product pages...`);
+    if (isVerbose) console.log(`  Fetching ${toExtract.length} product pages (batch)...`);
     htmlMap = await scraperWithBatch.fetchRenderedHtmlBatch(toExtract.map((c) => c.url));
+  } else if (toExtract.length > 0) {
+    // Parallel HTML fetching for non-SPA scrapers
+    if (isVerbose) console.log(`  Fetching ${toExtract.length} product pages...`);
+    const htmlLimit = pLimit(10);
+    const htmlEntries = await Promise.all(
+      toExtract.map((c) =>
+        htmlLimit(async () => {
+          try {
+            const html = await fetchProductHtml(c.url);
+            return [c.url, html] as const;
+          } catch (err) {
+            errors.push(`Fetch failed: ${c.url}`);
+            return [c.url, ""] as const;
+          }
+        })
+      )
+    );
+    htmlMap = new Map(htmlEntries);
   }
 
-  // Extract details from each coffee
-  for (const coffee of toExtract) {
+  // Fetch DB coffees for comparison (only in force-ai + verbose mode)
+  let dbCoffees: Map<string, DbCoffee> | null = null;
+  if (isForceAi && isVerbose) {
     try {
-      if (isVerbose) console.log(`    Extracting: ${coffee.name}`);
-      let html: string;
-      if (htmlMap) {
-        html = htmlMap.get(coffee.url) || "";
-      } else {
-        html = await fetchProductHtml(coffee.url);
-      }
-
-      if (!html) {
-        console.error(`    Failed to fetch HTML: ${coffee.url}`);
-        errors.push(`Fetch failed: ${coffee.url}`);
-        continue;
-      }
-
-      const details = await extractDetails(coffee.url, html);
-      if (!details) {
-        console.error(`    Failed to extract: ${coffee.url}`);
-        errors.push(`Extract failed: ${coffee.url}`);
-        continue;
-      }
-
-      applyExtractedDetails(coffee, details);
-      coffeesToInsert.push(coffee);
+      dbCoffees = await fetchDbCoffees(config.id);
+      if (isVerbose) console.log(`  Fetched ${dbCoffees.size} coffees from DB for comparison`);
     } catch (err) {
-      console.error(`    Error processing ${coffee.url}:`, err);
-      errors.push(`Error: ${coffee.url} - ${err}`);
+      console.log(`  Warning: Could not fetch DB coffees for comparison: ${err}`);
     }
   }
 
-  // 7. Push new items
-  if (coffeesToInsert.length > 0) {
+  // Extract details from each coffee in parallel
+  const extractedCoffees: Coffee[] = [];
+  if (toExtract.length > 0) {
+    if (isVerbose) console.log(`  Extracting ${toExtract.length} items...`);
+    const aiStartTime = Date.now();
+    const aiLimit = pLimit(5); // Claude rate limit ~50 req/min
+    const extractResults = await Promise.all(
+      toExtract.map((coffee) =>
+        aiLimit(async () => {
+          try {
+            const html = htmlMap?.get(coffee.url) || "";
+            if (!html) {
+              return { coffee, success: false, error: `No HTML for ${coffee.url}` };
+            }
+
+            const details = await extractDetails(coffee.url, html);
+            if (!details) {
+              return { coffee, success: false, error: `Extract failed: ${coffee.url}` };
+            }
+
+            applyExtractedDetails(coffee, details);
+            return { coffee, success: true, error: null };
+          } catch (err) {
+            return { coffee, success: false, error: `Error: ${coffee.url} - ${err}` };
+          }
+        })
+      )
+    );
+    aiExtractionTime = Date.now() - aiStartTime;
+
+    for (const result of extractResults) {
+      if (result.success) {
+        extractedCoffees.push(result.coffee);
+        if (!isForceAi) {
+          coffeesToInsert.push(result.coffee);
+        }
+      } else if (result.error) {
+        if (isVerbose) console.log(`    ${result.error}`);
+        errors.push(result.error);
+      }
+    }
+  }
+
+  // Verbose output and DB comparison
+  let matched = 0;
+  let mismatched = 0;
+  if (isVerbose && extractedCoffees.length > 0) {
+    for (const coffee of extractedCoffees) {
+      const dbCoffee = dbCoffees?.get(coffee.url);
+      printCoffeeDetails(coffee, dbCoffee);
+
+      if (dbCoffee) {
+        const fields = ["country", "region", "producer", "process", "variety", "notes", "caffeine", "roastLevel", "roastedFor"] as const;
+        const hasMismatch = fields.some(
+          (f) => JSON.stringify(coffee[f]) !== JSON.stringify(dbCoffee[f])
+        );
+        if (hasMismatch) {
+          mismatched++;
+        } else {
+          matched++;
+        }
+      }
+    }
+  }
+
+  // 7. Push new items (skip in dry-run)
+  if (!isDryRun && coffeesToInsert.length > 0) {
     if (isVerbose) console.log(`  Inserting ${coffeesToInsert.length} new items...`);
     await pushResult({
       roasterId: config.id,
@@ -327,7 +513,17 @@ async function syncRoaster(
     inserted = coffeesToInsert.length;
   }
 
-  return { updated, deactivated, inserted, skipped, errors };
+  const totalTime = Date.now() - startTime;
+
+  return {
+    updated,
+    deactivated,
+    inserted,
+    skipped,
+    errors,
+    timing: { total: totalTime, aiExtraction: aiExtractionTime, itemCount: extractedCoffees.length },
+    comparison: dbCoffees ? { matched, mismatched } : undefined,
+  };
 }
 
 async function clearAllData(): Promise<void> {
@@ -372,39 +568,65 @@ async function main() {
 
   if (verbose) {
     console.log(`Scraping ${roastersToScrape.length} roaster(s)...`);
-    console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}`);
+    console.log(`Mode: ${dryRun ? "DRY RUN" : "LIVE"}${forceAi ? " + FORCE-AI" : ""}`);
     if (!dryRun) console.log(`Convex: ${CONVEX_SITE_URL}`);
   }
 
-  let totalUpdated = 0;
-  let totalDeactivated = 0;
-  let totalInserted = 0;
-  let totalSkipped = 0;
+  // Run roasters in parallel (different domains, no rate limit needed)
+  const roasterLimit = pLimit(5);
+  const results = await Promise.all(
+    roastersToScrape
+      .filter((config): config is RoasterConfig => config !== undefined)
+      .map((config) =>
+        roasterLimit(async () => {
+          console.log(`\n[${config.name}]`);
+          try {
+            const stats = await syncRoaster(config, dryRun, verbose, sampleLimit, forceAi);
+            if (stats.errors.length > 0) {
+              console.log(`  [${config.name}] Errors: ${stats.errors.length}`);
+            }
+            return stats;
+          } catch (error) {
+            console.error(`  [${config.name}] Failed:`, error);
+            return { updated: 0, deactivated: 0, inserted: 0, skipped: 0, errors: [String(error)] };
+          }
+        })
+      )
+  );
 
-  for (const config of roastersToScrape) {
-    if (!config) continue;
+  // Aggregate results
+  const totalUpdated = results.reduce((sum, r) => sum + r.updated, 0);
+  const totalDeactivated = results.reduce((sum, r) => sum + r.deactivated, 0);
+  const totalInserted = results.reduce((sum, r) => sum + r.inserted, 0);
+  const totalSkipped = results.reduce((sum, r) => sum + r.skipped, 0);
 
-    console.log(`\n[${config.name}]`);
-    try {
-      const stats = await syncRoaster(config, dryRun, verbose, sampleLimit);
-      totalUpdated += stats.updated;
-      totalDeactivated += stats.deactivated;
-      totalInserted += stats.inserted;
-      totalSkipped += stats.skipped;
+  // Aggregate timing
+  const totalTime = results.reduce((sum, r) => sum + (r.timing?.total || 0), 0);
+  const totalAiTime = results.reduce((sum, r) => sum + (r.timing?.aiExtraction || 0), 0);
+  const totalItems = results.reduce((sum, r) => sum + (r.timing?.itemCount || 0), 0);
 
-      if (stats.errors.length > 0) {
-        console.log(`  Errors: ${stats.errors.length}`);
-      }
-    } catch (error) {
-      console.error(`  Failed:`, error);
-    }
-  }
+  // Aggregate comparison
+  const totalMatched = results.reduce((sum, r) => sum + (r.comparison?.matched || 0), 0);
+  const totalMismatched = results.reduce((sum, r) => sum + (r.comparison?.mismatched || 0), 0);
+  const hasComparison = results.some((r) => r.comparison);
 
   console.log(`\n=== Summary ===`);
   console.log(`Updated: ${totalUpdated}`);
   console.log(`Deactivated: ${totalDeactivated}`);
   console.log(`Inserted: ${totalInserted}`);
   console.log(`Skipped: ${totalSkipped}`);
+
+  if (totalItems > 0) {
+    console.log(`\n=== Timing ===`);
+    console.log(`Total: ${(totalTime / 1000).toFixed(1)}s`);
+    console.log(`AI extraction: ${(totalAiTime / 1000).toFixed(1)}s (${totalItems} items, avg ${(totalAiTime / totalItems / 1000).toFixed(2)}s/item)`);
+  }
+
+  if (hasComparison) {
+    console.log(`\n=== Comparison ===`);
+    console.log(`Matched: ${totalMatched}/${totalMatched + totalMismatched}`);
+    console.log(`Mismatched: ${totalMismatched}`);
+  }
 
   // Embed any new notes (if items were inserted and not dry run)
   if (totalInserted > 0 && !dryRun) {

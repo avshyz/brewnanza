@@ -158,6 +158,56 @@ http.route({
 });
 
 /**
+ * GET /coffees - Get full coffee data for a roaster (for comparison)
+ * Query: ?roasterId=xxx
+ */
+http.route({
+  path: "/coffees",
+  method: "GET",
+  handler: httpAction(async (ctx, request) => {
+    const url = new URL(request.url);
+    const roasterId = url.searchParams.get("roasterId");
+
+    if (!roasterId) {
+      return new Response(
+        JSON.stringify({ error: "roasterId query param required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    try {
+      const coffees = await ctx.runQuery(api.coffees.getByRoaster, { roasterId });
+
+      // Return only fields needed for comparison
+      const result = coffees.map((c) => ({
+        url: c.url,
+        name: c.name,
+        country: c.country,
+        region: c.region,
+        producer: c.producer,
+        process: c.process,
+        protocol: c.protocol,
+        variety: c.variety,
+        notes: c.notes,
+        caffeine: c.caffeine,
+        roastLevel: c.roastLevel ?? null,
+        roastedFor: c.roastedFor ?? null,
+      }));
+
+      return new Response(JSON.stringify(result), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: String(error) }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }),
+});
+
+/**
  * POST /update-shipping - Update shipping rates for a roaster
  * Body: { roasterId, rates: [{ countryCode, available, price?, priceUsd?, currency, checkedAt }] }
  */
