@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { getSavedCountry, saveCountry, detectCountry, getCountryName, getSupportedCountries } from "./geolocation";
+
+// Static - computed once
+const SUPPORTED_COUNTRIES = getSupportedCountries();
 
 interface ShippingRate {
   countryCode: string;
@@ -87,35 +90,20 @@ export function useShipping() {
     setShippingEnabled((prev) => !prev);
   }, []);
 
-  // Get shipping info for a roaster
-  const getShippingForRoaster = useCallback(
-    (roasterId: string): ShippingInfo | null => {
-      return shippingByRoaster.get(roasterId) || null;
-    },
-    [shippingByRoaster]
-  );
-
-  // Check if a roaster can ship to selected country
-  const canShipToCountry = useCallback(
-    (roasterId: string): boolean => {
-      if (!selectedCountry) return true; // No country = show all
-      const info = shippingByRoaster.get(roasterId);
-      if (!info) return true; // Unknown = assume yes
-      return info.available;
-    },
-    [shippingByRoaster, selectedCountry]
+  // Memoize country name
+  const selectedCountryName = useMemo(
+    () => (selectedCountry ? getCountryName(selectedCountry) : null),
+    [selectedCountry]
   );
 
   return {
     selectedCountry,
-    selectedCountryName: selectedCountry ? getCountryName(selectedCountry) : null,
+    selectedCountryName,
     isDetecting,
     shippingEnabled,
-    supportedCountries: getSupportedCountries(),
+    supportedCountries: SUPPORTED_COUNTRIES,
+    shippingByRoaster, // Return the map directly instead of functions
     changeCountry,
     toggleShippingFilter,
-    getShippingForRoaster,
-    canShipToCountry,
-    hasShippingData: roastersWithShipping && roastersWithShipping.length > 0,
   };
 }

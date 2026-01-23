@@ -87,10 +87,9 @@ export default function Home() {
     selectedCountryName,
     shippingEnabled,
     supportedCountries,
+    shippingByRoaster,
     changeCountry,
     toggleShippingFilter,
-    getShippingForRoaster,
-    canShipToCountry,
   } = useShipping();
 
   // Derive coffee/roaster IDs for dependency tracking
@@ -255,8 +254,12 @@ export default function Home() {
   // Filter results by shipping availability
   const filteredResults = useMemo(() => {
     if (!shippingEnabled || !selectedCountry) return results;
-    return results.filter((coffee) => canShipToCountry(coffee.roasterId));
-  }, [results, shippingEnabled, selectedCountry, canShipToCountry]);
+    return results.filter((coffee) => {
+      const info = shippingByRoaster.get(coffee.roasterId);
+      if (!info) return true; // Unknown = assume ships
+      return info.available;
+    });
+  }, [results, shippingEnabled, selectedCountry, shippingByRoaster]);
 
   // Landing view (no search yet)
   if (!hasUrlSearch) {
@@ -433,7 +436,7 @@ export default function Home() {
         <div className="flex flex-col gap-8 pb-8">
           {Array.from(new Map(filteredResults.map(c => [c.roasterId, c])).keys()).map((roasterId) => {
             const roasterCoffees = filteredResults.filter(c => c.roasterId === roasterId);
-            const shippingInfo = selectedCountry ? getShippingForRoaster(roasterId) : null;
+            const shippingInfo = selectedCountry ? shippingByRoaster.get(roasterId) : null;
             return (
               <section key={roasterId}>
                 <h2 className="text-xl font-black mb-4 uppercase border-b-3 border-border pb-2">
@@ -464,7 +467,7 @@ export default function Home() {
               key={coffee._id}
               coffee={coffee}
               matchedAttributes={coffee.matchedAttributes}
-              shippingInfo={selectedCountry ? getShippingForRoaster(coffee.roasterId) : null}
+              shippingInfo={selectedCountry ? shippingByRoaster.get(coffee.roasterId) : null}
             />
           ))}
         </div>
