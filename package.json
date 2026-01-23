@@ -7,9 +7,13 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "scrape": "bun run --filter @brewnanza/scraper scrape",
-    "embed-coffees": "bun run --filter @brewnanza/embedder embed-coffees",
-    "embed-vocab": "bun run --filter @brewnanza/embedder embed-vocab"
+    "scrape": "bun run scrape:no-embed && bun run scrape:only-embed",
+    "scrape:no-embed": "bun run --filter @brewnanza/scraper scrape",
+    "scrape:only-embed": "cd packages/embedder && uv run python notes.py --openai",
+    "scrape:test": "bun run --filter @brewnanza/scraper scrape:test",
+    "scrape:list": "bun run --filter @brewnanza/scraper scrape:list",
+    "embed:vocab": "cd packages/embedder && uv run python vocabulary.py",
+    "shipping:check": "bun run --filter @brewnanza/scraper shipping:check"
   },
   "devDependencies": {
     "convex": "^1.17.4",

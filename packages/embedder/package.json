@@ -1,9 +1,5 @@
 {
   "name": "@brewnanza/embedder",
   "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "embed-coffees": "uv run embed.py",
-    "embed-vocab": "uv run vocabulary.py"
-  }
+  "private": true
 }

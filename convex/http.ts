@@ -4,7 +4,7 @@
 
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
-import { api } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 
 const http = httpRouter();
 
@@ -230,6 +230,65 @@ http.route({
         roasterId,
         rates,
       });
+
+      return new Response(JSON.stringify({ success: true, ...result }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: String(error) }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }),
+});
+
+/**
+ * POST /clear-roaster - Delete all coffees for a roaster
+ * Body: { roasterId: string }
+ */
+http.route({
+  path: "/clear-roaster",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    const body = await request.json();
+    const { roasterId } = body;
+
+    if (!roasterId) {
+      return new Response(
+        JSON.stringify({ error: "roasterId required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    try {
+      const result = await ctx.runMutation(internal.coffees.clearRoaster, {
+        roasterId,
+      });
+
+      return new Response(JSON.stringify({ success: true, ...result }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: String(error) }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }),
+});
+
+/**
+ * POST /clear-inactive - Delete all inactive coffee records
+ */
+http.route({
+  path: "/clear-inactive",
+  method: "POST",
+  handler: httpAction(async (ctx) => {
+    try {
+      const result = await ctx.runMutation(internal.coffees.clearAllInactive, {});
 
       return new Response(JSON.stringify({ success: true, ...result }), {
         status: 200,

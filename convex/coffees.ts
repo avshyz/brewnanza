@@ -69,7 +69,7 @@ export const getByRoaster = query({
 
 /**
  * Upsert a single coffee.
- * Deactivates any existing active record with same URL, inserts new as active.
+ * Patches existing record if found, otherwise inserts new.
  */
 export const upsert = mutation({
   args: { coffee: coffeeValidator },
@@ -83,12 +83,16 @@ export const upsert = mutation({
 
     const now = Date.now();
 
-    // Deactivate old record if exists
     if (existing) {
-      await ctx.db.patch(existing._id, { isActive: false });
+      // Patch existing record
+      await ctx.db.patch(existing._id, {
+        ...coffee,
+        scrapedAt: now,
+      });
+      return existing._id;
     }
 
-    // Insert new active record
+    // Insert new record
     return await ctx.db.insert("coffees", {
       ...coffee,
       isActive: true,
@@ -99,7 +103,7 @@ export const upsert = mutation({
 
 /**
  * Batch upsert coffees (for scraper results).
- * Deactivates existing active records with same URLs, inserts new as active.
+ * Patches existing records or inserts new ones.
  */
 export const batchUpsert = mutation({
   args: {
@@ -109,11 +113,10 @@ export const batchUpsert = mutation({
   },
   handler: async (ctx, { coffees, roasterId, roasterName }) => {
     const now = Date.now();
-    let deactivated = 0;
+    let updated = 0;
     let inserted = 0;
 
     for (const coffee of coffees) {
-      // Deactivate existing active record if exists
       const existing = await ctx.db
         .query("coffees")
         .withIndex("by_url_active", (q) =>
@@ -122,17 +125,21 @@ export const batchUpsert = mutation({
         .first();
 
       if (existing) {
-        await ctx.db.patch(existing._id, { isActive: false });
-        deactivated++;
+        // Patch existing record
+        await ctx.db.patch(existing._id, {
+          ...coffee,
+          scrapedAt: now,
+        });
+        updated++;
+      } else {
+        // Insert new record
+        await ctx.db.insert("coffees", {
+          ...coffee,
+          isActive: true,
+          scrapedAt: now,
+        });
+        inserted++;
       }
-
-      // Insert new active record
-      await ctx.db.insert("coffees", {
-        ...coffee,
-        isActive: true,
-        scrapedAt: now,
-      });
-      inserted++;
     }
 
     // Update roaster metadata
@@ -160,7 +167,7 @@ export const batchUpsert = mutation({
       });
     }
 
-    return { inserted, deactivated };
+    return { inserted, updated };
   },
 });
 
@@ -187,7 +194,6 @@ export const clearAll = internalMutation({
 
 /**
  * Delete inactive records for a roaster.
- * Internal only - run via: bunx convex run --internal coffees:clearInactive '{"roasterId": "xxx"}'
  */
 export const clearInactive = internalMutation({
   args: { roasterId: v.string() },
@@ -200,6 +206,25 @@ export const clearInactive = internalMutation({
           q.eq(q.field("isActive"), false)
         )
       )
+      .collect();
+
+    for (const coffee of inactive) {
+      await ctx.db.delete(coffee._id);
+    }
+
+    return { deleted: inactive.length };
+  },
+});
+
+/**
+ * Delete ALL inactive records across all roasters.
+ */
+export const clearAllInactive = internalMutation({
+  args: {},
+  handler: async (ctx) => {
+    const inactive = await ctx.db
+      .query("coffees")
+      .filter((q) => q.eq(q.field("isActive"), false))
       .collect();
 
     for (const coffee of inactive) {
