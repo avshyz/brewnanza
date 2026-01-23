@@ -351,8 +351,8 @@ async function syncRoaster(
     if (isForceAi) {
       needsQualification.push(coffee);
     } else {
-      // Skip AI extraction if scraper already enriched
-      const alreadyEnriched = coffee.notes.length > 0 || coffee.process.length > 0 || coffee.variety.length > 0;
+      // Skip AI extraction only if notes already filled (notes require AI)
+      const alreadyEnriched = coffee.notes.length > 0;
       if (alreadyEnriched) {
         if (isVerbose) console.log(`    Pre-enriched: ${coffee.name}`);
         coffeesToInsert.push(coffee);
@@ -426,6 +426,9 @@ async function syncRoaster(
       for (const [url, html] of spaHtmlMap) {
         htmlMap.set(url, html);
       }
+    } else if (needsSpaFetch.length > 0) {
+      // Fallback: SPA items without SPA capability go to simple fetch
+      needsSimpleFetch.push(...needsSpaFetch);
     }
 
     // Step 3: Simple fetch for non-SPA scrapers

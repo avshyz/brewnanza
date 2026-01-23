@@ -280,4 +280,27 @@ http.route({
   }),
 });
 
+/**
+ * POST /clear-inactive - Delete all inactive coffee records
+ */
+http.route({
+  path: "/clear-inactive",
+  method: "POST",
+  handler: httpAction(async (ctx) => {
+    try {
+      const result = await ctx.runMutation(internal.coffees.clearAllInactive, {});
+
+      return new Response(JSON.stringify({ success: true, ...result }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (error) {
+      return new Response(JSON.stringify({ error: String(error) }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }),
+});
+
 export default http;
