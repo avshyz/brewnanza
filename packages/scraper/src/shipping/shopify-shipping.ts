@@ -2,6 +2,12 @@
  * Shopify shipping rate checker.
  *
  * Adds a product to cart and queries /cart/shipping_rates.json
+ * Supports both regular Shopify and Hydrogen (headless) stores.
+ *
+ * For Hydrogen stores (which don't expose /products.json), we:
+ * 1. Extract a variant ID from the product page HTML
+ * 2. Discover the underlying myshopify.com domain via cart redirect
+ * 3. Use the myshopify.com domain for cart/shipping operations
  */
 
 import type { ShippingChecker, ShippingRate } from "./types.js";
@@ -61,20 +67,20 @@ export class ShopifyShippingChecker implements ShippingChecker {
     currency: string
   ): Promise<ShippingRate | null> {
     try {
-      // 1. Find a variant ID to add to cart
-      const variantId = await this.findCheapestVariant(baseUrl);
-      if (!variantId) {
+      // Resolve the effective base URL (may be myshopify.com for Hydrogen stores)
+      const { effectiveUrl, variantId } = await this.resolveStoreAndVariant(baseUrl);
+
+      if (!effectiveUrl || !variantId) {
         return this.createUnavailable(countryCode, currency);
       }
 
-      // 2. Create a fresh cart with the product
-      const cartToken = await this.createCart(baseUrl, variantId);
-      if (!cartToken) {
+      // Create cart and get shipping rates using the effective URL
+      const cartCookies = await this.createCart(effectiveUrl, variantId);
+      if (!cartCookies) {
         return this.createUnavailable(countryCode, currency);
       }
 
-      // 3. Get shipping rates
-      const rates = await this.fetchShippingRates(baseUrl, cartToken, countryCode);
+      const rates = await this.fetchShippingRates(effectiveUrl, cartCookies, countryCode);
       if (!rates || rates.length === 0) {
         return this.createUnavailable(countryCode, currency);
       }
@@ -102,6 +108,68 @@ export class ShopifyShippingChecker implements ShippingChecker {
     }
   }
 
+  /**
+   * Resolve the effective store URL and find an available variant.
+   * For standard Shopify: returns the original URL
+   * For Hydrogen: discovers the myshopify.com domain
+   */
+  private async resolveStoreAndVariant(
+    baseUrl: string
+  ): Promise<{ effectiveUrl: string | null; variantId: number | null }> {
+    // Try standard Shopify /products.json first
+    const variantFromJson = await this.findVariantFromProductsJson(baseUrl);
+    if (variantFromJson) {
+      return { effectiveUrl: baseUrl, variantId: variantFromJson };
+    }
+
+    // Hydrogen store - need to discover myshopify.com domain
+    const variantId = await this.findVariantFromHydrogen(baseUrl);
+    if (!variantId) {
+      return { effectiveUrl: null, variantId: null };
+    }
+
+    // Discover the myshopify.com domain via cart redirect
+    const myshopifyDomain = await this.discoverMyshopifyDomain(baseUrl, variantId);
+    if (!myshopifyDomain) {
+      return { effectiveUrl: null, variantId: null };
+    }
+
+    // Now get an available variant from the myshopify.com domain
+    const availableVariant = await this.findVariantFromProductsJson(myshopifyDomain);
+
+    return {
+      effectiveUrl: myshopifyDomain,
+      variantId: availableVariant ?? variantId,
+    };
+  }
+
+  /**
+   * Discover the underlying myshopify.com domain by following cart redirect.
+   * Hydrogen stores redirect /cart/{variantId}:1 to their myshopify.com domain.
+   */
+  private async discoverMyshopifyDomain(
+    baseUrl: string,
+    variantId: number
+  ): Promise<string | null> {
+    try {
+      const cartUrl = `${baseUrl}/cart/${variantId}:1`;
+      const response = await fetch(cartUrl, {
+        method: "GET",
+        redirect: "manual",
+        headers: { "User-Agent": USER_AGENT },
+      });
+
+      const location = response.headers.get("location");
+      if (!location) return null;
+
+      // Extract myshopify.com base URL from redirect
+      const match = location.match(/(https:\/\/[^/]+\.myshopify\.com)/);
+      return match?.[1] ?? null;
+    } catch {
+      return null;
+    }
+  }
+
   private createUnavailable(countryCode: string, currency: string): ShippingRate {
     return {
       countryCode,
@@ -112,9 +180,9 @@ export class ShopifyShippingChecker implements ShippingChecker {
   }
 
   /**
-   * Find cheapest available variant ID from the store.
+   * Standard Shopify: get cheapest available variant from /products.json
    */
-  private async findCheapestVariant(baseUrl: string): Promise<number | null> {
+  private async findVariantFromProductsJson(baseUrl: string): Promise<number | null> {
     const url = `${baseUrl}/products.json?limit=10`;
     const response = await fetch(url, {
       headers: { "User-Agent": USER_AGENT },
@@ -139,7 +207,52 @@ export class ShopifyShippingChecker implements ShippingChecker {
   }
 
   /**
-   * Create a cart with a product and return the cart token.
+   * Hydrogen stores: extract variant ID from collection/product pages.
+   * Fetches collection page, finds a product URL, extracts variant from product page.
+   */
+  private async findVariantFromHydrogen(baseUrl: string): Promise<number | null> {
+    try {
+      // Try common collection paths
+      const collectionPaths = ["/collections/all", "/collections/coffee", "/products"];
+
+      for (const path of collectionPaths) {
+        const collectionUrl = `${baseUrl}${path}`;
+        const collectionResponse = await fetch(collectionUrl, {
+          headers: { "User-Agent": USER_AGENT },
+        });
+
+        if (!collectionResponse.ok) continue;
+
+        const html = await collectionResponse.text();
+
+        // Find product link in HTML (strip query params)
+        const productLinkMatch = html.match(/href="(\/products\/[^"?]+)/);
+        if (!productLinkMatch) continue;
+
+        const productUrl = `${baseUrl}${productLinkMatch[1]}`;
+        const productResponse = await fetch(productUrl, {
+          headers: { "User-Agent": USER_AGENT },
+        });
+
+        if (!productResponse.ok) continue;
+
+        const productHtml = await productResponse.text();
+
+        // Extract variant ID: gid://shopify/ProductVariant/52475839021394
+        const variantMatch = productHtml.match(/gid:\/\/shopify\/ProductVariant\/(\d+)/);
+        if (variantMatch) {
+          return parseInt(variantMatch[1], 10);
+        }
+      }
+
+      return null;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Create a cart with a product and return the session cookies.
    */
   private async createCart(baseUrl: string, variantId: number): Promise<string | null> {
     const url = `${baseUrl}/cart/add.js`;
@@ -156,25 +269,16 @@ export class ShopifyShippingChecker implements ShippingChecker {
 
     if (!response.ok) return null;
 
-    // Get cart token from cookies
-    const cookies = response.headers.get("set-cookie") || "";
-    const cartMatch = cookies.match(/cart=([^;]+)/);
-    if (cartMatch) return cartMatch[1];
-
-    // Try fetching cart.js to get token
-    const cartResponse = await fetch(`${baseUrl}/cart.js`, {
-      headers: {
-        "User-Agent": USER_AGENT,
-        Cookie: cookies,
-      },
-    });
-
-    if (cartResponse.ok) {
-      const cart = await cartResponse.json();
-      return cart.token || "temp";
+    // Extract cookies from response
+    const setCookieHeaders = response.headers.getSetCookie?.() || [];
+    if (setCookieHeaders.length === 0) {
+      // Fallback for environments without getSetCookie
+      const cookieHeader = response.headers.get("set-cookie") || "";
+      return cookieHeader.split(";")[0] || null;
     }
 
-    return "temp"; // Some stores work without explicit token
+    // Combine all cookies into a single header value
+    return setCookieHeaders.map((c) => c.split(";")[0]).join("; ");
   }
 
   /**
@@ -182,7 +286,7 @@ export class ShopifyShippingChecker implements ShippingChecker {
    */
   private async fetchShippingRates(
     baseUrl: string,
-    _cartToken: string,
+    cookies: string,
     countryCode: string
   ): Promise<ShopifyShippingRate[] | null> {
     const zip = COUNTRY_ZIP_CODES[countryCode] || "00000";
@@ -194,11 +298,14 @@ export class ShopifyShippingChecker implements ShippingChecker {
 
     const url = `${baseUrl}/cart/shipping_rates.json?${params}`;
     const response = await fetch(url, {
-      headers: { "User-Agent": USER_AGENT },
+      headers: {
+        "User-Agent": USER_AGENT,
+        Cookie: cookies,
+      },
     });
 
     if (!response.ok) {
-      // 422 usually means doesn't ship there
+      // 422 usually means doesn't ship there or empty cart
       if (response.status === 422) return [];
       return null;
     }
