@@ -12,6 +12,7 @@ Usage:
 import argparse
 import os
 import sys
+import time
 from typing import Any
 
 from convex import ConvexClient
@@ -89,11 +90,15 @@ def main():
         print("No coffees need embedding!")
         return
 
+    start_time = time.time()
+
     # Process in batches
     total_embedded = 0
+    total_batches = (len(coffees) + BATCH_SIZE - 1) // BATCH_SIZE
     for i in range(0, len(coffees), BATCH_SIZE):
         batch = coffees[i : i + BATCH_SIZE]
-        print(f"\nProcessing batch {i // BATCH_SIZE + 1} ({len(batch)} coffees)...")
+        batch_num = i // BATCH_SIZE + 1
+        print(f"\n[{batch_num}/{total_batches}] Processing {len(batch)} coffees...")
 
         # Build text blobs
         texts = []
@@ -104,8 +109,7 @@ def main():
                 print(f"  {coffee['name']}: {text[:80]}...")
 
         # Generate embeddings
-        print("  Generating embeddings...")
-        embeddings = model.encode(texts, normalize_embeddings=True)
+        embeddings = model.encode(texts, normalize_embeddings=True, show_progress_bar=True)
 
         if args.dry_run:
             print(f"  [DRY RUN] Would update {len(batch)} coffees")
@@ -113,16 +117,17 @@ def main():
             continue
 
         # Push to Convex
-        print("  Pushing to Convex...")
+        print(f"  Pushing {len(batch)} embeddings to Convex...", end=" ", flush=True)
         updates = [
             {"id": coffee["_id"], "embedding": embedding.tolist()}
             for coffee, embedding in zip(batch, embeddings)
         ]
         result = client.mutation("coffees:updateEmbeddings", {"updates": updates})
         total_embedded += result.get("updated", 0)
-        print(f"  Updated {result.get('updated', 0)} coffees")
+        print(f"done ({result.get('updated', 0)} updated)")
 
-    print(f"\n{'[DRY RUN] Would have embedded' if args.dry_run else 'Embedded'} {total_embedded} coffees")
+    elapsed = time.time() - start_time
+    print(f"\n{'[DRY RUN] Would have embedded' if args.dry_run else 'Embedded'} {total_embedded} coffees in {elapsed:.1f}s")
 
 
 if __name__ == "__main__":

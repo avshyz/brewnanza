@@ -105,18 +105,26 @@ Supported country codes: IL, US, GB, DE, NL, DK, SE, FR, ES, IT, CA, AU, JP
 - **WooCommerce**: tanat, manhattan, amoc, jera
 - **SPA (Playwright)**: dak, youneedcoffee
 
-### Adding a New SPA Roaster
+### Adding a New Roaster
 
-SPA roasters require Playwright for rendering, which is slow. Before adding one:
+When adding a new roaster, check if existing proxy sources or aggregators carry their coffees:
 
-1. **Search for resellers** that carry the roaster's coffees
-2. **Check if resellers have APIs** (Shopify `/products.json`, WooCommerce REST API)
-3. **Add as proxy source** in `packages/scraper/src/proxy-sources.ts` if available
-4. The scraper will try proxy sources first (fast), fall back to Playwright (slow)
+1. **Check aggregators** for pre-extracted data:
+   - **The Bean Geek** (thebeangeek.com) - `/roastery/{slug}` has tasting notes, origin, variety, process
+   - Good for: DAK, La Cabra, Manhattan, Tanat, KB, Friedhats, Scenery, Standout, April, Devocion
+   - Note: Historical data - may not match current inventory
 
-Current proxy sources:
-- **Sigma Coffee UK** (sigmacoffee.co.uk) - carries DAK, Hydrangea, Tanat
-- **Dayglow** (dayglow.coffee) - carries DAK, Morgon, Luna, Quo, Fritz
+2. **Check resellers** for product HTML (used for AI extraction):
+   - **Sigma Coffee UK** (sigmacoffee.co.uk) - DAK, Hydrangea, Tanat
+   - **Dayglow** (dayglow.coffee) - DAK, Morgon, Luna, Quo, Fritz
+   - **My God Shot** (mygodshot.com) - DAK
+   - Look for Shopify `/products.json` or WooCommerce REST API
+
+3. **Add as proxy source** in `packages/scraper/src/proxy-sources.ts`
+   - Aggregators: Add to `BEANGEEK_ROASTER_MAP` in `beangeek.ts`
+   - Resellers: Add to `PROXY_SOURCES` array
+
+4. **For SPA roasters** (require Playwright): proxy sources are tried first (fast), Playwright is fallback (slow)
 
 ## Embedder Commands
 

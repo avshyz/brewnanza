@@ -661,6 +661,8 @@ async function main() {
     console.log(`Mismatched: ${totalMismatched}`);
   }
 
+  // Exit explicitly - Anthropic SDK keeps HTTP connections alive
+  process.exit(0);
 }
 
 main().catch((error) => {
